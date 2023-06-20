@@ -1,3 +1,6 @@
+// toimisiko tällainen:
+type BMI = 'Underweight' | 'Normal' | 'Overweight' | 'Obese';
+
 const calculateBmi = (height: number, weight: number): string =>  {
   // height in cm, weight in kg
   // BMI is calculated mass[kg]/height[m]^2
