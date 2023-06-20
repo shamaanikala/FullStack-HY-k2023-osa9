@@ -23,8 +23,13 @@ const avg = (array: number[]): number => {
   return sum/array.length;
 }
 const calculateExercises = (dailyExerciseHours: number[], targetHours: number): Result => {
-  const average = avg(dailyExerciseHours)
-  console.log(average)
+  const periodLength = dailyExerciseHours.length;
+  const trainingDays = dailyExerciseHours.filter(hours => hours > 0).length;
+  const average = avg(dailyExerciseHours);
+  const result = {
+    periodLength, trainingDays, average
+  };
+  console.log(result);
   return dummyResult;
 }
 
