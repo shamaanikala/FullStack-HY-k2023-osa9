@@ -1,10 +1,10 @@
-interface BMI {
+interface BmiCategory {
   // Example:
-  // category: 'Normal'
+  // name: 'Normal'
   // description: 'healthy weight'
   // lowerBound: 18.5
   // upperBound: 24.9
-  category: string;
+  name: string;
   description: string;
   lowerBound?: number; // These are optional as the BMIs <= 16.0 or >= 40.0
   upperBound?: number; // do not have lower or upper bounds.
@@ -12,50 +12,50 @@ interface BMI {
 
 // BMI basic categories from Wikipedia:
 // https://en.wikipedia.org/wiki/Body_mass_index
-const bmis: BMI[] = [
+const bmis: BmiCategory[] = [
   {
-    category: 'Underweight',
+    name: 'Underweight',
     description: 'severe',
     upperBound: 16.0
   },
   {
-    category: 'Underweight',
+    name: 'Underweight',
     description: 'moderate',
     lowerBound: 16.0,
     upperBound: 16.9
   },
   {
-    category: 'Underweight',
+    name: 'Underweight',
     description: 'mild',
     lowerBound: 17.0,
     upperBound: 18.4
   },
   {
-    category: 'Normal',
+    name: 'Normal',
     description: 'healthy weight',
     lowerBound: 18.5,
     upperBound: 24.9
   },
   {
-    category: 'Overweight',
+    name: 'Overweight',
     description: 'pre-obese',
     lowerBound: 25.0,
     upperBound: 29.9
   },
   {
-    category: 'Obese',
+    name: 'Obese',
     description: 'Class I',
     lowerBound: 30.0,
     upperBound: 34.9
   },
   {
-    category: 'Obese',
+    name: 'Obese',
     description: 'Class II',
     lowerBound: 35.0,
     upperBound: 39.9
   },
   {
-    category: 'Obese',
+    name: 'Obese',
     description: 'Class III',
     lowerBound: 40.0
   }
@@ -63,7 +63,7 @@ const bmis: BMI[] = [
 
 // Using .toFixed(1) as the categories are defined with 1 decimal 
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toFixed
-const determineBmiCategory = (bmi: number): BMI => {
+const determineBmiCategory = (bmi: number): BmiCategory => {
   const roundedBmi = Number(bmi.toFixed(1))
   console.log(roundedBmi)
   for (const category of bmis) {
@@ -79,11 +79,9 @@ const calculateBmi = (height: number, weight: number): string =>  {
   const heightInMeters = height/100;
   const bmi = weight/(heightInMeters*heightInMeters)
   console.log(determineBmiCategory(bmi))
-  console.log(determineBmiCategory(39.95))
-  console.log((39.95).toFixed(1))
-  console.log((39.91).toFixed(1))
-  // console.log(determineBmiCategory())
-  return `Calculated BMI: ${bmi}`;
+  const category = determineBmiCategory(bmi)
+  //return `Calculated BMI: ${bmi}`;
+  return `${category.name} (${category.description})`
 }
 
 console.log(calculateBmi(180, 74)); // should return Normal (healthy weight)
