@@ -43,7 +43,11 @@ const parseBmiArgs = (args: string[], requiredLength: number): BmiInputValues =>
   }
   const height = Number(args[0]); // cm
   const weight = Number(args[1]); // kg
-  return { height, weight };
+  if (!isNaN(height) && !isNaN(weight)) {
+    return { height, weight };
+  } else {
+    throw new Error('Provided input values were not numbers!');
+  }
 }
 
 const parseExerciseArgs = (args: string[], requiredLength: number): ExerciseInputValues => {
