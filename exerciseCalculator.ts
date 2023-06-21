@@ -60,7 +60,13 @@ const calculateExercises = (dailyExerciseHours: number[], targetHours: number): 
   return result;
 }
 
-const parsedArg = parseArgs(process.argv);
-
-const { hours, target } = parseArgs(process.argv) as ExerciseInputValues;
-console.log(calculateExercises(hours, target));
+try {
+  const { hours, target } = parseArgs(process.argv) as ExerciseInputValues;
+  console.log(calculateExercises(hours, target));
+} catch(error: unknown) {
+  let errorMessage = 'exerciseCalculator: Error: ';
+  if (error instanceof Error) {
+    errorMessage += error.message;
+  }
+  console.error(errorMessage);
+}
