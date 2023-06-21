@@ -74,7 +74,7 @@ const determineBmiCategory = (bmi: number): BmiCategory => {
     return bmis[bmis.length - 1];
   } else {
     for (const category of bmis) {
-      if (bmi <= category.upperBound && bmi >= category.lowerBound) {
+      if (roundedBmi >= category.lowerBound && roundedBmi <= category.upperBound) {
         return category;
       }
     }
@@ -86,6 +86,7 @@ const calculateBmi = (height: number, weight: number): string =>  {
   // BMI is calculated mass[kg]/height[m]^2
   const heightInMeters = height/100;
   const bmi = weight/(heightInMeters*heightInMeters);
+
   const category = determineBmiCategory(bmi);
   return `${category.name} (${category.description})`;
 }
