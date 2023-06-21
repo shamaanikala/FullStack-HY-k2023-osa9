@@ -1,3 +1,5 @@
+import parseArgs from "./utils/parseArgs";
+
 interface BmiCategory {
   // Example:
   // name: 'Normal'
@@ -88,3 +90,5 @@ const calculateBmi = (height: number, weight: number): string =>  {
 }
 
 console.log(calculateBmi(180, 74)); // should return Normal (healthy weight)
+
+parseArgs(process.argv);
