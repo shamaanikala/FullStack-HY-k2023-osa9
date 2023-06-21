@@ -1,10 +1,13 @@
+const getTSfileName = (arg: string): string => {
+  const tsFileStr = arg.split('/');
+  const tsIndex = tsFileStr.length - 1;
+  const tsFile = arg.split('/')[tsIndex];
+  return tsFile;
+}
+
 const parseArgs = (args: string[]) => {
-  console.log(args);
-  const tsFile = args[1].split('/');
-  const tsIndex = tsFile.length - 1;
-  console.log(tsIndex);
-  console.log(tsFile);
-  console.log(tsFile[tsIndex]);
+    const tsFile = getTSfileName(args[1]);
+    console.log(tsFile);
 }
 
 export default parseArgs;
