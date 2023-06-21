@@ -46,12 +46,19 @@ const parseBmiArgs = (args: string[], requiredLength: number): BmiInputValues =>
   return { height, weight };
 }
 
+const parseExerciseArgs = (args: string[], requiredLength: number): ExerciseInputValues => {
+  // first arg target : number
+  // then series of numbers => number[]
+  const target = Number(args[0]);
+  const hours = args.slice(1).map(n => Number(n));
+  return { hours, target };
+}
 
 const parseArgs = (args: string[]): BmiInputValues | ExerciseInputValues => {
   const BMI_CALCULATOR_ARGS_LENGTH = 2;
   // exerciseCalculator has variable length arguments
   // but it must have a minimum amount of input arguments:
-  // target day1
+  // target [day1] is the minimum valid number of arguments
   const EXERCISE_CALCULATOR_ARGS_MIN_LENGTH = 2;
 
   const tsFile = getTSfileName(args[1]);
@@ -62,7 +69,7 @@ const parseArgs = (args: string[]): BmiInputValues | ExerciseInputValues => {
     case 'bmiCalculator.ts':
       return parseBmiArgs(input, BMI_CALCULATOR_ARGS_LENGTH);
     case 'exerciseCalculator.ts':
-      return { hours: [1], target: 1 };
+      return parseExerciseArgs(input, EXERCISE_CALCULATOR_ARGS_MIN_LENGTH);
     default:
       throw new Error('Unable to find correct .ts file!');
   }
