@@ -55,12 +55,11 @@ const parseArgs = (args: string[]) => {
   
   const input = args.slice(2); // slice off the 2 first
 
-  const bmi_input = parseBmiArgs(input, BMI_CALCULATOR_ARGS_LENGTH);
-  console.log(bmi_input);
+  console.log(input);
 
   switch (tsFile) {
     case 'bmiCalculator.ts':
-      return 'bmiCalculator.ts';
+      return parseBmiArgs(input, BMI_CALCULATOR_ARGS_LENGTH);
     case 'exerciseCalculator.ts':
       return 'exerciseCalculator.ts';
     default:
