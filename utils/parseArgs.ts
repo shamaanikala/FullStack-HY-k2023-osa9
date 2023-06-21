@@ -20,6 +20,17 @@ const checkArgsLength = (args: string[], requiredLength: number): argsLengthResu
   }
 }
 
+interface BmiInputValues {
+  height: number;
+  weight: number;
+};
+
+const parseBmiArgs = (args: string[], requiredLength: number): BmiInputValues => {
+  const height = 180; // cm
+  const weight = 90; // kg
+  return { height, weight };
+}
+
 const parseArgs = (args: string[]) => {
   const BMI_CALCULATOR_ARGS_LENGTH = 2;
   // exerciseCalculator has variable length arguments
@@ -31,6 +42,10 @@ const parseArgs = (args: string[]) => {
   // console.log(tsFile);
   console.log(checkArgsLength([],3));
   console.log(checkArgsLength(args,3));
+  
+  const bmi_input = parseBmiArgs(args, BMI_CALCULATOR_ARGS_LENGTH);
+  console.log(bmi_input);
+
   switch (tsFile) {
     case 'bmiCalculator.ts':
       return 'bmiCalculator.ts';
