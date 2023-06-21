@@ -8,16 +8,23 @@ const getTSfileName = (arg: string): string => {
 interface argsLengthResult {
   success: boolean;
   length: number;
-}
+  requiredLength: number;
+};
 
 const checkArgsLength = (args: string[], requiredLength: number): argsLengthResult => {
   if (args && requiredLength) {
     return args.length === requiredLength
-      ? { success: true, length: requiredLength }
-      : { success: false, length: args.length }
+      ? { success: true, length: args.length, requiredLength }
+      : { success: false, length: args.length, requiredLength };
   } else {
     throw new Error('Bad arguments given!');
   }
+}
+
+const handleInputArgumentLengthError = (result: argsLengthResult) => {
+  throw result.length > result.requiredLength
+    ? new Error('Too many arguments!')
+    : new Error('Not enough arguments!');
 }
 
 interface BmiInputValues {
@@ -26,6 +33,11 @@ interface BmiInputValues {
 };
 
 const parseBmiArgs = (args: string[], requiredLength: number): BmiInputValues => {
+  if (checkArgsLength(args,requiredLength).success) {
+    console.log('oikeat args');
+  } else {
+    handleInputArgumentLengthError(checkArgsLength(args,requiredLength));
+  }
   const height = 180; // cm
   const weight = 90; // kg
   return { height, weight };
@@ -43,7 +55,9 @@ const parseArgs = (args: string[]) => {
   console.log(checkArgsLength([],3));
   console.log(checkArgsLength(args,3));
   
-  const bmi_input = parseBmiArgs(args, BMI_CALCULATOR_ARGS_LENGTH);
+  const input = args.slice(2); // slice off the 2 first
+
+  const bmi_input = parseBmiArgs(input, BMI_CALCULATOR_ARGS_LENGTH);
   console.log(bmi_input);
 
   switch (tsFile) {
