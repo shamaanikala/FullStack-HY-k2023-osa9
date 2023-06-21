@@ -27,9 +27,14 @@ const handleInputArgumentLengthError = (result: argsLengthResult) => {
     : new Error('Not enough arguments!');
 }
 
-interface BmiInputValues {
+export interface BmiInputValues {
   height: number;
   weight: number;
+};
+
+export interface ExerciseInputValues {
+  hours: number[];
+  target: number;
 };
 
 const parseBmiArgs = (args: string[], requiredLength: number): BmiInputValues => {
@@ -41,7 +46,8 @@ const parseBmiArgs = (args: string[], requiredLength: number): BmiInputValues =>
   return { height, weight };
 }
 
-const parseArgs = (args: string[]) => {
+
+const parseArgs = (args: string[]): BmiInputValues | ExerciseInputValues => {
   const BMI_CALCULATOR_ARGS_LENGTH = 2;
   // exerciseCalculator has variable length arguments
   // but it must have a minimum amount of input arguments:
@@ -56,7 +62,7 @@ const parseArgs = (args: string[]) => {
     case 'bmiCalculator.ts':
       return parseBmiArgs(input, BMI_CALCULATOR_ARGS_LENGTH);
     case 'exerciseCalculator.ts':
-      return 'exerciseCalculator.ts';
+      return { hours: [1], target: 1 };
     default:
       throw new Error('Unable to find correct .ts file!');
   }

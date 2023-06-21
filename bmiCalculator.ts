@@ -1,4 +1,5 @@
 import parseArgs from "./utils/parseArgs";
+import { BmiInputValues } from "./utils/parseArgs";
 
 interface BmiCategory {
   // Example:
@@ -89,7 +90,11 @@ const calculateBmi = (height: number, weight: number): string =>  {
   return `${category.name} (${category.description})`;
 }
 
-console.log(calculateBmi(180, 74)); // should return Normal (healthy weight)
+//console.log(calculateBmi(180, 74)); // should return Normal (healthy weight)
 
-const { height, weight } = parseArgs(process.argv);
+
+// need to use type narrowing now with type assertion 'as'
+// because it is not automatically known if the function will
+// return BmiInputValues or ExerciseInputValues
+const { height, weight } = parseArgs(process.argv) as BmiInputValues;
 console.log(calculateBmi(height, weight));
