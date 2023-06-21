@@ -91,4 +91,5 @@ const calculateBmi = (height: number, weight: number): string =>  {
 
 console.log(calculateBmi(180, 74)); // should return Normal (healthy weight)
 
-parseArgs(process.argv);
+const parsed_arg = parseArgs(process.argv);
+console.log('bmiCalculator:', parsed_arg);
