@@ -49,13 +49,8 @@ const parseArgs = (args: string[]) => {
   const EXERCISE_CALCULATOR_ARGS_MIN_LENGTH = 2;
 
   const tsFile = getTSfileName(args[1]);
-  // console.log(tsFile);
-  console.log(checkArgsLength([],3));
-  console.log(checkArgsLength(args,3));
   
   const input = args.slice(2); // slice off the 2 first
-
-  console.log(input);
 
   switch (tsFile) {
     case 'bmiCalculator.ts':
