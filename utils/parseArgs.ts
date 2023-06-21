@@ -11,9 +11,14 @@ interface argsLengthResult {
   requiredLength: number;
 };
 
-const checkArgsLength = (args: string[], requiredLength: number): argsLengthResult => {
-  if (args && requiredLength) {
+// with the min parameter checks for minimum required number of input arguments
+const checkArgsLength = (args: string[], requiredLength: number, min: boolean = false) : argsLengthResult => {
+  if (!min && args && requiredLength) {
     return args.length === requiredLength
+      ? { success: true, length: args.length, requiredLength }
+      : { success: false, length: args.length, requiredLength };
+  } else if (min && args && requiredLength) {
+    return args.length >= requiredLength // minimum required number of args
       ? { success: true, length: args.length, requiredLength }
       : { success: false, length: args.length, requiredLength };
   } else {
@@ -38,8 +43,9 @@ export interface ExerciseInputValues {
 };
 
 const parseBmiArgs = (args: string[], requiredLength: number): BmiInputValues => {
-  if (!checkArgsLength(args,requiredLength).success) {
-    handleInputArgumentLengthError(checkArgsLength(args,requiredLength));
+  const argLenCheck = checkArgsLength(args,requiredLength)
+  if (!argLenCheck.success) {
+    handleInputArgumentLengthError(argLenCheck);
   }
   const height = Number(args[0]); // cm
   const weight = Number(args[1]); // kg
@@ -50,7 +56,6 @@ const parseBmiArgs = (args: string[], requiredLength: number): BmiInputValues =>
   }
 }
 
-// function to use with array.map()
 const toNumber = (n: string): number => {
   const numberN = Number(n);
   if (!isNaN(numberN)) {
@@ -63,6 +68,11 @@ const toNumber = (n: string): number => {
 const parseExerciseArgs = (args: string[], requiredLength: number): ExerciseInputValues => {
   // first arg target : number
   // then series of numbers => number[]
+  const argLenCheck = checkArgsLength(args,requiredLength,true); // min=true
+  if (!argLenCheck.success) {
+    handleInputArgumentLengthError(argLenCheck);
+  }
+
   const target = toNumber(args[0]);
   const hours = args.slice(1).map(n => toNumber(n));
   return { hours, target };
