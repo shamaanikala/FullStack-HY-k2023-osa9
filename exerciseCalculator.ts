@@ -60,13 +60,7 @@ const calculateExercises = (dailyExerciseHours: number[], targetHours: number): 
   return result;
 }
 
-// const inputArray = [3, 0, 2, 4.5, 0, 3, 1];
-// const inputTarget = 2;
-
-// console.log(calculateExercises(inputArray, inputTarget));
-
 const parsedArg = parseArgs(process.argv);
-console.log(parsedArg);
 
 const { hours, target } = parseArgs(process.argv) as ExerciseInputValues;
 console.log(calculateExercises(hours, target));
