@@ -33,9 +33,7 @@ interface BmiInputValues {
 };
 
 const parseBmiArgs = (args: string[], requiredLength: number): BmiInputValues => {
-  if (checkArgsLength(args,requiredLength).success) {
-    console.log('oikeat args');
-  } else {
+  if (!checkArgsLength(args,requiredLength).success) {
     handleInputArgumentLengthError(checkArgsLength(args,requiredLength));
   }
   const height = 180; // cm
