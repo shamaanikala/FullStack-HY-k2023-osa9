@@ -1,3 +1,5 @@
+import parseArgs from "./utils/parseArgs";
+
 // assuming integer rating
 type Rating = 1 | 2 | 3;
 
@@ -61,3 +63,5 @@ const inputArray = [3, 0, 2, 4.5, 0, 3, 1];
 const inputTarget = 2;
 
 console.log(calculateExercises(inputArray, inputTarget));
+const parsed_arg = parseArgs(process.argv);
+console.log(parsed_arg);
