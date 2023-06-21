@@ -90,8 +90,16 @@ const calculateBmi = (height: number, weight: number): string =>  {
   return `${category.name} (${category.description})`;
 }
 
-// need to use type narrowing now with type assertion 'as'
-// because it is not automatically known if the function will
-// return BmiInputValues or ExerciseInputValues
-const { height, weight } = parseArgs(process.argv) as BmiInputValues;
-console.log(calculateBmi(height, weight));
+try {
+  // need to use type narrowing now with type assertion 'as'
+  // because it is not automatically known if the function will
+  // return BmiInputValues or ExerciseInputValues
+  const { height, weight } = parseArgs(process.argv) as BmiInputValues;
+  console.log(calculateBmi(height, weight));
+} catch(error: unknown) {
+  let errorMessage = 'bmiCalculator: Error: ';
+  if (error instanceof Error) {
+    errorMessage += error.message;
+  }
+  console.error(errorMessage);
+}
