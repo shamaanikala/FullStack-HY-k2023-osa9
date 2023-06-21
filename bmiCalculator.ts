@@ -66,20 +66,23 @@ const bmis: BmiCategory[] = [
 
 // Using .toFixed(1) as the categories are defined with 1 decimal 
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toFixed
-const determineBmiCategory = (bmi: number): BmiCategory => {
+const determineBmiCategory = (bmi: number) => {
   const roundedBmi = Number(bmi.toFixed(1));
   if (roundedBmi <= 16.0) {
     return bmis[0];
   } else if (roundedBmi >= 40.0) {
     return bmis[bmis.length - 1];
   } else {
-    for (const category of bmis) {
-      if (roundedBmi >= category.lowerBound && roundedBmi <= category.upperBound) {
-        return category;
+    for (const category of bmis.slice(1,-1)) {
+      if (category.lowerBound && category.upperBound) {
+        if (roundedBmi >= category.lowerBound && roundedBmi <= category.upperBound) {
+          return category;
+        }
       }
     }
   }
-} 
+  return;
+}
 
 const calculateBmi = (height: number, weight: number): string =>  {
   // [height] = cm, [weight] = kg
@@ -88,7 +91,7 @@ const calculateBmi = (height: number, weight: number): string =>  {
   const bmi = weight/(heightInMeters*heightInMeters);
 
   const category = determineBmiCategory(bmi);
-  return `${category.name} (${category.description})`;
+  return `${category?.name} (${category?.description})`;
 }
 
 try {
