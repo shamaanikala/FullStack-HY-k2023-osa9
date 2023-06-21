@@ -50,11 +50,21 @@ const parseBmiArgs = (args: string[], requiredLength: number): BmiInputValues =>
   }
 }
 
+// function to use with array.map()
+const toNumber = (n: string): number => {
+  const numberN = Number(n);
+  if (!isNaN(numberN)) {
+    return numberN;
+  } else {
+    throw new Error('Provided input values were not numbers!');
+  }
+}
+
 const parseExerciseArgs = (args: string[], requiredLength: number): ExerciseInputValues => {
   // first arg target : number
   // then series of numbers => number[]
-  const target = Number(args[0]);
-  const hours = args.slice(1).map(n => Number(n));
+  const target = toNumber(args[0]);
+  const hours = args.slice(1).map(n => toNumber(n));
   return { hours, target };
 }
 
