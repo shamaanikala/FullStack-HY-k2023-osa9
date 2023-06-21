@@ -36,8 +36,8 @@ const parseBmiArgs = (args: string[], requiredLength: number): BmiInputValues =>
   if (!checkArgsLength(args,requiredLength).success) {
     handleInputArgumentLengthError(checkArgsLength(args,requiredLength));
   }
-  const height = 180; // cm
-  const weight = 90; // kg
+  const height = Number(args[0]); // cm
+  const weight = Number(args[1]); // kg
   return { height, weight };
 }
 
