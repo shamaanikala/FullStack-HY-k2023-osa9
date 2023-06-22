@@ -61,7 +61,7 @@ app.listen(PORT, () => {
 
 // https://stackoverflow.com/questions/50218878/typescript-express-error-function
 const errorHandler: ErrorRequestHandler = (error, req, res, next) => {
-  if (req.query) {
+  if (req.query && error instanceof Error) {
     // 400 Bad Request
     res.status(400).json({ error: error.message });
   } else {
