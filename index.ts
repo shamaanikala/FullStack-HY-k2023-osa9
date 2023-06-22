@@ -5,6 +5,12 @@ app.get('/hello', (_req, res) => {
   res.send('Hello Full Stack!');
 });
 
+app.get('/bmi', (req, res) => {
+  console.log('/bmi');
+  console.log(req.body); // undefined
+  res.send('BMI-calculator');
+});
+
 const PORT = 3002;
 
 app.listen(PORT, () => {
