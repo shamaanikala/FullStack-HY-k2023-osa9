@@ -98,18 +98,24 @@ const calculateBmi = (height: number, weight: number): string =>  {
 // Ex9.5:
 // Run this when running the npm run calculateBmi
 // Compare to Python module if __name__ == "__main__"
-try {
-  // need to use type narrowing now with type assertion 'as'
-  // because it is not automatically known if the function will
-  // return BmiInputValues or ExerciseInputValues
-  const { height, weight } = parseArgs(process.argv) as BmiInputValues;
-  console.log(calculateBmi(height, weight));
-} catch(error: unknown) {
-  let errorMessage = 'bmiCalculator: Error: ';
-  if (error instanceof Error) {
-    errorMessage += error.message;
+
+// handle loading from index.ts or other file
+if (process.argv[1] !== 'bmiCalculator.ts') {
+  console.log(`Loading bmiCalculator from ${process.argv[1]}`);   
+} else {
+  try {
+    // need to use type narrowing now with type assertion 'as'
+    // because it is not automatically known if the function will
+    // return BmiInputValues or ExerciseInputValues
+    const { height, weight } = parseArgs(process.argv) as BmiInputValues;
+    console.log(calculateBmi(height, weight));
+  } catch(error: unknown) {
+    let errorMessage = 'bmiCalculator: Error: ';
+    if (error instanceof Error) {
+      errorMessage += error.message;
+    }
+    console.error(errorMessage);
   }
-  console.error(errorMessage);
 }
 
 export default calculateBmi;
