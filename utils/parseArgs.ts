@@ -42,7 +42,7 @@ export interface ExerciseInputValues {
   target: number;
 };
 
-const parseBmiArgs = (args: string[], requiredLength: number): BmiInputValues => {
+export const parseBmiArgs = (args: string[], requiredLength: number): BmiInputValues => {
   const argLenCheck = checkArgsLength(args,requiredLength)
   if (!argLenCheck.success) {
     handleInputArgumentLengthError(argLenCheck);
