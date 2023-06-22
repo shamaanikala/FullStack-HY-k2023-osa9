@@ -56,7 +56,7 @@ export const parseBmiArgs = (args: string[], requiredLength: number): BmiInputVa
   }
 };
 
-const toNumber = (n: string): number => {
+export const toNumber = (n: string): number => {
   const numberN = Number(n);
   if (!isNaN(numberN)) {
     return numberN;
@@ -65,7 +65,7 @@ const toNumber = (n: string): number => {
   }
 };
 
-const parseExerciseArgs = (args: string[], requiredLength: number): ExerciseInputValues => {
+export const parseExerciseArgs = (args: string[], requiredLength: number): ExerciseInputValues => {
   // first arg target : number
   // then series of numbers => number[]
   const argLenCheck = checkArgsLength(args,requiredLength,true); // min=true
@@ -78,15 +78,14 @@ const parseExerciseArgs = (args: string[], requiredLength: number): ExerciseInpu
   return { hours, target };
 };
 
-const parseArgs = (args: string[]): BmiInputValues | ExerciseInputValues => {
-  const BMI_CALCULATOR_ARGS_LENGTH = 2;
-  // exerciseCalculator has variable length arguments
-  // but it must have a minimum amount of input arguments:
-  // target [day1] is the minimum valid number of arguments
-  const EXERCISE_CALCULATOR_ARGS_MIN_LENGTH = 2;
+// exerciseCalculator has variable length arguments
+// but it must have a minimum amount of input arguments:
+// target [day1] is the minimum valid number of arguments
+export const BMI_CALCULATOR_ARGS_LENGTH = 2;
+export const EXERCISE_CALCULATOR_ARGS_MIN_LENGTH = 2;
 
+const parseArgs = (args: string[]): BmiInputValues | ExerciseInputValues => {
   const tsFile = getTSfileName(args[1]);
-  
   const input = args.slice(2); // slice off the 2 first
 
   switch (tsFile) {

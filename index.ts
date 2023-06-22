@@ -1,7 +1,8 @@
 import express from 'express';
 
 import calculateBmi from './bmiCalculator';
-import { BmiInputValues, parseBmiArgs } from './utils/parseArgs';
+import { BmiInputValues, parseBmiArgs, ExerciseInputValues, parseExerciseArgs, toNumber, BMI_CALCULATOR_ARGS_LENGTH, EXERCISE_CALCULATOR_ARGS_MIN_LENGTH } from './utils/parseArgs';
+import calculateExercises from './exerciseCalculator';
 import QueryString from 'qs';
 
 import type { ErrorRequestHandler } from 'express';
@@ -31,7 +32,7 @@ const parseBmiQuery = (query: QueryString.ParsedQs): BmiInputValues => {
   if (query.height && query.weight) {
       checkQueryParameters(query);
       const args = [query.height.toString(), query.weight.toString()];
-      return parseBmiArgs(args,2);
+      return parseBmiArgs(args,BMI_CALCULATOR_ARGS_LENGTH);
   } else {
     console.error('Error: parseBmiQuery: query params missing!');
     throw new Error('malformatted parameters');
@@ -54,12 +55,29 @@ app.get('/bmi', (req, res, next) => {
   } 
 });
 
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const parseExerciseRequest = (body: any): ExerciseInputValues => {
+  console.log(body);
+  if (!body.target || !body.daily_exercises) {
+    throw new Error('parameters missing');
+  } else if (isNaN(Number(body.target))) {
+    throw new Error('malformatted parameters');
+  } else {
+    const args = [body.target].concat(body.daily_exercises);
+    return parseExerciseArgs(args, EXERCISE_CALCULATOR_ARGS_MIN_LENGTH);
+  }
+};
+
+
 app.post('/exercises', (req, res) => {
   console.log(req.body);
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const { daily_exercises, target } = req.body;
+  // const { daily_exercises, target } = req.body;
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  return res.json({ daily_exercises, target });
+  const { hours, target } = parseExerciseRequest(req.body);
+  const result = calculateExercises(hours, target);
+  return res.json(result);
 });
 
 const PORT = 3002;

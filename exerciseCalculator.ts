@@ -5,7 +5,7 @@ import { ExerciseInputValues } from "./utils/parseArgs";
 type Rating = 1 | 2 | 3;
 
  
-interface Result {
+export interface Result {
   periodLength: number,
   trainingDays: number,
   success: boolean,
@@ -61,13 +61,19 @@ const calculateExercises = (dailyExerciseHours: number[], targetHours: number): 
   return result;
 };
 
-try {
-  const { hours, target } = parseArgs(process.argv) as ExerciseInputValues;
-  console.log(calculateExercises(hours, target));
-} catch(error: unknown) {
-  let errorMessage = 'exerciseCalculator: Error: ';
-  if (error instanceof Error) {
-    errorMessage += error.message;
+if (process.argv[1] !== 'exerciseCalculator.ts') {
+  console.log(`Loading exerciseCalculator from ${process.argv[1]}`);   
+} else {
+  try {
+    const { hours, target } = parseArgs(process.argv) as ExerciseInputValues;
+    console.log(calculateExercises(hours, target));
+  } catch(error: unknown) {
+    let errorMessage = 'exerciseCalculator: Error: ';
+    if (error instanceof Error) {
+      errorMessage += error.message;
+    }
+    console.error(errorMessage);
   }
-  console.error(errorMessage);
 }
+
+export default calculateExercises;
