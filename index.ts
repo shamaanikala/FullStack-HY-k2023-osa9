@@ -15,8 +15,18 @@ interface BmiOutput {
   bmi: string;
 };
 
+
+// TODO: Add error handling (middleware?)
+
+const checkQueryParameters = (query: QueryString.ParsedQs) => {
+ if (isNaN(Number(query.height)) || isNaN(Number(query.weight))) {
+  throw new Error('malformatted parameters');
+ }
+}
+
 const parseBmiQuery = (query: QueryString.ParsedQs): BmiInputValues => {
   if (query.height && query.weight) {
+      checkQueryParameters(query);
       const args = [query.height.toString(), query.weight.toString()];
       return parseBmiArgs(args,2);
   } else {
@@ -31,7 +41,7 @@ const prepareBmiResponse = (bmiInput: BmiInputValues): BmiOutput => {
 }
 
 app.get('/bmi', (req, res) => {
-  console.log(req.query);
+  console.log('req.query: ',req.query);
   const bmiInput = parseBmiQuery(req.query);
   console.log('bmiIniput: ',bmiInput);
   const bmiResult = prepareBmiResponse(bmiInput);
