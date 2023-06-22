@@ -16,7 +16,7 @@ interface BmiOutput {
   weight: number;
   height: number;
   bmi: string;
-};
+}
 
 
 const checkQueryParameters = (query: QueryString.ParsedQs) => {
@@ -24,7 +24,7 @@ const checkQueryParameters = (query: QueryString.ParsedQs) => {
   console.error('Error: checkQueryParameters: NaN query value!');
   throw new Error('malformatted parameters');
  }
-}
+};
 
 const parseBmiQuery = (query: QueryString.ParsedQs): BmiInputValues => {
   if (query.height && query.weight) {
@@ -35,13 +35,13 @@ const parseBmiQuery = (query: QueryString.ParsedQs): BmiInputValues => {
     console.error('Error: parseBmiQuery: query params missing!');
     throw new Error('malformatted parameters');
   }
-}
+};
 
 const prepareBmiResponse = (bmiInput: BmiInputValues): BmiOutput => {
   const { height, weight } = bmiInput;
   const bmi = calculateBmi(height, weight);
   return { weight, height, bmi };
-}
+};
 
 app.get('/bmi', (req, res, next) => {
   try {
@@ -59,7 +59,7 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 
-https://stackoverflow.com/questions/50218878/typescript-express-error-function
+// https://stackoverflow.com/questions/50218878/typescript-express-error-function
 const errorHandler: ErrorRequestHandler = (error, req, res, next) => {
   if (req.query) {
     // 400 Bad Request
@@ -68,6 +68,6 @@ const errorHandler: ErrorRequestHandler = (error, req, res, next) => {
     console.error('Error: errorHandler: invoke default error handler!');
     next(error); // invoke the default express error handler
   }
-}
+};
 
 app.use(errorHandler);
