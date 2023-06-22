@@ -1,43 +1,40 @@
 import express from 'express';
 
 import calculateBmi from './bmiCalculator';
-// import { BmiInputValues, parseBmiArgs } from './utils/parseArgs';
+import { BmiInputValues, parseBmiArgs } from './utils/parseArgs';
+import QueryString from 'qs';
 const app = express();
 
 app.get('/hello', (_req, res) => {
   res.send('Hello Full Stack!');
 });
 
-// interface BmiQuery {
+// interface BmiQueryInput {
 //   height: string;
 //   weight: string;
 // };
 
-//const parseBmiQuery = (query: BmiQuery): BmiInputValues => {
-// const parseBmiQuery = (query: ParsedQs): BmiInputValues => {
-//   if (!query) {
-//     throw new Error('malformatted parameters');
-//   } else {
-//     const args = [query.height, query.height];
-//     return parseBmiArgs(args,2);
-//   }
-// }
+const parseBmiQuery = (query: QueryString.ParsedQs): BmiInputValues => {
+  if (query.height && query.weight) {
+      const args = [query.height.toString(), query.height.toString()];
+      return parseBmiArgs(args,2);
+  } else {
+    throw new Error('malformatted parameters');
+  }
+}
 
 app.get('/bmi', (req, res) => {
   console.log('/bmi');
   console.log(req.query);
-  //const bmiInput = parseBmiQuery(req.query);
-  const { lol } = req.query;
-  console.log('lol',lol); // undefined
-  const { url } = req.query;
-  console.log('url',url); // undefined
-  const { height, weight } = req.query;
-  console.log(height, weight);
+  const bmiInput = parseBmiQuery(req.query);
+  console.log('bmiIniput: ',bmiInput);
+  const { height, weight } = bmiInput;
+  console.log(calculateBmi(height, weight));
   const dummyHeight = 180;
   const dummyWeight = 72;
   const bmiDummyResponse = {
-    dummyWeight: 180,
-    dummyHeight,
+    dummyHeight: 180,
+    dummyWeight: 72,
     bmi: calculateBmi(dummyHeight, dummyWeight)
   };
   res.json(bmiDummyResponse);
