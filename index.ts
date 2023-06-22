@@ -56,7 +56,10 @@ app.get('/bmi', (req, res, next) => {
 
 app.post('/exercises', (req, res) => {
   console.log(req.body);
-  return res.json({ lol: 'lol' });
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const { daily_exercises, target } = req.body;
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  return res.json({ daily_exercises, target });
 });
 
 const PORT = 3002;
