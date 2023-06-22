@@ -21,6 +21,7 @@ interface BmiOutput {
 
 const checkQueryParameters = (query: QueryString.ParsedQs) => {
  if (isNaN(Number(query.height)) || isNaN(Number(query.weight))) {
+  console.error('Error: checkQueryParameters: NaN query value!');
   throw new Error('malformatted parameters');
  }
 }
@@ -31,6 +32,7 @@ const parseBmiQuery = (query: QueryString.ParsedQs): BmiInputValues => {
       const args = [query.height.toString(), query.weight.toString()];
       return parseBmiArgs(args,2);
   } else {
+    console.error('Error: parseBmiQuery: query params missing!');
     throw new Error('malformatted parameters');
   }
 }
@@ -42,10 +44,8 @@ const prepareBmiResponse = (bmiInput: BmiInputValues): BmiOutput => {
 }
 
 app.get('/bmi', (req, res, next) => {
-  // console.log('req.query: ',req.query);
   try {
     const bmiInput = parseBmiQuery(req.query);
-    // console.log('bmiIniput: ',bmiInput);
     const bmiResult = prepareBmiResponse(bmiInput);
     res.json(bmiResult);
   } catch(error) {
@@ -65,6 +65,7 @@ const errorHandler: ErrorRequestHandler = (error, req, res, next) => {
     // 400 Bad Request
     res.status(400).json({ error: error.message });
   } else {
+    console.error('Error: errorHandler: invoke default error handler!');
     next(error); // invoke the default express error handler
   }
 }
