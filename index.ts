@@ -7,7 +7,7 @@ app.get('/hello', (_req, res) => {
 
 app.get('/bmi', (req, res) => {
   console.log('/bmi');
-  console.log(req.body); // undefined
+  console.log(req.query);
   res.send('BMI-calculator');
 });
 
