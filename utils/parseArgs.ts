@@ -3,16 +3,16 @@ const getTSfileName = (arg: string): string => {
   const tsIndex = tsFileStr.length - 1;
   const tsFile = arg.split('/')[tsIndex];
   return tsFile;
-}
+};
 
 interface argsLengthResult {
   success: boolean;
   length: number;
   requiredLength: number;
-};
+}
 
 // with the min parameter checks for minimum required number of input arguments
-const checkArgsLength = (args: string[], requiredLength: number, min: boolean = false) : argsLengthResult => {
+const checkArgsLength = (args: string[], requiredLength: number, min = false) : argsLengthResult => {
   if (!min && args && requiredLength) {
     return args.length === requiredLength
       ? { success: true, length: args.length, requiredLength }
@@ -24,26 +24,26 @@ const checkArgsLength = (args: string[], requiredLength: number, min: boolean = 
   } else {
     throw new Error('Bad arguments given!');
   }
-}
+};
 
 const handleInputArgumentLengthError = (result: argsLengthResult) => {
   throw result.length > result.requiredLength
     ? new Error('Too many arguments!')
     : new Error('Not enough arguments!');
-}
+};
 
 export interface BmiInputValues {
   height: number;
   weight: number;
-};
+}
 
 export interface ExerciseInputValues {
   hours: number[];
   target: number;
-};
+}
 
 export const parseBmiArgs = (args: string[], requiredLength: number): BmiInputValues => {
-  const argLenCheck = checkArgsLength(args,requiredLength)
+  const argLenCheck = checkArgsLength(args,requiredLength);
   if (!argLenCheck.success) {
     handleInputArgumentLengthError(argLenCheck);
   }
@@ -54,7 +54,7 @@ export const parseBmiArgs = (args: string[], requiredLength: number): BmiInputVa
   } else {
     throw new Error('Provided input values were not numbers!');
   }
-}
+};
 
 const toNumber = (n: string): number => {
   const numberN = Number(n);
@@ -63,7 +63,7 @@ const toNumber = (n: string): number => {
   } else {
     throw new Error('Provided input values were not numbers!');
   }
-}
+};
 
 const parseExerciseArgs = (args: string[], requiredLength: number): ExerciseInputValues => {
   // first arg target : number
@@ -76,7 +76,7 @@ const parseExerciseArgs = (args: string[], requiredLength: number): ExerciseInpu
   const target = toNumber(args[0]);
   const hours = args.slice(1).map(n => toNumber(n));
   return { hours, target };
-}
+};
 
 const parseArgs = (args: string[]): BmiInputValues | ExerciseInputValues => {
   const BMI_CALCULATOR_ARGS_LENGTH = 2;
@@ -97,6 +97,6 @@ const parseArgs = (args: string[]): BmiInputValues | ExerciseInputValues => {
     default:
       throw new Error('Unable to find correct .ts file!');
   }
-}
+};
 
 export default parseArgs;

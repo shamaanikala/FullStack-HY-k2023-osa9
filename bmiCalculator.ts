@@ -11,7 +11,7 @@ interface BmiCategory {
   description: string;
   lowerBound?: number; // These are optional as the BMIs <= 16.0 or >= 40.0
   upperBound?: number; // do not have lower or upper bounds.
-};
+}
 
 // BMI basic categories from Wikipedia:
 // https://en.wikipedia.org/wiki/Body_mass_index
@@ -82,7 +82,7 @@ const determineBmiCategory = (bmi: number) => {
     }
   }
   return;
-}
+};
 
 const calculateBmi = (height: number, weight: number): string =>  {
   // [height] = cm, [weight] = kg
@@ -92,7 +92,7 @@ const calculateBmi = (height: number, weight: number): string =>  {
 
   const category = determineBmiCategory(bmi);
   return `${category?.name} (${category?.description})`;
-}
+};
 
 
 // Ex9.5:
