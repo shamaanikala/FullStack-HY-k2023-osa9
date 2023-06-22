@@ -3,6 +3,9 @@ import express from 'express';
 import calculateBmi from './bmiCalculator';
 import { BmiInputValues, parseBmiArgs } from './utils/parseArgs';
 import QueryString from 'qs';
+
+import type { ErrorRequestHandler } from 'express';
+
 const app = express();
 
 app.get('/hello', (_req, res) => {
@@ -15,8 +18,6 @@ interface BmiOutput {
   bmi: string;
 };
 
-
-// TODO: Add error handling (middleware?)
 
 const checkQueryParameters = (query: QueryString.ParsedQs) => {
  if (isNaN(Number(query.height)) || isNaN(Number(query.weight))) {
@@ -40,12 +41,16 @@ const prepareBmiResponse = (bmiInput: BmiInputValues): BmiOutput => {
   return { weight, height, bmi };
 }
 
-app.get('/bmi', (req, res) => {
-  console.log('req.query: ',req.query);
-  const bmiInput = parseBmiQuery(req.query);
-  console.log('bmiIniput: ',bmiInput);
-  const bmiResult = prepareBmiResponse(bmiInput);
-  res.json(bmiResult);
+app.get('/bmi', (req, res, next) => {
+  // console.log('req.query: ',req.query);
+  try {
+    const bmiInput = parseBmiQuery(req.query);
+    // console.log('bmiIniput: ',bmiInput);
+    const bmiResult = prepareBmiResponse(bmiInput);
+    res.json(bmiResult);
+  } catch(error) {
+    next(error);
+  } 
 });
 
 const PORT = 3002;
@@ -53,3 +58,15 @@ const PORT = 3002;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+https://stackoverflow.com/questions/50218878/typescript-express-error-function
+const errorHandler: ErrorRequestHandler = (error, req, res, next) => {
+  if (req.query) {
+    // 400 Bad Request
+    res.status(400).json({ error: error.message });
+  } else {
+    next(error); // invoke the default express error handler
+  }
+}
+
+app.use(errorHandler);
