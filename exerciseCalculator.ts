@@ -13,12 +13,12 @@ interface Result {
   ratingDescription: string,
   target: number,
   average: number
-};
+}
 
 const avg = (array: number[]): number => {
   const sum = array.reduce((sum, elem) => sum += elem, 0);
   return sum/array.length;
-}
+};
 
 const rateExerciseHours = (averageHours: number, targetHours: number): Rating => {
   if (averageHours >= targetHours) {
@@ -28,17 +28,18 @@ const rateExerciseHours = (averageHours: number, targetHours: number): Rating =>
   } else {
     return 1;
   }
-}
+};
 
 const RatingDescription: string[] = [
-  'the target is still quite far away',
+  //'the target is still quite far away',
+  'bad',
   'not too bad but could be better',
   'target reached, well done!'
 ];
  
 const getRatingDescription = (rating: Rating): string => {
   return RatingDescription[rating-1];
-}
+};
 
 const calculateExercises = (dailyExerciseHours: number[], targetHours: number): Result => {
   const periodLength = dailyExerciseHours.length;
@@ -58,7 +59,7 @@ const calculateExercises = (dailyExerciseHours: number[], targetHours: number): 
     average
   };
   return result;
-}
+};
 
 try {
   const { hours, target } = parseArgs(process.argv) as ExerciseInputValues;
