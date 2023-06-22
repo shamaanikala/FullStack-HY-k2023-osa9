@@ -9,35 +9,33 @@ app.get('/hello', (_req, res) => {
   res.send('Hello Full Stack!');
 });
 
-// interface BmiQueryInput {
-//   height: string;
-//   weight: string;
-// };
+interface BmiOutput {
+  weight: number;
+  height: number;
+  bmi: string;
+};
 
 const parseBmiQuery = (query: QueryString.ParsedQs): BmiInputValues => {
   if (query.height && query.weight) {
-      const args = [query.height.toString(), query.height.toString()];
+      const args = [query.height.toString(), query.weight.toString()];
       return parseBmiArgs(args,2);
   } else {
     throw new Error('malformatted parameters');
   }
 }
 
+const prepareBmiResponse = (bmiInput: BmiInputValues): BmiOutput => {
+  const { height, weight } = bmiInput;
+  const bmi = calculateBmi(height, weight);
+  return { weight, height, bmi };
+}
+
 app.get('/bmi', (req, res) => {
-  console.log('/bmi');
   console.log(req.query);
   const bmiInput = parseBmiQuery(req.query);
   console.log('bmiIniput: ',bmiInput);
-  const { height, weight } = bmiInput;
-  console.log(calculateBmi(height, weight));
-  const dummyHeight = 180;
-  const dummyWeight = 72;
-  const bmiDummyResponse = {
-    dummyHeight: 180,
-    dummyWeight: 72,
-    bmi: calculateBmi(dummyHeight, dummyWeight)
-  };
-  res.json(bmiDummyResponse);
+  const bmiResult = prepareBmiResponse(bmiInput);
+  res.json(bmiResult);
 });
 
 const PORT = 3002;
