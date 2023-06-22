@@ -94,6 +94,10 @@ const calculateBmi = (height: number, weight: number): string =>  {
   return `${category?.name} (${category?.description})`;
 }
 
+
+// Ex9.5:
+// Run this when running the npm run calculateBmi
+// Compare to Python module if __name__ == "__main__"
 try {
   // need to use type narrowing now with type assertion 'as'
   // because it is not automatically known if the function will
@@ -107,3 +111,5 @@ try {
   }
   console.error(errorMessage);
 }
+
+export default calculateBmi;
