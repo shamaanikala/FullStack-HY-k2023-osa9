@@ -7,6 +7,7 @@ import QueryString from 'qs';
 import type { ErrorRequestHandler } from 'express';
 
 const app = express();
+app.use(express.json());
 
 app.get('/hello', (_req, res) => {
   res.send('Hello Full Stack!');
@@ -51,6 +52,11 @@ app.get('/bmi', (req, res, next) => {
   } catch(error) {
     next(error);
   } 
+});
+
+app.post('/exercises', (req, res) => {
+  console.log(req.body);
+  return res.json({ lol: 'lol' });
 });
 
 const PORT = 3002;
