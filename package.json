@@ -10,5 +10,8 @@
     "start": "node build/index.js"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.1.3"
+  }
 }
