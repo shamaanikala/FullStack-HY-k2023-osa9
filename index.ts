@@ -1,7 +1,15 @@
 import express from 'express';
 
 import calculateBmi from './bmiCalculator';
-import { BmiInputValues, parseBmiArgs, ExerciseInputValues, parseExerciseArgs, toNumber, BMI_CALCULATOR_ARGS_LENGTH, EXERCISE_CALCULATOR_ARGS_MIN_LENGTH } from './utils/parseArgs';
+import {
+  BmiInputValues,
+  parseBmiArgs,
+  ExerciseInputValues,
+  parseExerciseArgs,
+  // toNumber,
+  BMI_CALCULATOR_ARGS_LENGTH,
+  EXERCISE_CALCULATOR_ARGS_MIN_LENGTH
+} from './utils/parseArgs';
 import calculateExercises from './exerciseCalculator';
 import QueryString from 'qs';
 
@@ -59,12 +67,15 @@ app.get('/bmi', (req, res, next) => {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const parseExerciseRequest = (body: any): ExerciseInputValues => {
   console.log(body);
-  if (!body.target || !body.daily_exercises) {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  if (!body.target|| !body.daily_exercises) {
     throw new Error('parameters missing');
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   } else if (isNaN(Number(body.target))) {
     throw new Error('malformatted parameters');
   } else {
-    const args = [body.target].concat(body.daily_exercises);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    const args = [body.target].concat(body.daily_exercises) as string[];
     return parseExerciseArgs(args, EXERCISE_CALCULATOR_ARGS_MIN_LENGTH);
   }
 };
