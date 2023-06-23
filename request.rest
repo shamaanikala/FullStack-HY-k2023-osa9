@@ -1,0 +1,84 @@
+POST http://localhost:3002/exercises
+Content-Type: application/json
+
+{
+  "daily_exercises": [1, 0, 2, 0, 3, 0, 2.5],
+  "target": 2.5
+}
+
+###
+POST http://localhost:3002/exercises
+Content-Type: application/json
+
+{
+  "daily_exercises": [1, 0, 2, 4.5, 0, 3, 1, 0, 4],
+  "target": 2
+}
+
+###
+POST http://localhost:3002/exercises
+Content-Type: application/json
+
+{
+  "daily_exercises": [1, 0, 2, 0, 3, 0, 2.5],
+  "target": 0
+}
+
+###
+POST http://localhost:3002/exercises
+Content-Type: application/json
+
+{
+  "daily_exercises": [1, 0, 2, 0, 3, 0, 2.5],
+  "target": "0"
+}
+
+###
+POST http://localhost:3002/exercises
+Content-Type: application/json
+
+{
+  "daily_exercises": [1, 0, 2, 0, 3, 0, 2.5]
+}
+
+###
+POST http://localhost:3002/exercises
+Content-Type: application/json
+
+{
+  "target": "0"
+}
+
+###
+POST http://localhost:3002/exercises
+Content-Type: application/json
+
+{
+  "daily_exercises": [1, 0, 2, 0, 3, 0, 2.5],
+  "target": "NaN"
+}
+
+###
+POST http://localhost:3002/exercises
+Content-Type: application/json
+
+{
+  "daily_exercises": [1, 0, "NaN", 0, 3, 0, 2.5],
+  "target": "0"
+}
+
+###
+POST http://localhost:3002/exercises
+Content-Type: application/json
+
+{
+  "daily_exercises": [],
+  "target": "0"
+}
+
+###
+POST http://localhost:3002/exercises
+Content-Type: application/json
+
+{
+}
