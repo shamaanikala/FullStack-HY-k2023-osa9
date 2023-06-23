@@ -81,14 +81,18 @@ const parseExerciseRequest = (body: any): ExerciseInputValues => {
 };
 
 
-app.post('/exercises', (req, res) => {
+app.post('/exercises', (req, res, next) => {
   console.log(req.body);
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   // const { daily_exercises, target } = req.body;
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const { hours, target } = parseExerciseRequest(req.body);
-  const result = calculateExercises(hours, target);
-  return res.json(result);
+  try {
+    const { hours, target } = parseExerciseRequest(req.body);
+    const result = calculateExercises(hours, target);
+    return res.json(result);
+  } catch (error) {
+    return next(error);
+  }
 });
 
 const PORT = 3002;
@@ -100,8 +104,13 @@ app.listen(PORT, () => {
 // https://stackoverflow.com/questions/50218878/typescript-express-error-function
 const errorHandler: ErrorRequestHandler = (error, req, res, next) => {
   if (req.query && error instanceof Error) {
-    // 400 Bad Request
-    res.status(400).json({ error: error.message });
+    // overwrite the parseArgs error.message as required
+    if (error.message === 'Provided input values were not numbers!') {
+      res.status(400).json({ error: 'malformatted parameters' });
+    } else {
+      // 400 Bad Request
+      res.status(400).json({ error: error.message });
+    }
   } else {
     console.error('Error: errorHandler: invoke default error handler!');
     next(error); // invoke the default express error handler
