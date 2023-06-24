@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get('/', (_req, res) => {
   console.log(`GET : ${_req.baseUrl}`);
-  res.send(patientsService.getPatients());
+  res.send(patientsService.getPatientsSansSSN());
 });
 
 export default router;
