@@ -1,14 +1,5 @@
 // renders the names of the different parts and exercises
-
-interface CoursePart {
-  name: string;
-  exerciseCount: number; 
-}
-
-// the React component has only one field 'props'
-interface ContentProp {
-  parts: CoursePart[]; // define the props.parts prop
-}
+import { ContentProp } from "../types";
 
 const Content = (props: ContentProp) => {
   return (
