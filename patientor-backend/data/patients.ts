@@ -1,3 +1,6 @@
+import { Patient } from "../src/types";
+import toNewPatient from "../src/utlis/patientTools";
+
 const data = [
     {
         "id": "d2773336-f723-11e9-8f0b-362b9e155667",
@@ -41,4 +44,13 @@ const data = [
     }
 ];
 
-export default data;
+const patients: Patient[] = data.map(obj => {
+    const object = toNewPatient(obj) as Patient;
+    object.id = obj.id;
+    return object;
+});
+
+// Ex9.13: this can be just changed data->patients
+// as the modules using this data are importing it:
+// import patients from '<path_here>/patients';
+export default patients;

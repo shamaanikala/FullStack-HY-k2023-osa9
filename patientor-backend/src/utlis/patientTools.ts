@@ -20,8 +20,8 @@ const parseSSN = (ssn: unknown): string => {
 };
 
 const isGender = (param: string): param is Gender => {
-  console.log(Object.values(Gender));
-  console.log(Object.values(Gender).map(v => v.toString()));
+  // console.log(Object.values(Gender)); // [ 'male', 'female', 'other' ]
+  // console.log(Object.values(Gender).map(v => v.toString())); // [ 'male', 'female', 'other' ]
   return Object.values(Gender).map(v => v.toString()).includes(param);
 };
 
@@ -39,7 +39,7 @@ const parseOccupation = (occupation: unknown): string => {
 // const patientFields = ['name', 'dateOfBirth', 'ssn', 'gender', 'occupation'];
 
 const toNewPatient = (object: unknown): NewPatient => {
-  console.log(object);
+  // console.log(object);
   if (!object || typeof object !== 'object') {
     throw new Error('Incorrect or missing data');
   }
