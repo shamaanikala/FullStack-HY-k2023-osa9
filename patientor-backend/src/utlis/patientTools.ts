@@ -1,5 +1,5 @@
-import { NewPatient } from "../types";
-import { parseStringParam } from "./parseTools";
+import { Gender, NewPatient } from "../types";
+import { isString, parseStringParam } from "./parseTools";
 
 // Adding individual but currently redundant parsers for each field
 // as they could be done with just one function parsing valid string
@@ -19,8 +19,17 @@ const parseSSN = (ssn: unknown): string => {
   return parseStringParam('ssn', ssn);
 };
 
-const parseGender = (gender: unknown): string => {
-  return parseStringParam('gender', gender);
+const isGender = (param: string): param is Gender => {
+  console.log(Object.values(Gender));
+  console.log(Object.values(Gender).map(v => v.toString()));
+  return Object.values(Gender).map(v => v.toString()).includes(param);
+};
+
+const parseGender = (gender: unknown): Gender => {
+  if (!isString(gender) || !isGender(gender)) {
+    throw new Error('Incorrect or missing gender: ' + gender);
+  }
+  return gender;
 };
 
 const parseOccupation = (occupation: unknown): string => {
