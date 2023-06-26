@@ -1,0 +1,1 @@
+// Renders name of the course
