@@ -1,9 +1,11 @@
 import { NewPatient } from "../types";
-import { isString, parseStringParam } from "./parseTools";
+import { parseStringParam } from "./parseTools";
 
 // Adding individual but currently redundant parsers for each field
 // as they could be done with just one function parsing valid string
 // Or let's at least add a parseStringParam to parseTools
+
+// const patientFields = ['name', 'dateOfBirth', 'ssn', 'gender', 'occupation'];
 
 const parseName = (name: unknown): string => {
   return parseStringParam('name', name);
@@ -25,16 +27,28 @@ const parseOccupation = (occupation: unknown): string => {
   return parseStringParam('occupation', occupation);
 };
 
+// const patientFields = ['name', 'dateOfBirth', 'ssn', 'gender', 'occupation'];
+
 const toNewPatient = (object: unknown): NewPatient => {
   console.log(object);
-  const newPatient: NewPatient = { ...object };
-  return newPatient;
+  if (!object || typeof object !== 'object') {
+    throw new Error('Incorrect or missing data');
+  }
+  // this reduce trick doesn't work as TS does not have any clue what is
+  // happening in there. The condition with explicit field names must be
+  // typed in, it seems :(
+  // if(patientFields.reduce((check, field) => check && (field in object),true)) {
+  if('name' in object && 'dateOfBirth' in object && 'ssn' in object && 'gender' in object && 'occupation' in object) {
+    const newPatient: NewPatient = {
+        name: parseName(object.name),
+        dateOfBirth: parseDateOfBirt(object.dateOfBirth),
+        ssn: parseSSN(object.ssn),
+        gender: parseGender(object.gender),
+        occupation: parseOccupation(object.occupation)
+      };
+    return newPatient;
+  }
+  throw new Error('Incorrect data: some fields are missing');
 };
 
 export default toNewPatient;
-
-// "name": "John McClane",
-// "dateOfBirth": "1986-07-09",
-// "ssn": "090786-122X",
-// "gender": "male",
-// "occupation": "New york city cop"
