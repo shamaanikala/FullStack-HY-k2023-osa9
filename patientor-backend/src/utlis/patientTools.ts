@@ -1,5 +1,5 @@
 import { Gender, NewPatient } from "../types";
-import { isString, parseStringParam } from "./parseTools";
+import { isDate, isString, parseStringParam } from "./parseTools";
 
 // Adding individual but currently redundant parsers for each field
 // as they could be done with just one function parsing valid string
@@ -12,7 +12,10 @@ const parseName = (name: unknown): string => {
 };
 
 const parseDateOfBirt = (dateOfBirth: unknown): string => {
-  return parseStringParam('dateOfBirth', dateOfBirth);
+  if (!isString(dateOfBirth) || !isDate(dateOfBirth)) {
+    throw new Error('Incorrect or missing date of birth: ' + dateOfBirth);
+  }
+  return dateOfBirth;
 };
 
 const parseSSN = (ssn: unknown): string => {
@@ -21,7 +24,6 @@ const parseSSN = (ssn: unknown): string => {
 
 const isGender = (param: string): param is Gender => {
   // console.log(Object.values(Gender)); // [ 'male', 'female', 'other' ]
-  // console.log(Object.values(Gender).map(v => v.toString())); // [ 'male', 'female', 'other' ]
   return Object.values(Gender).map(v => v.toString()).includes(param);
 };
 
@@ -36,10 +38,7 @@ const parseOccupation = (occupation: unknown): string => {
   return parseStringParam('occupation', occupation);
 };
 
-// const patientFields = ['name', 'dateOfBirth', 'ssn', 'gender', 'occupation'];
-
 const toNewPatient = (object: unknown): NewPatient => {
-  // console.log(object);
   if (!object || typeof object !== 'object') {
     throw new Error('Incorrect or missing data');
   }

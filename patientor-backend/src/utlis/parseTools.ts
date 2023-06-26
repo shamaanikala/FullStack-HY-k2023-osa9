@@ -9,3 +9,7 @@ export const parseStringParam = (fieldName: string, field: unknown): string => {
 
   return field;
 };
+
+export const isDate = (date: string): boolean => {
+  return Boolean(Date.parse(date));
+};

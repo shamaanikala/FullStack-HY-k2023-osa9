@@ -10,11 +10,7 @@ router.get('/', (_req, res) => {
 });
 
 router.post('/', (req, res) => {
-  // Ex9.12 bug: if the req.body has id field
-  // it will overwrite the generated id and "update"
-  // the patient if id already exists.
   console.log(`POST : ${req.baseUrl}`);
-  console.log(`POST : ${req.body}`);
   try {
     const newPatient = toNewPatient(req.body);
 
