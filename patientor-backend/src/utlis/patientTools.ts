@@ -1,14 +1,9 @@
 import { NewPatient } from "../types";
 
-const toNewPatient = (object: unknown): NewPatient => {
+const toNewPatient = (object: NewPatient): NewPatient => {
+// const toNewPatient = (object: unknown): NewPatient => {
   console.log(object);
-  const newPatient: NewPatient = {
-    name: "Donald Fauntleroy Duck",
-    dateOfBirth: "1934-03-13",
-    ssn: "13031934-AKUA",
-    gender: "male",
-    occupation: "International Duck of Mystery"
-  };
+  const newPatient: NewPatient = { ...object };
   return newPatient;
 };
 

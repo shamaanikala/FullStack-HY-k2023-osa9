@@ -11,6 +11,7 @@ router.get('/', (_req, res) => {
 
 router.post('/', (req, res) => {
   console.log(`POST : ${req.baseUrl}`);
+  console.log(`POST : ${req.body}`);
   try {
     const newPatient = toNewPatient(req.body);
 
