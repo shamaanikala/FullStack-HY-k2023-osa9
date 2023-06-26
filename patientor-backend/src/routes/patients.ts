@@ -10,8 +10,8 @@ router.get('/', (_req, res) => {
 
 router.post('/', (req, res) => {
   console.log(`POST : ${req.baseUrl}`);
-  console.log('data: ', {});
-  res.send(201);
+  console.log('data: ', req.body);
+  res.status(201).json(req.body);
 });
 
 export default router;
