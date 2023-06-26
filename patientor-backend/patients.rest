@@ -5,7 +5,7 @@ POST http://localhost:3001/api/patients
 Content-Type: application/json
 
 {
-  "id": "lmao-lol-13",
+  "id": "d2773akua-f723-11e9-8f0b-362b9e155667",
   "name": "Aku Ankka",
   "dateOfBirth": "1934-03-13",
   "ssn": "13031934-AKUA",
