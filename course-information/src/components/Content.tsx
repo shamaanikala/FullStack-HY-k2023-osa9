@@ -11,7 +11,6 @@ interface ContentProp {
 }
 
 const Content = (props: ContentProp) => {
-  console.log(props);
   return (
     <div>
       {props.parts.map(p =>
