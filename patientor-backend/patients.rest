@@ -12,3 +12,15 @@ Content-Type: application/json
   "gender": "male",
   "occupation": "Sekatyömies"
 }
+
+###
+POST http://localhost:3001/api/patients
+Content-Type: application/json
+
+{
+  "name": "Ash Ketchum",
+  "dateOfBirth": "1992-02-31",
+  "ssn": "31021992-pika",
+  "gender": "male",
+  "occupation": "Pokémon Trainer"
+}
