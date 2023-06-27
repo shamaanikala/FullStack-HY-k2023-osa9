@@ -1,8 +1,4 @@
-import { CoursePart } from "../types";
-
-interface PartProp {
-  part: CoursePart;
-}
+import { PartProp } from "../types";
 
 const Part = (props: PartProp) => {
   console.log(props);

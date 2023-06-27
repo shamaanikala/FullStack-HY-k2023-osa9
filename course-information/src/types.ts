@@ -37,3 +37,7 @@ export type CoursePart = CoursePartBasic | CoursePartGroup | CoursePartBackgroun
 export interface ContentProp {
   parts: CoursePart[]; // define the props.parts prop
 }
+
+export interface PartProp {
+  part: CoursePart;
+}
