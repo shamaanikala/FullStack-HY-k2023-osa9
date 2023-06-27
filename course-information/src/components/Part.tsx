@@ -23,19 +23,19 @@ const handlePartVariableFields = (part: CoursePart) => {
       return <i>{part.description}</i>;
     case "group":
       console.log('group part');
-      return <p>project exercises {part.groupProjectCount}</p>;
+      return <span>project exercises {part.groupProjectCount}</span>;
     case "background":
       console.log('background part');
       return (
         <>
-          <i>{part.description}</i>
-          <p>background material: {part.backgroundMaterial}</p>
+          <i>{part.description}</i><br />
+          <span>background material: {part.backgroundMaterial}</span>
         </>
       );
     default:
       return assertNever(part);
   }
-}
+};
 
 const Part = (props: PartProp) => {
   console.log(props);
@@ -43,7 +43,8 @@ const Part = (props: PartProp) => {
   return (
     <>
       <p key={part.name}>
-        {part.name} {part.exerciseCount}
+        <b>{part.name} {part.exerciseCount}</b><br />
+        {handlePartVariableFields(part)}
       </p>
     </>
   );
