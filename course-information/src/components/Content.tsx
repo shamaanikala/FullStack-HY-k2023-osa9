@@ -1,5 +1,6 @@
 // renders the names of the different parts and exercises
 import { ContentProp } from "../types";
+import Part from "./Part";
 
 const Content = (props: ContentProp) => {
   return (
@@ -8,6 +9,7 @@ const Content = (props: ContentProp) => {
       <p key={p.name}>
         {p.name} {p.exerciseCount}
       </p>)}
+      <Part />
     </div>
   );
 };
