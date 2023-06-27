@@ -30,7 +30,12 @@ export interface CoursePartBackground extends CoursePartBase, CoursePartDescript
   kind: "background"
 }
 
-export type CoursePart = CoursePartBasic | CoursePartGroup | CoursePartBackground;
+export interface CoursePartSpecial extends CoursePartBase, CoursePartDescription {
+  requirements: string[];
+  kind: "special"
+}
+
+export type CoursePart = CoursePartBasic | CoursePartGroup | CoursePartBackground | CoursePartSpecial;
 
 
 // the React component has only one field 'props'
