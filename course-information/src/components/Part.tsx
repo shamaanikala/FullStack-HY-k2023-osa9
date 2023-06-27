@@ -32,6 +32,17 @@ const handlePartVariableFields = (part: CoursePart) => {
           <span>background material: {part.backgroundMaterial}</span>
         </>
       );
+    case "special":
+      console.log('special');
+      return (
+        <>
+          <i>{part.description}</i><br />
+          <span>
+            required skills:{" "}
+            {part.requirements.join(', ')} 
+          </span>
+        </>
+      );
     default:
       return assertNever(part);
   }

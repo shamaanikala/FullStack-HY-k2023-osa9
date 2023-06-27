@@ -1,4 +1,3 @@
-// renders the names of the different parts and exercises
 import { ContentProp } from "../types";
 import Part from "./Part";
 
