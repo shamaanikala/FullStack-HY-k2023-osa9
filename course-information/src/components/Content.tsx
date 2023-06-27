@@ -6,10 +6,8 @@ const Content = (props: ContentProp) => {
   return (
     <div>
       {props.parts.map(p =>
-      <p key={p.name}>
-        {p.name} {p.exerciseCount}
-      </p>)}
-      <Part />
+        <Part key={p.name} part={p} />
+      )}
     </div>
   );
 };
