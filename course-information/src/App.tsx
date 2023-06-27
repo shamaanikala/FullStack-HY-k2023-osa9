@@ -14,8 +14,7 @@ const App = () => {
     description: string;
   }
 
-  interface CoursePartBasic extends CoursePartBase {
-    description: string;
+  interface CoursePartBasic extends CoursePartBase, CoursePartDescription {
     kind: "basic"
   }
 
@@ -24,8 +23,7 @@ const App = () => {
     kind: "group"
   }
 
-  interface CoursePartBackground extends CoursePartBase {
-    description: string;
+  interface CoursePartBackground extends CoursePartBase, CoursePartDescription {
     backgroundMaterial: string;
     kind: "background"
   }
