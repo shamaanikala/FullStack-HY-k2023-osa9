@@ -10,6 +10,10 @@ const App = () => {
     exerciseCount: number;
   }
 
+  interface CoursePartDescription extends CoursePartBase {
+    description: string;
+  }
+
   interface CoursePartBasic extends CoursePartBase {
     description: string;
     kind: "basic"
