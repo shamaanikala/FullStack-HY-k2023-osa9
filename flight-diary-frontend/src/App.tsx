@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import DiaryEntry from "./components/DiaryEntry";
 
 const App = () => {
   const [entries, setEntries] = useState([]);
@@ -14,6 +15,7 @@ const App = () => {
   return (
     <div>
       <h2>Flight Diary</h2>
+      <DiaryEntry />
     </div>
   );
 };
