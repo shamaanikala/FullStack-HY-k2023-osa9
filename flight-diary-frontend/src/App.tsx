@@ -1,16 +1,13 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import DiaryEntry from "./components/DiaryEntry";
 import { NonSensitiveDiaryEntry } from "../../flight-diary/src/types";
+import { getAllDiaryEntries } from "./services/diaryService";
 
 const App = () => {
   const [entries, setEntries] = useState<NonSensitiveDiaryEntry[]>([]);
 
   useEffect(() => {
-    axios.get<NonSensitiveDiaryEntry[]>('http://localhost:3001/api/diaries')
-      .then(response => {
-        setEntries(response.data);
-      });
+    getAllDiaryEntries().then(data => setEntries(data))
   }, []);
 
   return (
