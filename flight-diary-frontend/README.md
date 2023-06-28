@@ -1,3 +1,16 @@
+# Full Stack Open - Part 9 - Exercises - Notice!
+
+The project assumes that the backend (`flight-diary`) is within the same folder with the frontend:
+
+```
+.
+├── flight-diary
+└── flight-diary-frontend
+```
+
+Link to the fligh-diary backend GitHub repo fork:
+[https://github.com/shamaanikala/flight-diary](https://github.com/shamaanikala/flight-diary)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
