@@ -65,7 +65,7 @@ const DiaryEntryForm = (props: NewDiaryEntryFormProps) => {
             {error && <DiaryEntryFormErrorMessage message={error} />}
           </div>
           <div>
-            date <input value={date} onChange={(event) => setDate(event.target.value)} />
+            date <input value={date} type="date" onChange={(event) => setDate(event.target.value)} />
           </div>
           <div>
             visibility <input value={visibility} onChange={(event) => setVisibility(event.target.value)} />
