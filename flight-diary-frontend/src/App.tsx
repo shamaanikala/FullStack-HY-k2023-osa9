@@ -11,11 +11,17 @@ const App = () => {
     getAllDiaryEntries().then(data => setEntries(data))
   }, []);
 
+  const generateNewId = (entries: NonSensitiveDiaryEntry[]): number => {
+    return Math.max(...entries.map(d => d.id)) + 1;
+  };
+
+  const idGenerator = () => generateNewId(entries);
+
   return (
     <div>
       <h2>Flight Diary</h2>
       <div>
-        <DiaryEntryForm />
+        <DiaryEntryForm idGenerator={idGenerator} />
       </div>
       <div>
         <h2>Diary entries</h2>

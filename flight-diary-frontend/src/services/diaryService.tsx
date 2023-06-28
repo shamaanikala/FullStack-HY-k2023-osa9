@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { NewDiaryEntry, NonSensitiveDiaryEntry } from "../../../flight-diary/src/types";
+import { DiaryEntry, NonSensitiveDiaryEntry } from "../../../flight-diary/src/types";
 
 const baseUrl = 'http://localhost:3001/api/diaries';
 
@@ -8,8 +8,8 @@ export const getAllDiaryEntries = () => {
     .then(response => response.data);
 };
 
-export const createDiaryEntry = (object: NewDiaryEntry) => {
+export const createDiaryEntry = (object: DiaryEntry) => {
   return axios
-    .post<NewDiaryEntry>(baseUrl, object)
+    .post<DiaryEntry>(baseUrl, object)
     .then(response => response.data);
 };
