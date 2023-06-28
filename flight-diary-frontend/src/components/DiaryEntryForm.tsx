@@ -10,6 +10,8 @@ const DiaryEntryForm = (props: NewDiaryEntryFormProps) => {
   const [weather, setWeather] = useState('');
   const [comment, setComment] = useState('');
 
+  const [error, setError] = useState<string | null>(null);
+
   const addNewDiaryEntry = (event: React.SyntheticEvent) => {
     event.preventDefault();
     
@@ -31,13 +33,20 @@ const DiaryEntryForm = (props: NewDiaryEntryFormProps) => {
     setComment('');
   };
 
+  const handleErrorMessage = (message: string) => {
+    setError(message);
+    setTimeout(() => {
+      setError(null);
+    }, 5000);
+  };
+
   return (
     <div>
       <h2>Add new entry</h2>
       <div>
         <form onSubmit={addNewDiaryEntry}>
           <div>
-            <DiaryEntryFormErrorMessage />
+            {error && <DiaryEntryFormErrorMessage message={error} />}
           </div>
           <div>
             date <input value={date} onChange={(event) => setDate(event.target.value)} />

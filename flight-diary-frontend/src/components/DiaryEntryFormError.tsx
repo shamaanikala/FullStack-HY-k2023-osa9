@@ -1,7 +1,14 @@
-const DiaryEntryFormErrorMessage = () => {
+import { DiaryEntryFormErrorMessageProps } from "../types";
+
+const DiaryEntryFormErrorMessage = (props: DiaryEntryFormErrorMessageProps) => {
+  const message = props.message;
+  const errorMessageStyle = {
+    color: 'red',
+  };
+
   return (
     <>
-      <i>Error message here</i>
+      <p style={errorMessageStyle}>{message}</p>
     </>
   );
 };
