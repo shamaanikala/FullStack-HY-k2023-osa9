@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { createDiaryEntry } from "../services/diaryService";
-import { NewDiaryEntryFormProps, Visibility, Weather } from "../types";
+import { RadioButtonProps, EnumRadioButtonsProps, NewDiaryEntryFormProps, Visibility, Weather } from "../types";
 import DiaryEntryFormErrorMessage from "./DiaryEntryFormError";
 import axios from "axios";
 
@@ -76,23 +76,86 @@ const DiaryEntryForm = (props: NewDiaryEntryFormProps) => {
     return values;
   }
 
+  // console.log(Visibility === Visibility);
+  // const EnumRadioButtons =(props: EnumRadioButtonsProps) => {
+  //   const name = props.name;
+  //   const enumObject = props.enumObject;
+  //   const values = getEnumValues(enumObject); 
+  //   return (
+  //     <>
+  //       {values.map(v =>
+  //         <span key={v}>
+  //           <label htmlFor={v}>{v}</label>
+  //           <input
+  //             type="radio"
+  //             id={v}
+  //             name={name}
+  //             onChange={(event) => setVisibility(event.target.value)} />
+  //         </span>
+  //       )}
+  //     </>
+  //   );
+  // }
   const VisibilityRadioButtons = () => {
-    const values = getEnumValues(Visibility); 
+    const name = 'visibility';
+    const enumObject = Visibility;
+    const values = getEnumValues(enumObject); 
     return (
       <>
         {values.map(v =>
-          <span key={v}>
+          <>
             <label htmlFor={v}>{v}</label>
             <input
               type="radio"
+              key={v}
               id={v}
-              name="visibility"
-              onChange={(event) => setVisibility(event.target.value)} />
-          </span>
+              name={name}
+              onChange={() => setVisibility(v)} />
+          </>
         )}
       </>
     );
   };
+
+  const WeatherRadioButtons = () => {
+    const name = 'weather';
+    const enumObject = Weather;
+    const values = getEnumValues(enumObject); 
+    return (
+      <>
+        {values.map(v =>
+            <>
+            <label htmlFor={v}>{v}</label>
+            <input
+              key={v}
+              type="radio"
+              id={v}
+              name={name}
+              onChange={() => setWeather(v)} />
+          </>
+        )}
+      </>
+    );
+  }
+
+  // const VisibilityRadioButtons = (props: RadioButtonProps) => {
+  //   const name = props.name;
+  //   return (
+  //     <>
+  //       <EnumRadioButtons name={name} enumObject={Visibility} />
+  //     </>
+  //   );
+  // };
+
+  // const WeatherRadioButtons = (props: RadioButtonProps) => {
+  //   const enumObject = Weather;
+  //   const name = props.name;
+  //   return (
+  //     <>
+  //       <EnumRadioButtons name={name} enumObject={enumObject} />
+  //     </>
+  //   );
+  // };
 
   return (
     <div>
@@ -109,7 +172,7 @@ const DiaryEntryForm = (props: NewDiaryEntryFormProps) => {
             visibility <VisibilityRadioButtons /> 
           </div>
           <div>
-            weather <input value={weather} onChange={(event) => setWeather(event.target.value)} />
+            weather <WeatherRadioButtons /> 
           </div>
           <div>
             comment <input value={comment} onChange={(event) => setComment(event.target.value)} />

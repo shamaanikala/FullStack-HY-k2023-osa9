@@ -33,3 +33,12 @@ export enum Visibility {
   Ok = 'ok',
   Poor = 'poor',
 }
+
+export interface EnumRadioButtonsProps {
+  name: string;
+  enumObject: Weather | Visibility;
+}
+
+export interface RadioButtonProps {
+  name: string;
+}
