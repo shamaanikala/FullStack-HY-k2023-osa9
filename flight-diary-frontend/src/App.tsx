@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import Entry from "./components/Entry";
-// import { NonSensitiveDiaryEntry } from "../../flight-diary/src/types";
 import { DiaryEntry } from "./types";
 import { getAllDiaryEntries } from "./services/diaryService";
 import DiaryEntryForm from "./components/DiaryEntryForm";

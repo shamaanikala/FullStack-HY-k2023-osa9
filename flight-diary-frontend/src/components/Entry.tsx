@@ -1,5 +1,4 @@
 import { DiaryEntry, DiaryEntryProp } from "../types";
-// import { NonSensitiveDiaryEntry } from '../../../flight-diary/src/types';
 
 const Entry = (props: DiaryEntryProp) => {
   const entry: DiaryEntry = props.entry;

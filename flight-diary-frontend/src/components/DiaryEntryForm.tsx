@@ -2,13 +2,6 @@ import React, { useState } from "react";
 import { createDiaryEntry } from "../services/diaryService";
 import { NewDiaryEntryFormProps } from "../types";
 import DiaryEntryFormErrorMessage from "./DiaryEntryFormError";
-// import { NewDiaryEntry } from "../../../flight-diary/src/types";
-
-// import utils.ts from backend
-// can't import this like this: Module not found Error
-// copy the backend file to this project
-// Ex9.18 trust the backend for validation
-// import toNewDiaryEntry from '../utils';
 
 const DiaryEntryForm = (props: NewDiaryEntryFormProps) => {
   // state as strings, "cast" to types in addNewDiaryEntry
@@ -20,14 +13,6 @@ const DiaryEntryForm = (props: NewDiaryEntryFormProps) => {
   const addNewDiaryEntry = (event: React.SyntheticEvent) => {
     event.preventDefault();
     
-    // Ex9.18 it seems these validations are
-    // left to the backend only
-    // const newDiaryEntry: NewDiaryEntry = toNewDiaryEntry({
-    //   date,
-    //   visibility,
-    //   weather,
-    //   comment,      
-    // });
     const newDiaryEntry = {
       date,
       visibility,
