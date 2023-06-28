@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { createDiaryEntry } from "../services/diaryService";
 import { NewDiaryEntryFormProps } from "../types";
 import DiaryEntryFormErrorMessage from "./DiaryEntryFormError";
+import axios from "axios";
 
 const DiaryEntryForm = (props: NewDiaryEntryFormProps) => {
   // state as strings, "cast" to types in addNewDiaryEntry
@@ -12,7 +13,7 @@ const DiaryEntryForm = (props: NewDiaryEntryFormProps) => {
 
   const [error, setError] = useState<string | null>(null);
 
-  const addNewDiaryEntry = (event: React.SyntheticEvent) => {
+  const addNewDiaryEntry = async (event: React.SyntheticEvent) => {
     event.preventDefault();
     
     const newDiaryEntry = {
@@ -22,15 +23,30 @@ const DiaryEntryForm = (props: NewDiaryEntryFormProps) => {
       comment,      
     };
 
-    createDiaryEntry({
-      ...newDiaryEntry,
-      id: props.idGenerator()
-    });
+    try {
+      await createDiaryEntry({
+        ...newDiaryEntry,
+        id: props.idGenerator()
+      });
 
-    setDate('');
-    setVisibility('');
-    setWeather('');
-    setComment('');
+      setDate('');
+      setVisibility('');
+      setWeather('');
+      setComment('');
+
+    } catch(error) {
+      if (axios.isAxiosError(error)) {
+        console.log(error.response?.data)
+        handleErrorMessage(error.response?.data);
+      } else if (error instanceof Error) {
+        console.error(error.message);
+        handleErrorMessage(error.message);
+      } else {
+        console.error('Unkonwn error!');
+      }
+    }
+
+    
   };
 
   const handleErrorMessage = (message: string) => {
