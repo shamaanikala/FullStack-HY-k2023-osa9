@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { createDiaryEntry } from "../services/diaryService";
-import { NewDiaryEntryFormProps } from "../types";
+import { NewDiaryEntryFormProps, Visibility, Weather } from "../types";
 import DiaryEntryFormErrorMessage from "./DiaryEntryFormError";
 import axios from "axios";
 
@@ -56,6 +56,42 @@ const DiaryEntryForm = (props: NewDiaryEntryFormProps) => {
     }, 5000);
   };
 
+  // accroding to 
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Enumerability_and_ownership_of_properties#traversing_object_properties
+  // for ... in should be possible with Enum
+  // for (const vis in Visibility) {
+  //   console.log(vis); // works fine!
+  // }
+  
+  // eslint dispable any, I know what I'm doing
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const getEnumValues = (enumObject: any): string[] => {
+    const values = [];
+    // for ... in loops throught the keys...
+    for (const val in enumObject) {
+      // some one must get the value with 
+      // console.log(enumObject[val]);
+      values.push(enumObject[val]);
+    }
+    return values;
+  }
+
+  const VisibilityRadioButtons = () => {
+    const values = getEnumValues(Visibility); 
+    return (
+      <>
+        {values.map(v =>
+          <span key={v}>
+            {v} <input
+              type="radio"
+              name="visibility"
+              onChange={() => console.log(v)} />
+          </span>
+        )}
+      </>
+    );
+  };
+
   return (
     <div>
       <h2>Add new entry</h2>
@@ -68,7 +104,7 @@ const DiaryEntryForm = (props: NewDiaryEntryFormProps) => {
             date <input value={date} type="date" onChange={(event) => setDate(event.target.value)} />
           </div>
           <div>
-            visibility <input value={visibility} onChange={(event) => setVisibility(event.target.value)} />
+            visibility <VisibilityRadioButtons /> 
           </div>
           <div>
             weather <input value={weather} onChange={(event) => setWeather(event.target.value)} />
