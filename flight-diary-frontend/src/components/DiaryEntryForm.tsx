@@ -82,10 +82,12 @@ const DiaryEntryForm = (props: NewDiaryEntryFormProps) => {
       <>
         {values.map(v =>
           <span key={v}>
-            {v} <input
+            <label htmlFor={v}>{v}</label>
+            <input
               type="radio"
+              id={v}
               name="visibility"
-              onChange={() => console.log(v)} />
+              onChange={(event) => setVisibility(event.target.value)} />
           </span>
         )}
       </>
