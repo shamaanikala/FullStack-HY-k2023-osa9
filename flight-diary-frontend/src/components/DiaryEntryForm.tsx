@@ -19,7 +19,6 @@ const DiaryEntryForm = () => {
           <button type="submit">add</button>
         </form>
       </div>
-      <h5>Diary entry form here</h5>
     </div>
   );
 };
