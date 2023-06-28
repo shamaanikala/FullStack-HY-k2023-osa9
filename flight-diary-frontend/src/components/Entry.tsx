@@ -1,8 +1,8 @@
-import { DiaryEntryProp } from "../types";
-import { NonSensitiveDiaryEntry } from '../../../flight-diary/src/types';
+import { DiaryEntry, DiaryEntryProp } from "../types";
+// import { NonSensitiveDiaryEntry } from '../../../flight-diary/src/types';
 
-const DiaryEntry = (props: DiaryEntryProp) => {
-  const entry: NonSensitiveDiaryEntry = props.entry;
+const Entry = (props: DiaryEntryProp) => {
+  const entry: DiaryEntry = props.entry;
   return (
     <div>
       <h3>{entry.date}</h3>
@@ -14,4 +14,4 @@ const DiaryEntry = (props: DiaryEntryProp) => {
   );
 };
 
-export default DiaryEntry;
+export default Entry;

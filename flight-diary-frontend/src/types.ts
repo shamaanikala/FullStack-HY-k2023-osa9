@@ -1,7 +1,15 @@
-import { NonSensitiveDiaryEntry } from '../../flight-diary/src/types';
+// import { NonSensitiveDiaryEntry } from '../../flight-diary/src/types';
+
+export interface DiaryEntry {
+  id: number,
+  date: string,
+  weather: string,
+  visibility: string
+}
 
 export interface DiaryEntryProp {
-  entry: NonSensitiveDiaryEntry,
+  // entry: NonSensitiveDiaryEntry,
+  entry: DiaryEntry
 }
 
 export interface NewDiaryEntryFormProps {
