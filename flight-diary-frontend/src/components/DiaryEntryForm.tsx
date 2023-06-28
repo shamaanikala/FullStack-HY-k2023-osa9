@@ -4,7 +4,9 @@ import { NewDiaryEntryFormProps } from "../types";
 import { NewDiaryEntry } from "../../../flight-diary/src/types";
 
 // import utils.ts from backend
-import toNewDiaryEntry from '../../../flight-diary/src/utils';
+// can't import this like this: Module not found Error
+// copy the backend file to this project
+import toNewDiaryEntry from '../utils';
 
 const DiaryEntryForm = (props: NewDiaryEntryFormProps) => {
   // state as strings, "cast" to types in addNewDiaryEntry
@@ -28,13 +30,18 @@ const DiaryEntryForm = (props: NewDiaryEntryFormProps) => {
       ...newDiaryEntry,
       id: props.idGenerator()
     });
-  }
+
+    setDate('');
+    setVisibility('');
+    setWeather('');
+    setComment('');
+  };
 
   return (
     <div>
       <h2>Add new entry</h2>
       <div>
-        <form>
+        <form onSubmit={addNewDiaryEntry}>
           <div>
             date <input value={date} onChange={(event) => setDate(event.target.value)} />
           </div>
