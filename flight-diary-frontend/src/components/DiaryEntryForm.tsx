@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { createDiaryEntry } from "../services/diaryService";
 import { NewDiaryEntryFormProps } from "../types";
-import { NewDiaryEntry } from "../../../flight-diary/src/types";
+import DiaryEntryFormErrorMessage from "./DiaryEntryFormError";
+// import { NewDiaryEntry } from "../../../flight-diary/src/types";
 
 // import utils.ts from backend
 // can't import this like this: Module not found Error
 // copy the backend file to this project
-import toNewDiaryEntry from '../utils';
+// Ex9.18 trust the backend for validation
+// import toNewDiaryEntry from '../utils';
 
 const DiaryEntryForm = (props: NewDiaryEntryFormProps) => {
   // state as strings, "cast" to types in addNewDiaryEntry
@@ -18,13 +20,20 @@ const DiaryEntryForm = (props: NewDiaryEntryFormProps) => {
   const addNewDiaryEntry = (event: React.SyntheticEvent) => {
     event.preventDefault();
     
-
-    const newDiaryEntry: NewDiaryEntry = toNewDiaryEntry({
+    // Ex9.18 it seems these validations are
+    // left to the backend only
+    // const newDiaryEntry: NewDiaryEntry = toNewDiaryEntry({
+    //   date,
+    //   visibility,
+    //   weather,
+    //   comment,      
+    // });
+    const newDiaryEntry = {
       date,
       visibility,
       weather,
       comment,      
-    });
+    };
 
     createDiaryEntry({
       ...newDiaryEntry,
@@ -42,6 +51,9 @@ const DiaryEntryForm = (props: NewDiaryEntryFormProps) => {
       <h2>Add new entry</h2>
       <div>
         <form onSubmit={addNewDiaryEntry}>
+          <div>
+            <DiaryEntryFormErrorMessage />
+          </div>
           <div>
             date <input value={date} onChange={(event) => setDate(event.target.value)} />
           </div>

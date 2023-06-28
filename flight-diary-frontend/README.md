@@ -8,7 +8,7 @@ The project assumes that the backend (`flight-diary`) is within the same folder 
 └── flight-diary-frontend
 ```
 
-Link to the fligh-diary backend GitHub repo fork:
+Link to the flight-diary backend GitHub repo fork:
 [https://github.com/shamaanikala/flight-diary](https://github.com/shamaanikala/flight-diary)
 
 # Getting Started with Create React App
