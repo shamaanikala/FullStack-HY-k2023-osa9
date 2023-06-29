@@ -6,6 +6,7 @@
 // }
 
 // eslint dispable any, I know what I'm doing
+// ... and I have no idea how to do this without the any
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const getEnumValues = (enumObject: any): string[] => {
   const values = [];
