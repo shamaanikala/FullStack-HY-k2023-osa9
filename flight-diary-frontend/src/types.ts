@@ -42,3 +42,7 @@ export interface EnumRadioButtonsProps {
 export interface RadioButtonProps {
   name: string;
 }
+
+export interface VisibilityRadioButtonsProps {
+  handleVisibility(value: string): void;
+}

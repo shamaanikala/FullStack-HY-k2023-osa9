@@ -3,6 +3,7 @@ import { createDiaryEntry } from "../services/diaryService";
 import { RadioButtonProps, EnumRadioButtonsProps, NewDiaryEntryFormProps, Visibility, Weather } from "../types";
 import DiaryEntryFormErrorMessage from "./DiaryEntryFormError";
 import axios from "axios";
+import VisibilityRadioButtons from "./VisibilityRadioButtons";
 
 const DiaryEntryForm = (props: NewDiaryEntryFormProps) => {
   // state as strings, "cast" to types in addNewDiaryEntry
@@ -56,25 +57,9 @@ const DiaryEntryForm = (props: NewDiaryEntryFormProps) => {
     }, 5000);
   };
 
-  // accroding to 
-  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Enumerability_and_ownership_of_properties#traversing_object_properties
-  // for ... in should be possible with Enum
-  // for (const vis in Visibility) {
-  //   console.log(vis); // works fine!
-  // }
-  
-  // eslint dispable any, I know what I'm doing
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const getEnumValues = (enumObject: any): string[] => {
-    const values = [];
-    // for ... in loops throught the keys...
-    for (const val in enumObject) {
-      // some one must get the value with 
-      // console.log(enumObject[val]);
-      values.push(enumObject[val]);
-    }
-    return values;
-  }
+  const handleVisibility = (value: Visibility) => {
+    setVisibility(value);
+  };
 
   // console.log(Visibility === Visibility);
   // const EnumRadioButtons =(props: EnumRadioButtonsProps) => {
@@ -96,46 +81,51 @@ const DiaryEntryForm = (props: NewDiaryEntryFormProps) => {
   //     </>
   //   );
   // }
-  const VisibilityRadioButtons = () => {
-    const name = 'visibility';
-    const enumObject = Visibility;
-    const values = getEnumValues(enumObject); 
-    return (
-      <>
-        {values.map(v =>
-          <>
-            <label htmlFor={v}>{v}</label>
-            <input
-              type="radio"
-              key={v}
-              id={v}
-              name={name}
-              onChange={() => setVisibility(v)} />
-          </>
-        )}
-      </>
-    );
-  };
+  // const VisibilityRadioButtons = () => {
+  //   const name = 'visibility';
+  //   const enumObject = Visibility;
+  //   const values = getEnumValues(enumObject); 
+  //   return (
+  //     <>
+  //       {values.map(v =>
+  //         <>
+  //           <label htmlFor={v}>{v}</label>
+  //           <input
+  //             type="radio"
+  //             key={v}
+  //             id={v}
+  //             name={name}
+  //             onChange={() => setVisibility(v)} />
+  //         </>
+  //       )}
+  //     </>
+  //   );
+  // };
 
   const WeatherRadioButtons = () => {
-    const name = 'weather';
-    const enumObject = Weather;
-    const values = getEnumValues(enumObject); 
     return (
-      <>
-        {values.map(v =>
-            <>
-            <label htmlFor={v}>{v}</label>
-            <input
-              key={v}
-              type="radio"
-              id={v}
-              name={name}
-              onChange={() => setWeather(v)} />
-          </>
-        )}
-      </>
+      <div>
+        <i>Weather radio buttons here</i>
+      </div>
     );
+    // const name = 'weather';
+    // const enumObject = Weather;
+    // const values = getEnumValues(enumObject); 
+    // return (
+    //   <>
+    //     {values.map(v =>
+    //         <>
+    //         <label htmlFor={v}>{v}</label>
+    //         <input
+    //           key={v}
+    //           type="radio"
+    //           id={v}
+    //           name={name}
+    //           onChange={() => setWeather(v)} />
+    //       </>
+    //     )}
+    //   </>
+    // );
   }
 
   // const VisibilityRadioButtons = (props: RadioButtonProps) => {
@@ -169,10 +159,10 @@ const DiaryEntryForm = (props: NewDiaryEntryFormProps) => {
             date <input value={date} type="date" onChange={(event) => setDate(event.target.value)} />
           </div>
           <div>
-            visibility <VisibilityRadioButtons /> 
+            visibility <VisibilityRadioButtons handleVisibility={handleVisibility} /> 
           </div>
           <div>
-            weather <WeatherRadioButtons /> 
+            weather <WeatherRadioButtons />
           </div>
           <div>
             comment <input value={comment} onChange={(event) => setComment(event.target.value)} />
