@@ -4,6 +4,11 @@ import toNewPatient from '../utlis/patientTools';
 
 const router = express.Router();
 
+router.get('/:id', (req,res) => {
+  console.log((`GET : ${req.baseUrl}/${req.params.id}`));
+  res.json({});
+});
+
 router.get('/', (_req, res) => {
   console.log(`GET : ${_req.baseUrl}`);
   res.send(patientsService.getPatientsSansSSN());
@@ -24,5 +29,6 @@ router.post('/', (req, res) => {
     res.status(400).send(errorMessage);
   }
 });
+
 
 export default router;
