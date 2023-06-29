@@ -4,6 +4,7 @@ import { RadioButtonProps, EnumRadioButtonsProps, NewDiaryEntryFormProps, Visibi
 import DiaryEntryFormErrorMessage from "./DiaryEntryFormError";
 import axios from "axios";
 import VisibilityRadioButtons from "./VisibilityRadioButtons";
+import WeatherRadioButtons from "./WeatherRadioButtons";
 
 const DiaryEntryForm = (props: NewDiaryEntryFormProps) => {
   // state as strings, "cast" to types in addNewDiaryEntry
@@ -61,6 +62,10 @@ const DiaryEntryForm = (props: NewDiaryEntryFormProps) => {
     setVisibility(value);
   };
 
+  const handleWeather = (value: Weather) => {
+    setWeather(value);
+  };
+
   // console.log(Visibility === Visibility);
   // const EnumRadioButtons =(props: EnumRadioButtonsProps) => {
   //   const name = props.name;
@@ -102,32 +107,7 @@ const DiaryEntryForm = (props: NewDiaryEntryFormProps) => {
   //   );
   // };
 
-  const WeatherRadioButtons = () => {
-    return (
-      <div>
-        <i>Weather radio buttons here</i>
-      </div>
-    );
-    // const name = 'weather';
-    // const enumObject = Weather;
-    // const values = getEnumValues(enumObject); 
-    // return (
-    //   <>
-    //     {values.map(v =>
-    //         <>
-    //         <label htmlFor={v}>{v}</label>
-    //         <input
-    //           key={v}
-    //           type="radio"
-    //           id={v}
-    //           name={name}
-    //           onChange={() => setWeather(v)} />
-    //       </>
-    //     )}
-    //   </>
-    // );
-  }
-
+  
   // const VisibilityRadioButtons = (props: RadioButtonProps) => {
   //   const name = props.name;
   //   return (
@@ -162,7 +142,7 @@ const DiaryEntryForm = (props: NewDiaryEntryFormProps) => {
             visibility <VisibilityRadioButtons handleVisibility={handleVisibility} /> 
           </div>
           <div>
-            weather <WeatherRadioButtons />
+            weather <WeatherRadioButtons handleWeather={handleWeather} />
           </div>
           <div>
             comment <input value={comment} onChange={(event) => setComment(event.target.value)} />

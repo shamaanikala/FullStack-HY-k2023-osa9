@@ -46,3 +46,7 @@ export interface RadioButtonProps {
 export interface VisibilityRadioButtonsProps {
   handleVisibility(value: string): void;
 }
+
+export interface WeatherRadioButtonsProps {
+  handleWeather(value: string): void;
+}
