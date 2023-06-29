@@ -7,18 +7,12 @@ import axios from "axios";
 
 const App = () => {
   const [entries, setEntries] = useState<DiaryEntry[]>([]);
-  // const [newEntryAdded, setNewEntryAdded] = useState(true);
 
   useEffect(() => {
-    // if (newEntryAdded) {
-      getAllDiaryEntries().then(data => setEntries(data))
-      // setNewEntryAdded(false);
-    // }
+    getAllDiaryEntries().then(data => setEntries(data))
   }, []);
 
   const generateNewId = (entries: DiaryEntry[]): number => {
-    // trigger the useEffect when new id is created in child components
-    // setNewEntryAdded(true);
     return Math.max(...entries.map(d => d.id)) + 1;
   };
 

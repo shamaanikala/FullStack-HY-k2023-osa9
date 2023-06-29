@@ -5,7 +5,6 @@ const VisibilityRadioButtons = (props: VisibilityRadioButtonsProps) => {
     const name = 'visibility';
     const enumObject = Visibility;
     const values = getEnumValues(enumObject); 
-    // console.log(values)
     return (
       <>
         {values.map(v =>

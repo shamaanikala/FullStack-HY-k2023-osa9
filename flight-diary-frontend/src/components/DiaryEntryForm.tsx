@@ -67,67 +67,6 @@ const DiaryEntryForm = (props: NewDiaryEntryFormProps) => {
     setWeather(value);
   };
 
-  // console.log(Visibility === Visibility);
-  // const EnumRadioButtons =(props: EnumRadioButtonsProps) => {
-  //   const name = props.name;
-  //   const enumObject = props.enumObject;
-  //   const values = getEnumValues(enumObject); 
-  //   return (
-  //     <>
-  //       {values.map(v =>
-  //         <span key={v}>
-  //           <label htmlFor={v}>{v}</label>
-  //           <input
-  //             type="radio"
-  //             id={v}
-  //             name={name}
-  //             onChange={(event) => setVisibility(event.target.value)} />
-  //         </span>
-  //       )}
-  //     </>
-  //   );
-  // }
-  // const VisibilityRadioButtons = () => {
-  //   const name = 'visibility';
-  //   const enumObject = Visibility;
-  //   const values = getEnumValues(enumObject); 
-  //   return (
-  //     <>
-  //       {values.map(v =>
-  //         <>
-  //           <label htmlFor={v}>{v}</label>
-  //           <input
-  //             type="radio"
-  //             key={v}
-  //             id={v}
-  //             name={name}
-  //             onChange={() => setVisibility(v)} />
-  //         </>
-  //       )}
-  //     </>
-  //   );
-  // };
-
-  
-  // const VisibilityRadioButtons = (props: RadioButtonProps) => {
-  //   const name = props.name;
-  //   return (
-  //     <>
-  //       <EnumRadioButtons name={name} enumObject={Visibility} />
-  //     </>
-  //   );
-  // };
-
-  // const WeatherRadioButtons = (props: RadioButtonProps) => {
-  //   const enumObject = Weather;
-  //   const name = props.name;
-  //   return (
-  //     <>
-  //       <EnumRadioButtons name={name} enumObject={enumObject} />
-  //     </>
-  //   );
-  // };
-
   return (
     <div>
       <h2>Add new entry</h2>
