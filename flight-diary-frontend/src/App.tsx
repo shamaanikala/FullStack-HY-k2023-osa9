@@ -3,31 +3,48 @@ import Entry from "./components/Entry";
 import { DiaryEntry } from "./types";
 import { getAllDiaryEntries } from "./services/diaryService";
 import DiaryEntryForm from "./components/DiaryEntryForm";
+import axios from "axios";
 
 const App = () => {
   const [entries, setEntries] = useState<DiaryEntry[]>([]);
-  const [newEntryAdded, setNewEntryAdded] = useState(true);
+  // const [newEntryAdded, setNewEntryAdded] = useState(true);
 
   useEffect(() => {
-    if (newEntryAdded) {
+    // if (newEntryAdded) {
       getAllDiaryEntries().then(data => setEntries(data))
-      setNewEntryAdded(false);
-    }
-  }, [newEntryAdded]);
+      // setNewEntryAdded(false);
+    // }
+  }, []);
 
   const generateNewId = (entries: DiaryEntry[]): number => {
     // trigger the useEffect when new id is created in child components
-    setNewEntryAdded(true);
+    // setNewEntryAdded(true);
     return Math.max(...entries.map(d => d.id)) + 1;
   };
 
   const idGenerator = () => generateNewId(entries);
 
+  const updateEntries = async () => {
+    try {
+      const response = await getAllDiaryEntries();
+      setEntries(response); // returns .data in the service
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      } else if (error instanceof Error) {
+        throw error;
+      } else {
+        console.error(error);
+        throw new Error('Unknown error');
+      }
+    }
+  };
+
   return (
     <div>
       <h2>Flight Diary</h2>
       <div>
-        <DiaryEntryForm idGenerator={idGenerator} />
+        <DiaryEntryForm updateEntries={updateEntries} idGenerator={idGenerator} />
       </div>
       <div>
         <h2>Diary entries</h2>

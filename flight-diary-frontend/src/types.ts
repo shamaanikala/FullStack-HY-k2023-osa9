@@ -13,6 +13,7 @@ export interface NewDiaryEntryFormProps {
   // function inside interface as a type
   // https://stackoverflow.com/questions/34560182/typescript-interface-with-function?rq=3
   idGenerator(): number;
+  updateEntries(): void;
 }
 
 export interface DiaryEntryFormErrorMessageProps {
@@ -32,15 +33,6 @@ export enum Visibility {
   Good = 'good',
   Ok = 'ok',
   Poor = 'poor',
-}
-
-export interface EnumRadioButtonsProps {
-  name: string;
-  enumObject: Weather | Visibility;
-}
-
-export interface RadioButtonProps {
-  name: string;
 }
 
 export interface VisibilityRadioButtonsProps {

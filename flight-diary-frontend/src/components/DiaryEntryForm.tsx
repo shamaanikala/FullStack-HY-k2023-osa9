@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { createDiaryEntry } from "../services/diaryService";
-import { RadioButtonProps, EnumRadioButtonsProps, NewDiaryEntryFormProps, Visibility, Weather } from "../types";
+import { NewDiaryEntryFormProps, Visibility, Weather } from "../types";
 import DiaryEntryFormErrorMessage from "./DiaryEntryFormError";
 import axios from "axios";
 import VisibilityRadioButtons from "./VisibilityRadioButtons";
@@ -36,6 +36,7 @@ const DiaryEntryForm = (props: NewDiaryEntryFormProps) => {
       setWeather('');
       setComment('');
 
+      props.updateEntries();
     } catch(error) {
       if (axios.isAxiosError(error)) {
         console.log(error.response?.data)
