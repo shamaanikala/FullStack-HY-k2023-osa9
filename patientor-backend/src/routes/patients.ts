@@ -1,19 +1,25 @@
 import express from 'express';
 import patientsService from '../services/patientsService';
 import toNewPatient from '../utlis/patientTools';
+import { Patient } from '../types';
 
 const router = express.Router();
 
 router.get('/:id', (req,res) => {
   console.log((`GET : ${req.baseUrl}/${req.params.id}`));
-  res.json({});
+  const patient: Patient | undefined = patientsService.getPatientById(req.params.id);
+  if (patient) {
+    res.send(patient);
+  } else {
+    console.log('not found');
+    res.status(404).send({});
+  }
 });
 
 router.get('/', (_req, res) => {
   console.log(`GET : ${_req.baseUrl}`);
   res.send(patientsService.getPatientsSansSSN());
 });
-
 router.post('/', (req, res) => {
   console.log(`POST : ${req.baseUrl}`);
   try {
