@@ -5,7 +5,7 @@ import patientService from '../../services/patients';
 
 import FemaleIcon from '@mui/icons-material/Female';
 import MaleIcon from '@mui/icons-material/Male';
-import { Avatar, Card, CardContent, Icon } from "@mui/material";
+import { Card, CardContent } from "@mui/material";
 
 // or no props and use React Router useParams
 const PatientPage = () => {
@@ -44,31 +44,24 @@ const PatientPage = () => {
     return null;
   }
 
-  console.log(patient);
-  if (patient.gender === 'male') {
-    console.log('male patient');
-  }
-
   return (
-    <div>
-      <Card>
-        <CardContent>
-          <span>
-          <h1>
-            {patient.name}{" "}
-            {patient.gender === 'male' &&  <span title="male"><MaleIcon fontSize="small" /></span>}
-            {patient.gender === 'female' && <span title="female"><FemaleIcon fontSize="small" /></span>}
-            {patient.gender === 'other' && <span title="gender: other"><small><i>other</i></small></span>}
-          </h1></span>
-        </CardContent>
-        </Card>
-      <div>
-        ssn: {patient.ssn}
-      </div>
-      <div>
-        occupation: {patient.occupation}
-      </div>
-    </div>
+    <Card>
+      <CardContent>
+        <span>
+        <h1>
+          {patient.name}{" "}
+          {patient.gender === 'male' &&  <span title="male"><MaleIcon fontSize="small" /></span>}
+          {patient.gender === 'female' && <span title="female"><FemaleIcon fontSize="small" /></span>}
+          {patient.gender === 'other' && <span title="gender: other"><small><i>other</i></small></span>}
+        </h1></span>
+        <div>
+          ssn: {patient.ssn}
+        </div>
+        <div>
+          occupation: {patient.occupation}
+        </div>
+      </CardContent>
+    </Card>
   );
 };
 
