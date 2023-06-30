@@ -1,5 +1,5 @@
 import patients from '../../data/patients';
-import { NewPatient, Patient, PatientSansSSN, Entry } from '../types';
+import { NewPatient, Patient, PatientSansSSN } from '../types';
 import { v1 as uuid } from 'uuid';
 
 const getPatients = () : Patient[] => {
@@ -8,8 +8,9 @@ const getPatients = () : Patient[] => {
 
 const getPatientById = (id: string): Patient | undefined => {
   const result = patients.find(p => p.id === id);
-  const entries: Entry[] = [];
-  return result ? { ...result, entries } : undefined;
+  // const entries: Entry[] = [];
+  // return result ? { ...result, entries } : undefined;
+  return result;
 };
 
 const getPatientsSansSSN = () : PatientSansSSN[] => {
