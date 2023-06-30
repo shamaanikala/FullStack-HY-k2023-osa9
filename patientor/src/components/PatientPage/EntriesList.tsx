@@ -1,4 +1,4 @@
-import { List, ListSubheader } from "@mui/material";
+import { List, ListItem, ListItemText, ListSubheader } from "@mui/material";
 import { Entry } from "../../types";
 
 interface Props {
@@ -11,7 +11,9 @@ const EntriesList = (props: Props) => {
   return (
     <List subheader={<ListSubheader><h3>entries</h3></ListSubheader>}>
       {entries.map(e =>
-        <ListSubheader>{e.date}</ListSubheader>
+        <ListItem key={e.id}>
+          <ListItemText> {e.date} <i>{e.description}</i></ListItemText>
+        </ListItem>
       )}
     </List>
   );
