@@ -1,4 +1,5 @@
 import { List, ListItem, ListItemText, ListSubheader } from "@mui/material";
+import Stack from '@mui/material/Stack';
 import { Entry } from "../../types";
 
 interface Props {
@@ -9,13 +10,18 @@ const EntriesList = (props: Props) => {
   console.log(props.entries);
   const entries = props.entries;
   return (
+    <>
     <List subheader={<ListSubheader><h3>entries</h3></ListSubheader>}>
       {entries.map(e =>
         <ListItem key={e.id}>
-          <ListItemText> {e.date} <i>{e.description}</i></ListItemText>
+          <Stack>
+            <ListItemText> {e.date} <i>{e.description}</i></ListItemText>
+            {e.diagnosisCodes && <i>Diagnosis codes here</i>}
+          </Stack>
         </ListItem>
       )}
     </List>
+  </>
   );
 };
 
