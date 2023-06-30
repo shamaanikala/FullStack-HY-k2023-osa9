@@ -3,6 +3,10 @@ import { useParams } from "react-router-dom";
 import { Patient } from "../../types";
 import patientService from '../../services/patients';
 
+import FemaleIcon from '@mui/icons-material/Female';
+import MaleIcon from '@mui/icons-material/Male';
+import { Avatar, Card, CardContent, Icon } from "@mui/material";
+
 // or no props and use React Router useParams
 const PatientPage = () => {
   console.log(useParams().id);
@@ -36,9 +40,34 @@ const PatientPage = () => {
     }
   },[id]);
 
+  if (!patient) {
+    return null;
+  }
+
+  console.log(patient);
+  if (patient.gender === 'male') {
+    console.log('male patient');
+  }
+
   return (
     <div>
-      {patient && <h1>{patient.name}</h1>}
+      <Card>
+        <CardContent>
+          <span>
+          <h1>
+            {patient.name}{" "}
+            {patient.gender === 'male' &&  <span title="male"><MaleIcon fontSize="small" /></span>}
+            {patient.gender === 'female' && <span title="female"><FemaleIcon fontSize="small" /></span>}
+            {patient.gender === 'other' && <span title="gender: other"><small><i>other</i></small></span>}
+          </h1></span>
+        </CardContent>
+        </Card>
+      <div>
+        ssn: {patient.ssn}
+      </div>
+      <div>
+        occupation: {patient.occupation}
+      </div>
     </div>
   );
 };
