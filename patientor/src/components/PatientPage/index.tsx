@@ -6,6 +6,7 @@ import patientService from '../../services/patients';
 import FemaleIcon from '@mui/icons-material/Female';
 import MaleIcon from '@mui/icons-material/Male';
 import { Card, CardContent } from "@mui/material";
+import EntriesList from "./EntriesList";
 
 // or no props and use React Router useParams
 const PatientPage = () => {
@@ -59,6 +60,9 @@ const PatientPage = () => {
         </div>
         <div>
           occupation: {patient.occupation}
+        </div>
+        <div>
+          <EntriesList entries={patient.entries} />
         </div>
       </CardContent>
     </Card>
