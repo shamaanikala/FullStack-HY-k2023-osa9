@@ -3,7 +3,7 @@ import Stack from '@mui/material/Stack';
 import { Diagnosis, Entry } from "../../types";
 import diagnoseService from '../../services/diagnoses';
 import { useEffect, useState } from "react";
-import OccupationalEntry from "./OccupationalEntry";
+import OccupationalHealthcareEntry from "./OccupationalHealthcarekEntry";
 
 const getDiagnosis = async (code: string) => await diagnoseService.getDiagnosisByCode(code);
 
@@ -63,15 +63,15 @@ const EntriesList = (props: Props) => {
     switch (entry.type) {
       case "OccupationalHealthcare":
         return (
-        <OccupationalEntry
+        <OccupationalHealthcareEntry
           entry={entry}
           diagnoses={diagnoses}
           getDiagnosisName={getDiagnosisName}
         />)
       case "HealthCheck":
-        return null;
+        return <div><i>HealthCheck Entry</i></div>;
       case "Hospital":
-        return null;
+        return <div><i>Hospital Entry</i></div>;
       default:
         return assertNever(entry);
     }

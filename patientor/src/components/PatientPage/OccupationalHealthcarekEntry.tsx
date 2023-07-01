@@ -7,7 +7,7 @@ interface OccupationalEntryProps {
   getDiagnosisName: (code: string) => string | null;
 }
 
-const OccupationalEntry = (props: OccupationalEntryProps) => {
+const OccupationalHealthcareEntry = (props: OccupationalEntryProps) => {
   const e = props.entry;
   const diagnoses = props.diagnoses;
   const getDiagnosisName = props.getDiagnosisName;
@@ -29,4 +29,4 @@ const OccupationalEntry = (props: OccupationalEntryProps) => {
   );
 };
 
-export default OccupationalEntry;
+export default OccupationalHealthcareEntry;
