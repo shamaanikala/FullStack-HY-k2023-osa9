@@ -1,5 +1,6 @@
-import { Card, ListItemText } from "@mui/material"
+import { Avatar, Card, CardHeader, ListItemText } from "@mui/material"
 import { Diagnosis, Entry } from "../../types";
+import MedicalInformationIcon from '@mui/icons-material/MedicalInformation';
 
 interface OccupationalEntryProps {
   entry: Entry;
@@ -16,8 +17,11 @@ const OccupationalHealthcareEntry = (props: OccupationalEntryProps) => {
 
   return (
     <Card>
-      OccupationalHealthcare
-      <ListItemText> {e.date} <i>{e.description}</i></ListItemText>
+      <CardHeader
+        avatar={<Avatar title="Occupational healthcare"><MedicalInformationIcon /></Avatar>}
+        title={e.date}
+      />
+      <ListItemText><i>{e.description}</i></ListItemText>
               {e.diagnosisCodes && <div><ul>
                 {e.diagnosisCodes.map(dc => <li key={dc}>
                       {dc} {diagnoses && getDiagnosisName(dc)}
