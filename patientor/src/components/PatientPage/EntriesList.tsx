@@ -3,6 +3,7 @@ import Stack from '@mui/material/Stack';
 import { Diagnosis, Entry } from "../../types";
 import diagnoseService from '../../services/diagnoses';
 import { useEffect, useState } from "react";
+import OccupationalEntry from "./OccupationalEntry";
 
 const getDiagnosis = async (code: string) => await diagnoseService.getDiagnosisByCode(code);
 
@@ -51,6 +52,12 @@ const EntriesList = (props: Props) => {
       {entries.map(e =>
         <ListItem key={e.id}>
           <Stack>
+            {e.type === 'OccupationalHealthcare' && 
+              <OccupationalEntry
+                entry={e}
+                diagnoses={diagnoses}
+                getDiagnosisName={getDiagnosisName}
+              />}
             <ListItemText> {e.date} <i>{e.description}</i></ListItemText>
               {e.diagnosisCodes && <div><ul>
                 {e.diagnosisCodes.map(dc => <li key={dc}>
