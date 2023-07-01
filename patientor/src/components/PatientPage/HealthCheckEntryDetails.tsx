@@ -6,6 +6,7 @@ import red from "@mui/material/colors/red";
 import blue from "@mui/material/colors/blue";
 import green from "@mui/material/colors/green";
 import blueGrey from "@mui/material/colors/blueGrey";
+import DiagnoseBy from "./DiagnoseBy";
 
 /**
  * HealthCheck Rating colors
@@ -69,9 +70,7 @@ const HealthCheckEntryDetails = (props: HealthCheckEntryProps) => {
                   )}
               </ul>
             </div>}
-      <div>
-        <br />diagnose by {e.specialist}
-      </div>
+        <DiagnoseBy specialist={e.specialist} />
       </CardContent>
     </Card>
   );

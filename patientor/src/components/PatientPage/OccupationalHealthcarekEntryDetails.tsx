@@ -1,7 +1,9 @@
-import { Avatar, Badge, Card, CardContent, CardHeader, ListItemText, Typography } from "@mui/material"
+import { Avatar, Badge, Card, CardContent, CardHeader, Divider, ListItemText, Typography } from "@mui/material"
 import { Diagnosis, OccupationalHealthcareEntry } from "../../types";
 import MedicalInformationIcon from '@mui/icons-material/MedicalInformation';
 import WorkOutlineIcon from '@mui/icons-material/WorkOutline';
+import DateRangeIcon from '@mui/icons-material/DateRange';
+import DiagnoseBy from "./DiagnoseBy";
 
 interface OccupationalEntryProps {
   entry: OccupationalHealthcareEntry;
@@ -50,13 +52,14 @@ const OccupationalHealthcareEntryDetails = (props: OccupationalEntryProps) => {
       {e.sickLeave &&
       <div>
         <br />
-        <b>Sick leave:</b> {e.sickLeave.startDate} - {e.sickLeave.endDate}<br />
-      </div>}
-      <div>
-        <br />diagnose by {e.specialist}
+        <Divider textAlign="left"><i>Sick Leave</i></Divider>
+        <span title="Sick leave duration"><DateRangeIcon /> {e.sickLeave.startDate} - {e.sickLeave.endDate}</span><br />
+      <br />
       </div>
-      </CardContent>
-    </Card>
+      }
+      <DiagnoseBy specialist={e.specialist} />
+    </CardContent>
+  </Card>
   );
 };
 
