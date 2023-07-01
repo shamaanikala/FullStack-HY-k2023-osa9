@@ -1,7 +1,6 @@
 import { Avatar, Badge, Card, CardHeader, ListItemText, Typography } from "@mui/material"
 import { Diagnosis, OccupationalHealthcareEntry } from "../../types";
 import MedicalInformationIcon from '@mui/icons-material/MedicalInformation';
-import BadgeIcon from '@mui/icons-material/Badge';
 import WorkOutlineIcon from '@mui/icons-material/WorkOutline';
 
 interface OccupationalEntryProps {

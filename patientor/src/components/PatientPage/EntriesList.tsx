@@ -80,6 +80,7 @@ const EntriesList = (props: Props) => {
   return (
     <>
     <List subheader={<ListSubheader><h3>entries</h3></ListSubheader>}>
+      {entries.length === 0 && <div><i>No entries.</i></div>}
       {entries.map(e =>
         <ListItem key={e.id}>
           <Stack>
