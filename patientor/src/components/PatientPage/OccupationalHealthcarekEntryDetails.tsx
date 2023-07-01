@@ -1,4 +1,4 @@
-import { Avatar, Badge, Card, CardHeader, ListItemText, Typography } from "@mui/material"
+import { Avatar, Badge, Card, CardContent, CardHeader, ListItemText, Typography } from "@mui/material"
 import { Diagnosis, OccupationalHealthcareEntry } from "../../types";
 import MedicalInformationIcon from '@mui/icons-material/MedicalInformation';
 import WorkOutlineIcon from '@mui/icons-material/WorkOutline';
@@ -27,7 +27,7 @@ const OccupationalHealthcareEntryDetails = (props: OccupationalEntryProps) => {
   };
 
   return (
-    <Card>
+    <Card sx={{ minWidth: 600}}>
       <CardHeader
         avatar={
           <Badge color="primary">
@@ -38,7 +38,8 @@ const OccupationalHealthcareEntryDetails = (props: OccupationalEntryProps) => {
         title={e.date}
         subheader={<EmployerIcon name={e.employerName} />}
       />
-      <ListItemText><i>{e.description}</i></ListItemText>
+      <CardContent>
+        <ListItemText><i>{e.description}</i></ListItemText>
               {e.diagnosisCodes && <div><ul>
                 {e.diagnosisCodes.map(dc => <li key={dc}>
                       {dc} {diagnoses && getDiagnosisName(dc)}
@@ -46,6 +47,15 @@ const OccupationalHealthcareEntryDetails = (props: OccupationalEntryProps) => {
                   )}
               </ul>
             </div>}
+      {e.sickLeave &&
+      <div>
+        <br />
+        <b>Sick leave:</b> {e.sickLeave.startDate} - {e.sickLeave.endDate}<br />
+      </div>}
+      <div>
+        <br />diagnose by {e.specialist}
+      </div>
+      </CardContent>
     </Card>
   );
 };
