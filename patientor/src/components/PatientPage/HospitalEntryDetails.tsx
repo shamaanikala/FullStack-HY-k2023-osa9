@@ -1,6 +1,6 @@
 import { Avatar, Badge, Card, CardContent, CardHeader, ListItemText } from "@mui/material"
 import { Diagnosis, HospitalEntry } from "../../types";
-import MedicalInformationIcon from '@mui/icons-material/MedicalInformation';
+import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 
 interface HospitalEntryProps {
   entry: HospitalEntry;
@@ -18,8 +18,8 @@ const HospitalEntryDetails = (props: HospitalEntryProps) => {
       <CardHeader
         avatar={
           <Badge color="primary">
-          <Avatar title="Occupational healthcare">
-            <MedicalInformationIcon />
+          <Avatar title="Hospital">
+            <LocalHospitalIcon />
           </Avatar>
           </Badge>}
         title={e.date}
