@@ -2,6 +2,10 @@ import { Avatar, Badge, Card, CardContent, CardHeader, ListItemText } from "@mui
 import { Diagnosis, HealthCheckEntry, HealthCheckRating } from "../../types";
 import HowToRegIcon from '@mui/icons-material/HowToReg';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import red from "@mui/material/colors/red";
+import blue from "@mui/material/colors/blue";
+import green from "@mui/material/colors/green";
+import blueGrey from "@mui/material/colors/blueGrey";
 
 /**
  * HealthCheck Rating colors
@@ -23,10 +27,18 @@ interface HealthCheckEntryProps {
 interface HealthCheckRatingProp {
   rating: HealthCheckRating;
 } 
+
+const healthRatingInformation = [
+{ color: green[300], description: 'Healthy' },
+{ color: blue[400], description: 'Low Risk' },
+{ color: blueGrey[900], description: 'High Risk' },
+{ color: red[500], description: 'Critical Risk' },
+]
+
 const HealthCheckRatingHeader = ({ rating }: HealthCheckRatingProp) => {
   return (
-    <div title="Health Rating">
-      {rating}
+    <div title={`Health Rating: ${healthRatingInformation[rating].description}`}>
+      <FavoriteIcon sx={{ color: healthRatingInformation[rating].color }} />
     </div>
   );
 };
