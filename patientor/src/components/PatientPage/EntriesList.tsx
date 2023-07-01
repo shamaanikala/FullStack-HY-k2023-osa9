@@ -3,7 +3,7 @@ import Stack from '@mui/material/Stack';
 import { Diagnosis, Entry } from "../../types";
 import diagnoseService from '../../services/diagnoses';
 import { useEffect, useState } from "react";
-import OccupationalHealthcareEntry from "./OccupationalHealthcarekEntry";
+import OccupationalHealthcareEntryDetails from "./OccupationalHealthcarekEntryDetails";
 
 const getDiagnosis = async (code: string) => await diagnoseService.getDiagnosisByCode(code);
 
@@ -63,7 +63,7 @@ const EntriesList = (props: Props) => {
     switch (entry.type) {
       case "OccupationalHealthcare":
         return (
-        <OccupationalHealthcareEntry
+        <OccupationalHealthcareEntryDetails
           entry={entry}
           diagnoses={diagnoses}
           getDiagnosisName={getDiagnosisName}

@@ -1,25 +1,30 @@
-import { Avatar, Card, CardHeader, ListItemText } from "@mui/material"
-import { Diagnosis, Entry } from "../../types";
+import { Avatar, Badge, Card, CardHeader, ListItemText } from "@mui/material"
+import { Diagnosis, OccupationalHealthcareEntry } from "../../types";
 import MedicalInformationIcon from '@mui/icons-material/MedicalInformation';
+import BadgeIcon from '@mui/icons-material/Badge';
+import WorkOutlineIcon from '@mui/icons-material/WorkOutline';
 
 interface OccupationalEntryProps {
-  entry: Entry;
+  entry: OccupationalHealthcareEntry;
   diagnoses?: Record<string, Diagnosis>;
   getDiagnosisName: (code: string) => string | null;
 }
 
-const OccupationalHealthcareEntry = (props: OccupationalEntryProps) => {
+const OccupationalHealthcareEntryDetails = (props: OccupationalEntryProps) => {
   const e = props.entry;
   const diagnoses = props.diagnoses;
   const getDiagnosisName = props.getDiagnosisName;
 
-  console.log('OccupationalEnrty');
-
   return (
     <Card>
       <CardHeader
-        avatar={<Avatar title="Occupational healthcare"><MedicalInformationIcon /></Avatar>}
-        title={e.date}
+        avatar={
+          <Badge color="primary" badgeContent={'Occupational'}>
+          <Avatar title="Occupational healthcare">
+            <MedicalInformationIcon />
+          </Avatar>
+          </Badge>}
+        title={`${e.date} - ${e.employerName} `}
       />
       <ListItemText><i>{e.description}</i></ListItemText>
               {e.diagnosisCodes && <div><ul>
@@ -33,4 +38,4 @@ const OccupationalHealthcareEntry = (props: OccupationalEntryProps) => {
   );
 };
 
-export default OccupationalHealthcareEntry;
+export default OccupationalHealthcareEntryDetails;
