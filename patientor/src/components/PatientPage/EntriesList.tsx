@@ -4,6 +4,7 @@ import { Diagnosis, Entry } from "../../types";
 import diagnoseService from '../../services/diagnoses';
 import { useEffect, useState } from "react";
 import OccupationalHealthcareEntryDetails from "./OccupationalHealthcarekEntryDetails";
+import HealthCheckEntryDetails from "./HealthCheckEntryDetails";
 
 const getDiagnosis = async (code: string) => await diagnoseService.getDiagnosisByCode(code);
 
@@ -69,7 +70,12 @@ const EntriesList = (props: Props) => {
           getDiagnosisName={getDiagnosisName}
         />)
       case "HealthCheck":
-        return <div><i>HealthCheck Entry</i></div>;
+        return (
+        <HealthCheckEntryDetails
+          entry={entry}
+          diagnoses={diagnoses}
+          getDiagnosisName={getDiagnosisName}
+        />);
       case "Hospital":
         return <div><i>Hospital Entry</i></div>;
       default:
