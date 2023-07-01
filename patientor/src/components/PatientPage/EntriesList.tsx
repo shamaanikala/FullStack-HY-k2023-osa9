@@ -55,7 +55,11 @@ const EntriesList = (props: Props) => {
     return result.name;
   };
 
-  const EntryDetails = (entry: Entry) => {
+  interface EntryDetailProps {
+    entry: Entry;
+  }
+
+  const EntryDetails = ({ entry }: EntryDetailProps) => {
     switch (entry.type) {
       case "OccupationalHealthcare":
         return (
@@ -64,6 +68,10 @@ const EntriesList = (props: Props) => {
           diagnoses={diagnoses}
           getDiagnosisName={getDiagnosisName}
         />)
+      case "HealthCheck":
+        return null;
+      case "Hospital":
+        return null;
       default:
         return assertNever(entry);
     }
@@ -75,20 +83,7 @@ const EntriesList = (props: Props) => {
       {entries.map(e =>
         <ListItem key={e.id}>
           <Stack>
-            {e.type === 'OccupationalHealthcare' && 
-              <OccupationalEntry
-                entry={e}
-                diagnoses={diagnoses}
-                getDiagnosisName={getDiagnosisName}
-              />}
-            <ListItemText> {e.date} <i>{e.description}</i></ListItemText>
-              {e.diagnosisCodes && <div><ul>
-                {e.diagnosisCodes.map(dc => <li key={dc}>
-                      {dc} {diagnoses && getDiagnosisName(dc)}
-                    </li>
-                  )}
-              </ul>
-            </div>}
+            <EntryDetails entry={e} />
           </Stack>
         </ListItem>
       )}
