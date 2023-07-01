@@ -1,5 +1,5 @@
 import { Avatar, Badge, Card, CardContent, CardHeader, ListItemText } from "@mui/material"
-import { Diagnosis, HealthCheckEntry } from "../../types";
+import { Diagnosis, HealthCheckEntry, HealthCheckRating } from "../../types";
 import HowToRegIcon from '@mui/icons-material/HowToReg';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
@@ -20,6 +20,17 @@ interface HealthCheckEntryProps {
   getDiagnosisName: (code: string) => string | null;
 }
 
+interface HealthCheckRatingProp {
+  rating: HealthCheckRating;
+} 
+const HealthCheckRatingHeader = ({ rating }: HealthCheckRatingProp) => {
+  return (
+    <div title="Health Rating">
+      {rating}
+    </div>
+  );
+};
+
 const HealthCheckEntryDetails = (props: HealthCheckEntryProps) => {
   const e = props.entry;
   const diagnoses = props.diagnoses;
@@ -35,7 +46,7 @@ const HealthCheckEntryDetails = (props: HealthCheckEntryProps) => {
           </Avatar>
           </Badge>}
         title={e.date}
-        subheader={e.healthCheckRating}
+        subheader={<HealthCheckRatingHeader rating={e.healthCheckRating} />}
       />
       <CardContent>
         <ListItemText><i>{e.description}</i></ListItemText>
