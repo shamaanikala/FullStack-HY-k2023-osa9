@@ -16,7 +16,13 @@ const EntriesList = (props: Props) => {
         <ListItem key={e.id}>
           <Stack>
             <ListItemText> {e.date} <i>{e.description}</i></ListItemText>
-            {e.diagnosisCodes && <i>Diagnosis codes here</i>}
+              {e.diagnosisCodes && <div><ul>
+                {e.diagnosisCodes.map(dc => <li key={dc}>
+                      {dc}
+                    </li>
+                  )}
+              </ul>
+            </div>}
           </Stack>
         </ListItem>
       )}
