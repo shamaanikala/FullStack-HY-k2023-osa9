@@ -5,6 +5,7 @@ import diagnoseService from '../../services/diagnoses';
 import { useEffect, useState } from "react";
 import OccupationalHealthcareEntryDetails from "./OccupationalHealthcarekEntryDetails";
 import HealthCheckEntryDetails from "./HealthCheckEntryDetails";
+import HospitalEntryDetails from "./HospitalEntryDetails";
 
 const getDiagnosis = async (code: string) => await diagnoseService.getDiagnosisByCode(code);
 
@@ -77,7 +78,12 @@ const EntriesList = (props: Props) => {
           getDiagnosisName={getDiagnosisName}
         />);
       case "Hospital":
-        return <div><i>Hospital Entry</i></div>;
+        return (
+          <HospitalEntryDetails
+            entry={entry}
+            diagnoses={diagnoses}
+            getDiagnosisName={getDiagnosisName}
+          />);
       default:
         return assertNever(entry);
     }

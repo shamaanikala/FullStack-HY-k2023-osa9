@@ -1,14 +1,14 @@
 import { Avatar, Badge, Card, CardContent, CardHeader, ListItemText } from "@mui/material"
-import { Diagnosis, HealthCheckEntry } from "../../types";
+import { Diagnosis, HospitalEntry } from "../../types";
 import MedicalInformationIcon from '@mui/icons-material/MedicalInformation';
 
-interface HealthCheckEntryProps {
-  entry: HealthCheckEntry;
+interface HospitalEntryProps {
+  entry: HospitalEntry;
   diagnoses?: Record<string, Diagnosis>;
   getDiagnosisName: (code: string) => string | null;
 }
 
-const HealthCheckEntryDetails = (props: HealthCheckEntryProps) => {
+const HospitalEntryDetails = (props: HospitalEntryProps) => {
   const e = props.entry;
   const diagnoses = props.diagnoses;
   const getDiagnosisName = props.getDiagnosisName;
@@ -42,4 +42,4 @@ const HealthCheckEntryDetails = (props: HealthCheckEntryProps) => {
   );
 };
 
-export default HealthCheckEntryDetails;
+export default HospitalEntryDetails;
