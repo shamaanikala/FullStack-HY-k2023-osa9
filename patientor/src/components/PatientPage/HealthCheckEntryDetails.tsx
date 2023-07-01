@@ -6,6 +6,7 @@ import red from "@mui/material/colors/red";
 import blue from "@mui/material/colors/blue";
 import green from "@mui/material/colors/green";
 import blueGrey from "@mui/material/colors/blueGrey";
+import lightGreen from "@mui/material/colors/lightGreen";
 import DiagnoseBy from "./DiagnoseBy";
 
 /**
@@ -54,7 +55,7 @@ const HealthCheckEntryDetails = (props: HealthCheckEntryProps) => {
       <CardHeader
         avatar={
           <Badge color="primary">
-          <Avatar title="Health Check">
+          <Avatar title="Health Check" sx={{ bgcolor: lightGreen[400] }}>
             <HowToRegIcon /> 
           </Avatar>
           </Badge>}

@@ -4,6 +4,7 @@ import MedicalInformationIcon from '@mui/icons-material/MedicalInformation';
 import WorkOutlineIcon from '@mui/icons-material/WorkOutline';
 import DateRangeIcon from '@mui/icons-material/DateRange';
 import DiagnoseBy from "./DiagnoseBy";
+import amber from "@mui/material/colors/amber";
 
 interface OccupationalEntryProps {
   entry: OccupationalHealthcareEntry;
@@ -33,7 +34,7 @@ const OccupationalHealthcareEntryDetails = (props: OccupationalEntryProps) => {
       <CardHeader
         avatar={
           <Badge color="primary">
-          <Avatar title="Occupational healthcare">
+          <Avatar title="Occupational healthcare" sx={{ bgcolor: amber[300] }}>
             <MedicalInformationIcon />
           </Avatar>
           </Badge>}
