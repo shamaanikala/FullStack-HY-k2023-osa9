@@ -1,4 +1,4 @@
-import { List, ListItem, ListItemText, ListSubheader } from "@mui/material";
+import { List, ListItem, ListSubheader } from "@mui/material";
 import Stack from '@mui/material/Stack';
 import { Diagnosis, Entry } from "../../types";
 import diagnoseService from '../../services/diagnoses';
