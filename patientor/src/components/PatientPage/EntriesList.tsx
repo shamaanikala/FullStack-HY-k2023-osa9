@@ -11,6 +11,15 @@ interface Props {
   entries: Entry[];
 }
 
+/**
+ * Helper function for exhaustive type checking
+ */
+const assertNever = (value: never): never => {
+  throw new Error(
+    `Unhandled discriminated union member: ${JSON.stringify(value)}`
+  );
+};
+
 const EntriesList = (props: Props) => {
   const entries = props.entries;
 
@@ -44,6 +53,20 @@ const EntriesList = (props: Props) => {
     }
     const result = diagnoses[code];
     return result.name;
+  };
+
+  const EntryDetails = (entry: Entry) => {
+    switch (entry.type) {
+      case "OccupationalHealthcare":
+        return (
+        <OccupationalEntry
+          entry={entry}
+          diagnoses={diagnoses}
+          getDiagnosisName={getDiagnosisName}
+        />)
+      default:
+        return assertNever(entry);
+    }
   };
 
   return (
