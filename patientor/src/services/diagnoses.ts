@@ -11,8 +11,13 @@ const getAll = async () => {
   return data;
 };
 
+const getDiagnosisByCode = async (code: string) => {
+  const list: Diagnosis[] = await getAll();
+  return list.find(d => d.code === code);
+};
+
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
-  getAll
+  getAll, getDiagnosisByCode
 };
 

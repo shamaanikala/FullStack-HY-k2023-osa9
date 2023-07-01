@@ -1,14 +1,50 @@
 import { List, ListItem, ListItemText, ListSubheader } from "@mui/material";
 import Stack from '@mui/material/Stack';
-import { Entry } from "../../types";
+import { Diagnosis, Entry } from "../../types";
+import diagnoseService from '../../services/diagnoses';
+import { useEffect, useState } from "react";
+
+const getDiagnosis = async (code: string) => await diagnoseService.getDiagnosisByCode(code);
 
 interface Props {
   entries: Entry[];
 }
 
 const EntriesList = (props: Props) => {
-  console.log(props.entries);
   const entries = props.entries;
+
+  const [diagnoses, setDiagnoses] = useState<Record<string, Diagnosis>>();
+
+  useEffect(() => {
+    const fetch = async (entries: Entry[]) => {
+      let diagnoses: Record<string, Diagnosis> = {};
+      for (const entry of entries) {
+        if (!entry.diagnosisCodes) {
+          continue;
+        }
+        const codes = entry.diagnosisCodes;
+        for (const code of codes) {
+          if (!Object.keys(diagnoses).includes(code)) {
+            const diagnosis = await getDiagnosis(code);
+            if (diagnosis) {
+              diagnoses[code] = diagnosis;
+            }
+          } 
+        }
+      }
+      setDiagnoses(diagnoses);
+    }
+    fetch(entries);
+  },[entries]);
+
+  const getDiagnosisName = (code: string) => {
+    if (!diagnoses) {
+      return null;
+    }
+    const result = diagnoses[code];
+    return result.name;
+  };
+
   return (
     <>
     <List subheader={<ListSubheader><h3>entries</h3></ListSubheader>}>
@@ -18,7 +54,7 @@ const EntriesList = (props: Props) => {
             <ListItemText> {e.date} <i>{e.description}</i></ListItemText>
               {e.diagnosisCodes && <div><ul>
                 {e.diagnosisCodes.map(dc => <li key={dc}>
-                      {dc}
+                      {dc} {diagnoses && getDiagnosisName(dc)}
                     </li>
                   )}
               </ul>
