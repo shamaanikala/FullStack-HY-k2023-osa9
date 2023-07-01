@@ -1,6 +1,18 @@
 import { Avatar, Badge, Card, CardContent, CardHeader, ListItemText } from "@mui/material"
 import { Diagnosis, HealthCheckEntry } from "../../types";
 import HowToRegIcon from '@mui/icons-material/HowToReg';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+
+/**
+ * HealthCheck Rating colors
+ * 0 - healty - ??
+ * 1 - low risk -
+ * 2 - high risk - 
+ * 3 - critical risk - black?
+ * 
+ * Use also badge icons?
+ * tooltip to show to legend of colors and values
+ */
 
 interface HealthCheckEntryProps {
   entry: HealthCheckEntry;
@@ -23,7 +35,7 @@ const HealthCheckEntryDetails = (props: HealthCheckEntryProps) => {
           </Avatar>
           </Badge>}
         title={e.date}
-        subheader="tähän health check ikoni"
+        subheader={e.healthCheckRating}
       />
       <CardContent>
         <ListItemText><i>{e.description}</i></ListItemText>
