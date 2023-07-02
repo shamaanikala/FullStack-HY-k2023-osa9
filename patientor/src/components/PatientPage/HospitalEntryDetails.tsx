@@ -15,6 +15,7 @@ const HospitalEntryDetails = (props: HospitalEntryProps) => {
   const diagnoses = props.diagnoses;
   const getDiagnosisName = props.getDiagnosisName;
 
+
   return (
     <Card sx={{ minWidth: 600}}>
       <CardHeader
@@ -25,7 +26,7 @@ const HospitalEntryDetails = (props: HospitalEntryProps) => {
           </Avatar>
           </Badge>}
         title={e.date}
-        subheader="lol"
+        subheader={e.discharge ? `Discharged: ${e.discharge.date}` : 'Currently hospitalised'}
       />
       <CardContent>
         <ListItemText><i>{e.description}</i></ListItemText>
