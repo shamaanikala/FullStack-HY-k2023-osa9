@@ -8,6 +8,8 @@ import MaleIcon from '@mui/icons-material/Male';
 import { Card, CardContent } from "@mui/material";
 import EntriesList from "./EntriesList";
 
+import { calculateAge } from "../../utils";
+
 // or no props and use React Router useParams
 const PatientPage = () => {
   console.log(useParams().id);
@@ -55,6 +57,9 @@ const PatientPage = () => {
           {patient.gender === 'female' && <span title="female"><FemaleIcon fontSize="small" /></span>}
           {patient.gender === 'other' && <span title="gender: other"><small><i>other</i></small></span>}
         </h1></span>
+        <div title={`Exact age: ${(Math.round(calculateAge(patient.dateOfBirth) * 100) / 100)}`}>
+          age: {Math.floor(calculateAge(patient.dateOfBirth))}
+        </div>
         <div>
           ssn: {patient.ssn}
         </div>
