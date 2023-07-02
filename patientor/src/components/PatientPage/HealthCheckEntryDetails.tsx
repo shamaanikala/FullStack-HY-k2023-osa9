@@ -3,6 +3,7 @@ import { Diagnosis, HealthCheckEntry } from "../../types";
 import DiagnoseBy from "./DiagnoseBy";
 import EntryHeader from "./EntryHeader";
 import EntryDescription from "./EntryDescription";
+import DiagnoseDetails from "./DiagnoseDetails";
 
 
 interface HealthCheckEntryProps {
@@ -21,13 +22,11 @@ const HealthCheckEntryDetails = (props: HealthCheckEntryProps) => {
       <EntryHeader entry={e} />
       <CardContent>
         <EntryDescription description={e.description} />
-              {e.diagnosisCodes && <div><ul>
-                {e.diagnosisCodes.map(dc => <li key={dc}>
-                      {dc} {diagnoses && getDiagnosisName(dc)}
-                    </li>
-                  )}
-              </ul>
-            </div>}
+        <DiagnoseDetails
+          entry={e}
+          diagnoses={diagnoses}
+          getDiagnosisName={getDiagnosisName}
+        />
         <DiagnoseBy specialist={e.specialist} />
       </CardContent>
     </Card>
