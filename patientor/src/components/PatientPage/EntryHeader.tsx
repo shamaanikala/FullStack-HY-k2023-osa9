@@ -1,20 +1,62 @@
-import { Entry } from "../../types";
+import { Avatar, Badge, CardHeader, Typography } from "@mui/material";
+import { Entry, HospitalEntry, OccupationalHealthcareEntry } from "../../types";
 import { assertNever } from "../../utils";
+import red from "@mui/material/colors/red";
+import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
+import MedicalInformationIcon from '@mui/icons-material/MedicalInformation';
+import WorkOutlineIcon from '@mui/icons-material/WorkOutline';
+import amber from "@mui/material/colors/amber";
 
+interface OccupationalHeaderProps {
+  entry: OccupationalHealthcareEntry;
+}
 
-const OccupationalEntryHeader = () => {
+interface EmployerProp {
+  name: string;
+}
+
+const EmployerIcon = ({ name }: EmployerProp) => {
   return (
-    <div>
-      Occupational healthcare Entry Header
-    </div>
+    <Typography title="Employer">
+      <Badge><WorkOutlineIcon /></Badge>
+      <span>{" "}<small>{name}</small></span>
+    </Typography>
   );
 };
 
-const HospitalEntryHeader = () => {
+const OccupationalEntryHeader = ({ entry }: OccupationalHeaderProps) => {
   return (
-    <div>
-      Hospital Entry Header
-    </div>
+    <CardHeader
+        avatar={
+          <Badge color="primary">
+          <Avatar title="Occupational healthcare" sx={{ bgcolor: amber[300] }}>
+            <MedicalInformationIcon />
+          </Avatar>
+          </Badge>}
+        title={entry.date}
+        subheader={<EmployerIcon name={entry.employerName} />}
+      /> 
+  );
+};
+
+interface HospitalHeaderProps {
+  entry: HospitalEntry;
+}
+const HospitalEntryHeader = ({ entry }: HospitalHeaderProps) => {
+  // badge is probably needed to get the icon working
+  return (
+    <>
+      <CardHeader
+        avatar={
+          <Badge color="primary">
+            <Avatar title="Hospital" sx={{ bgcolor: red[400]}}>
+              <LocalHospitalIcon />
+            </Avatar>
+          </Badge>}
+        title={entry.date}
+        subheader={entry.discharge ? `Discharged: ${entry.discharge.date}` : 'Currently hospitalised'}
+      />
+    </>
   );
 };
 
@@ -34,37 +76,19 @@ const EntryHeader = ({ entry }: EntryHeaderProps) => {
   const type = entry.type;
   switch (type) {
     case "OccupationalHealthcare":
-      return <OccupationalEntryHeader />;
+      return <OccupationalEntryHeader entry={entry} />;
     case "HealthCheck":
       return <HealthCheckEntryHeader />;
     case "Hospital":
-      return <HospitalEntryHeader />;
+      return <HospitalEntryHeader entry={entry} />;
     default:
       return assertNever(entry);
   }
 };
 
 /*
-<CardHeader
-        avatar={
-          <Badge color="primary">
-          <Avatar title="Hospital" sx={{ bgcolor: red[400]}}>
-            <LocalHospitalIcon />
-          </Avatar>
-          </Badge>}
-        title={e.date}
-        subheader={e.discharge ? `Discharged: ${e.discharge.date}` : 'Currently hospitalised'}
-      />
-<CardHeader
-        avatar={
-          <Badge color="primary">
-          <Avatar title="Occupational healthcare" sx={{ bgcolor: amber[300] }}>
-            <MedicalInformationIcon />
-          </Avatar>
-          </Badge>}
-        title={e.date}
-        subheader={<EmployerIcon name={e.employerName} />}
-      />
+
+
 <CardHeader
         avatar={
           <Badge color="primary">

@@ -1,7 +1,5 @@
-import { Avatar, Badge, Card, CardContent, CardHeader, Divider, ListItemText } from "@mui/material"
+import { Card, CardContent, Divider, ListItemText } from "@mui/material"
 import { Diagnosis, HospitalEntry } from "../../types";
-import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
-import red from "@mui/material/colors/red";
 import DiagnoseBy from "./DiagnoseBy";
 import EntryHeader from "./EntryHeader";
 
@@ -19,16 +17,6 @@ const HospitalEntryDetails = (props: HospitalEntryProps) => {
 
   return (
     <Card sx={{ minWidth: 600}}>
-      <CardHeader
-        avatar={
-          <Badge color="primary">
-          <Avatar title="Hospital" sx={{ bgcolor: red[400]}}>
-            <LocalHospitalIcon />
-          </Avatar>
-          </Badge>}
-        title={e.date}
-        subheader={e.discharge ? `Discharged: ${e.discharge.date}` : 'Currently hospitalised'}
-      />
       <EntryHeader entry={e} />
       <CardContent>
         <ListItemText><i>{e.description}</i></ListItemText>
