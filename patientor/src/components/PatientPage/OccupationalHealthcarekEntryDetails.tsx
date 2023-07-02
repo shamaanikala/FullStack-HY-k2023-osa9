@@ -1,8 +1,9 @@
-import { Card, CardContent, Divider, ListItemText } from "@mui/material"
+import { Card, CardContent, Divider } from "@mui/material"
 import { Diagnosis, OccupationalHealthcareEntry } from "../../types";
 import DateRangeIcon from '@mui/icons-material/DateRange';
 import DiagnoseBy from "./DiagnoseBy";
 import EntryHeader from "./EntryHeader";
+import EntryDescription from "./EntryDescription";
 
 interface OccupationalEntryProps {
   entry: OccupationalHealthcareEntry;
@@ -19,7 +20,7 @@ const OccupationalHealthcareEntryDetails = (props: OccupationalEntryProps) => {
     <Card sx={{ minWidth: 600}}>
       <EntryHeader entry={e} />
       <CardContent>
-        <ListItemText><i>{e.description}</i></ListItemText>
+        <EntryDescription description={e.description} />
               {e.diagnosisCodes && <div><ul>
                 {e.diagnosisCodes.map(dc => <li key={dc}>
                       {dc} {diagnoses && getDiagnosisName(dc)}

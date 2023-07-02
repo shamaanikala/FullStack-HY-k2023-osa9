@@ -1,7 +1,8 @@
-import { Card, CardContent, Divider, ListItemText } from "@mui/material"
+import { Card, CardContent } from "@mui/material"
 import { Diagnosis, HealthCheckEntry } from "../../types";
 import DiagnoseBy from "./DiagnoseBy";
 import EntryHeader from "./EntryHeader";
+import EntryDescription from "./EntryDescription";
 
 
 interface HealthCheckEntryProps {
@@ -19,8 +20,7 @@ const HealthCheckEntryDetails = (props: HealthCheckEntryProps) => {
     <Card sx={{ minWidth: 600}}>
       <EntryHeader entry={e} />
       <CardContent>
-        <Divider textAlign="left">description</Divider>
-        <ListItemText><i>{e.description}</i></ListItemText>
+        <EntryDescription description={e.description} />
               {e.diagnosisCodes && <div><ul>
                 {e.diagnosisCodes.map(dc => <li key={dc}>
                       {dc} {diagnoses && getDiagnosisName(dc)}
