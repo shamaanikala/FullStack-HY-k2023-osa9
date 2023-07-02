@@ -1,11 +1,17 @@
 import { Avatar, Badge, CardHeader, Typography } from "@mui/material";
-import { Entry, HospitalEntry, OccupationalHealthcareEntry } from "../../types";
+import { Entry, HealthCheckEntry, HealthCheckRating, HospitalEntry, OccupationalHealthcareEntry } from "../../types";
 import { assertNever } from "../../utils";
 import red from "@mui/material/colors/red";
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import MedicalInformationIcon from '@mui/icons-material/MedicalInformation';
 import WorkOutlineIcon from '@mui/icons-material/WorkOutline';
 import amber from "@mui/material/colors/amber";
+import green from "@mui/material/colors/green";
+import blue from "@mui/material/colors/blue";
+import blueGrey from "@mui/material/colors/blueGrey";
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import HowToRegIcon from '@mui/icons-material/HowToReg';
+import lightGreen from "@mui/material/colors/lightGreen";
 
 interface OccupationalHeaderProps {
   entry: OccupationalHealthcareEntry;
@@ -60,11 +66,52 @@ const HospitalEntryHeader = ({ entry }: HospitalHeaderProps) => {
   );
 };
 
-const HealthCheckEntryHeader = () => {
+/**
+ * HealthCheck Rating colors
+ * 0 - healty - ??
+ * 1 - low risk -
+ * 2 - high risk - 
+ * 3 - critical risk - black?
+ * 
+ * Use also badge icons?
+ * tooltip to show to legend of colors and values
+ */
+
+interface HealthCheckRatingProp {
+  rating: HealthCheckRating;
+} 
+
+const healthRatingInformation = [
+  { color: green[300], description: 'Healthy' },
+  { color: blue[400], description: 'Low Risk' },
+  { color: blueGrey[900], description: 'High Risk' },
+  { color: red[500], description: 'Critical Risk' },
+];
+
+const HealthCheckRatingHeader = ({ rating }: HealthCheckRatingProp) => {
   return (
-    <div>
-      Health Check Entry Header
+    <div title={`Health Rating: ${healthRatingInformation[rating].description}`}>
+      <FavoriteIcon sx={{ color: healthRatingInformation[rating].color }} />
     </div>
+  );
+};
+
+
+interface HealthCheckHeaderProps {
+  entry: HealthCheckEntry;
+}
+const HealthCheckEntryHeader = ({ entry }: HealthCheckHeaderProps) => {
+  return (
+  <CardHeader
+      avatar={
+        <Badge color="primary">
+        <Avatar title="Health Check" sx={{ bgcolor: lightGreen[400] }}>
+          <HowToRegIcon /> 
+          </Avatar>
+          </Badge>}
+        title={entry.date}
+        subheader={<HealthCheckRatingHeader rating={entry.healthCheckRating} />}
+      />
   );
 };
 
@@ -78,7 +125,7 @@ const EntryHeader = ({ entry }: EntryHeaderProps) => {
     case "OccupationalHealthcare":
       return <OccupationalEntryHeader entry={entry} />;
     case "HealthCheck":
-      return <HealthCheckEntryHeader />;
+      return <HealthCheckEntryHeader entry={entry} />;
     case "Hospital":
       return <HospitalEntryHeader entry={entry} />;
     default:
@@ -89,15 +136,6 @@ const EntryHeader = ({ entry }: EntryHeaderProps) => {
 /*
 
 
-<CardHeader
-        avatar={
-          <Badge color="primary">
-          <Avatar title="Health Check" sx={{ bgcolor: lightGreen[400] }}>
-            <HowToRegIcon /> 
-          </Avatar>
-          </Badge>}
-        title={e.date}
-        subheader={<HealthCheckRatingHeader rating={e.healthCheckRating} />}
-      />
+
 */
 export default EntryHeader;
