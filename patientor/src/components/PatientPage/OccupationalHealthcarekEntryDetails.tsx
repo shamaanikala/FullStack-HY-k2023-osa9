@@ -28,6 +28,7 @@ const OccupationalHealthcareEntryDetails = (props: OccupationalEntryProps) => {
                   )}
               </ul>
             </div>}
+      <DiagnoseBy specialist={e.specialist} />
       {e.sickLeave &&
       <div>
         <br />
@@ -36,7 +37,6 @@ const OccupationalHealthcareEntryDetails = (props: OccupationalEntryProps) => {
       <br />
       </div>
       }
-      <DiagnoseBy specialist={e.specialist} />
     </CardContent>
   </Card>
   );

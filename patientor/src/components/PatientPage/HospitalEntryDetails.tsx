@@ -3,6 +3,7 @@ import { Diagnosis, HospitalEntry } from "../../types";
 import DiagnoseBy from "./DiagnoseBy";
 import EntryHeader from "./EntryHeader";
 import EntryDescription from "./EntryDescription";
+import DiagnoseDetails from "./DiagnoseDetails";
 
 interface HospitalEntryProps {
   entry: HospitalEntry;
@@ -21,7 +22,12 @@ const HospitalEntryDetails = (props: HospitalEntryProps) => {
       <EntryHeader entry={e} />
       <CardContent>
         <EntryDescription description={e.description} />
-              {e.diagnosisCodes && <div><ul style={{ borderLeft: 'solid' }}>
+              <DiagnoseDetails
+                entry={e}
+                diagnoses={diagnoses}
+                getDiagnosisName={getDiagnosisName}
+              />
+              {e.diagnosisCodes && <div><ul>
                 {e.diagnosisCodes.map(dc => <li key={dc}>
                       {dc} {diagnoses && getDiagnosisName(dc)}
                     </li>
