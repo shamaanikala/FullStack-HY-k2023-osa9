@@ -11,7 +11,7 @@ const DiagnoseBy = (props: DiagnoseByProp) => {
     <div>
       <br />
       <Divider textAlign="left">Diagnose by</Divider>
-        {specialist}
+        <h4>{specialist}</h4>
     </div>
   );
 };

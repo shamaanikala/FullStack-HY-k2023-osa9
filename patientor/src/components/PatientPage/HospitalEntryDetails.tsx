@@ -1,4 +1,4 @@
-import { Avatar, Badge, Card, CardContent, CardHeader, ListItemText } from "@mui/material"
+import { Avatar, Badge, Card, CardContent, CardHeader, Divider, ListItemText } from "@mui/material"
 import { Diagnosis, HospitalEntry } from "../../types";
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import red from "@mui/material/colors/red";
@@ -37,12 +37,13 @@ const HospitalEntryDetails = (props: HospitalEntryProps) => {
                   )}
               </ul>
             </div>}
-      <DiagnoseBy specialist={e.specialist} />
-      {e.discharge && <div><h3>Discharged</h3>
+      <DiagnoseBy specialist={e.specialist} /><br />
+      <Divider textAlign='left'>Hospitalisation status</Divider>
+      {e.discharge && <div><h4>Discharged</h4>
         <span><i>Date:</i>{" "}{e.discharge.date}</span><br />
         <span><i>Criteria:</i>{" "}{e.discharge.criteria}</span>
       </div>}
-      {!e.discharge && <div><h3>Hospitalised</h3>
+      {!e.discharge && <div><h4>Hospitalised</h4>
         <span><i>Since:</i>{" "}{e.date}</span>
       </div>}
       </CardContent>
