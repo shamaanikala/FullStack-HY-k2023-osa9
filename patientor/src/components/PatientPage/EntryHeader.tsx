@@ -12,6 +12,8 @@ import blueGrey from "@mui/material/colors/blueGrey";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import HowToRegIcon from '@mui/icons-material/HowToReg';
 import lightGreen from "@mui/material/colors/lightGreen";
+import LogoutIcon from '@mui/icons-material/Logout';
+import LoginIcon from '@mui/icons-material/Login';
 
 interface OccupationalHeaderProps {
   entry: OccupationalHealthcareEntry;
@@ -45,6 +47,32 @@ const OccupationalEntryHeader = ({ entry }: OccupationalHeaderProps) => {
   );
 };
 
+interface DischargeProp {
+  date: string;
+}
+
+const DischargeIcon = ({ date }: DischargeProp) => {
+  return (
+    <Typography title="Discharged">
+      <Badge><LogoutIcon /></Badge>
+      <span>{" "}<small>{date}</small></span>
+    </Typography>
+  );
+};
+
+interface InpatientProp {
+  date: string;
+}
+
+const InpatientIcon = ({ date }: InpatientProp) => {
+  return (
+    <Typography title="Hospitalised">
+      <Badge><LoginIcon /></Badge>
+      <span>{" "}<small>{date}</small></span>
+    </Typography>
+  );
+};
+
 interface HospitalHeaderProps {
   entry: HospitalEntry;
 }
@@ -60,7 +88,11 @@ const HospitalEntryHeader = ({ entry }: HospitalHeaderProps) => {
             </Avatar>
           </Badge>}
         title={entry.date}
-        subheader={entry.discharge ? `Discharged: ${entry.discharge.date}` : 'Currently hospitalised'}
+        subheader={
+          entry.discharge
+            ? <DischargeIcon date={entry.discharge.date} />
+            : <InpatientIcon date={entry.date} />
+          }
       />
     </>
   );
