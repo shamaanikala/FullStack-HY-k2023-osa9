@@ -38,6 +38,13 @@ const HospitalEntryDetails = (props: HospitalEntryProps) => {
               </ul>
             </div>}
       <DiagnoseBy specialist={e.specialist} />
+      {e.discharge && <div><h3>Discharged</h3>
+        <span><i>Date:</i>{" "}{e.discharge.date}</span><br />
+        <span><i>Criteria:</i>{" "}{e.discharge.criteria}</span>
+      </div>}
+      {!e.discharge && <div><h3>Hospitalised</h3>
+        <span><i>Since:</i>{" "}{e.date}</span>
+      </div>}
       </CardContent>
     </Card>
   );
