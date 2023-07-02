@@ -57,7 +57,7 @@ const PatientPage = () => {
           {patient.gender === 'female' && <span title="female"><FemaleIcon fontSize="small" /></span>}
           {patient.gender === 'other' && <span title="gender: other"><small><i>other</i></small></span>}
         </h1></span>
-        <div title={`Exact age: ${(Math.round(calculateAge(patient.dateOfBirth) * 100) / 100)}`}>
+        <div title={`Exact age: ${parseFloat(calculateAge(patient.dateOfBirth).toString()).toFixed(2)}`}>
           age: {Math.floor(calculateAge(patient.dateOfBirth))}
         </div>
         <div>
