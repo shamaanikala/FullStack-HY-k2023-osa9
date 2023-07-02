@@ -5,6 +5,7 @@ import WorkOutlineIcon from '@mui/icons-material/WorkOutline';
 import DateRangeIcon from '@mui/icons-material/DateRange';
 import DiagnoseBy from "./DiagnoseBy";
 import amber from "@mui/material/colors/amber";
+import EntryHeader from "./EntryHeader";
 
 interface OccupationalEntryProps {
   entry: OccupationalHealthcareEntry;
@@ -41,6 +42,7 @@ const OccupationalHealthcareEntryDetails = (props: OccupationalEntryProps) => {
         title={e.date}
         subheader={<EmployerIcon name={e.employerName} />}
       />
+      <EntryHeader entry={e} />
       <CardContent>
         <ListItemText><i>{e.description}</i></ListItemText>
               {e.diagnosisCodes && <div><ul>

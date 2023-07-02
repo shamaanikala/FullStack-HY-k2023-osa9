@@ -3,6 +3,7 @@ import { Diagnosis, HospitalEntry } from "../../types";
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import red from "@mui/material/colors/red";
 import DiagnoseBy from "./DiagnoseBy";
+import EntryHeader from "./EntryHeader";
 
 interface HospitalEntryProps {
   entry: HospitalEntry;
@@ -28,6 +29,7 @@ const HospitalEntryDetails = (props: HospitalEntryProps) => {
         title={e.date}
         subheader={e.discharge ? `Discharged: ${e.discharge.date}` : 'Currently hospitalised'}
       />
+      <EntryHeader entry={e} />
       <CardContent>
         <ListItemText><i>{e.description}</i></ListItemText>
               {e.diagnosisCodes && <div><ul>

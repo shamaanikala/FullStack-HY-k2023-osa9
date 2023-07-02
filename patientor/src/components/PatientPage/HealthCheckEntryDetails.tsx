@@ -8,6 +8,7 @@ import green from "@mui/material/colors/green";
 import blueGrey from "@mui/material/colors/blueGrey";
 import lightGreen from "@mui/material/colors/lightGreen";
 import DiagnoseBy from "./DiagnoseBy";
+import EntryHeader from "./EntryHeader";
 
 /**
  * HealthCheck Rating colors
@@ -62,6 +63,7 @@ const HealthCheckEntryDetails = (props: HealthCheckEntryProps) => {
         title={e.date}
         subheader={<HealthCheckRatingHeader rating={e.healthCheckRating} />}
       />
+      <EntryHeader entry={e} />
       <CardContent>
         <ListItemText><i>{e.description}</i></ListItemText>
               {e.diagnosisCodes && <div><ul>
