@@ -31,7 +31,7 @@ const OccupationalHealthcareEntryDetails = (props: OccupationalEntryProps) => {
         {e.sickLeave &&
         <div>
           <br />
-          <Divider textAlign="left"><i>Sick Leave</i></Divider><br />
+          <Divider textAlign="left">Sick Leave</Divider><br />
           <span title="Sick leave duration"><Badge><DateRangeIcon /></Badge> {e.sickLeave.startDate} - {e.sickLeave.endDate}</span><br />
         <br />
         </div>
