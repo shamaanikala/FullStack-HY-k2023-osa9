@@ -50,10 +50,16 @@ export interface Discharge {
 
 interface HospitalEntry extends BaseEntry {
   type: "Hospital";
-  discharge: Discharge;
+  discharge?: Discharge;
 }
 
-export type Entry =
+export enum EntryTypes {
+  HealthCheck = "HealthCheck" ,
+  OccupationalHealthcare = "OccupationalHealthcare" ,
+  Hospital = "Hospital"
+}
+
+export type Entry = 
   | HospitalEntry
   | OccupationalHealthcareEntry
   | HealthCheckEntry;
