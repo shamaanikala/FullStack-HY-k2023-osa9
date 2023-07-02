@@ -70,20 +70,6 @@ const toNewEntry = (object: unknown): NewEntry => {
   if (!object || typeof object !== 'object') {
     throw new Error('Incorrect or missing data');
   }
-  /*
-  if('name' in object && 'dateOfBirth' in object && 'ssn' in object && 'gender' in object && 'occupation' in object) {
-    const newPatient: NewPatient = {
-        name: parseName(object.name),
-        dateOfBirth: parseDateOfBirt(object.dateOfBirth),
-        ssn: parseSSN(object.ssn),
-        gender: parseGender(object.gender),
-        occupation: parseOccupation(object.occupation),
-        entries: []
-      };
-    return newPatient;
-  }
-  throw new Error('Incorrect data: some fields are missing');
-  */
 
   if('description' in object && 'date' in object && 'specialist' in object && 'type' in object) {
     // required and shared fields
