@@ -16,6 +16,12 @@ router.get('/:id', (req,res) => {
   }
 });
 
+
+router.post('/:id/entries', (req, res) => {
+  console.log(`POST : ${req.baseUrl}`);
+  res.send(req.params);
+});
+
 router.get('/', (_req, res) => {
   console.log(`GET : ${_req.baseUrl}`);
   res.send(patientsService.getPatientsSansSSN());
