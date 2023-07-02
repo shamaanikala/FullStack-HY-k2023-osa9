@@ -6,21 +6,13 @@ import { useEffect, useState } from "react";
 import OccupationalHealthcareEntryDetails from "./OccupationalHealthcarekEntryDetails";
 import HealthCheckEntryDetails from "./HealthCheckEntryDetails";
 import HospitalEntryDetails from "./HospitalEntryDetails";
+import { assertNever } from "../../utils";
 
 const getDiagnosis = async (code: string) => await diagnoseService.getDiagnosisByCode(code);
 
 interface Props {
   entries: Entry[];
 }
-
-/**
- * Helper function for exhaustive type checking
- */
-const assertNever = (value: never): never => {
-  throw new Error(
-    `Unhandled discriminated union member: ${JSON.stringify(value)}`
-  );
-};
 
 const EntriesList = (props: Props) => {
   const entries = props.entries;
