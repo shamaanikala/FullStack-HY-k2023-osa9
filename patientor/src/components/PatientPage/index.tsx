@@ -97,17 +97,6 @@ const PatientPage = () => {
 
   return (
     <div>
-      <div>
-        <AddEntryModal
-          modalOpen={modalOpen}
-          onSubmit={submitNewEntry}
-          error={error}
-          onClose={closeModal}
-        />
-        <Button variant="contained" onClick={() => openModal()}>
-          Add New Entry
-        </Button>
-      </div>
       <Card>
         <CardContent>
           <span>
@@ -125,6 +114,18 @@ const PatientPage = () => {
           </div>
           <div>
             occupation: {patient.occupation}
+          </div>
+          <div>
+            <br />
+            <AddEntryModal
+              modalOpen={modalOpen}
+              onSubmit={submitNewEntry}
+              error={error}
+              onClose={closeModal}
+            />
+            <Button variant="contained" onClick={() => openModal()}>
+              Add New Entry
+            </Button>
           </div>
           <div>
             <EntriesList entries={patient.entries} />
