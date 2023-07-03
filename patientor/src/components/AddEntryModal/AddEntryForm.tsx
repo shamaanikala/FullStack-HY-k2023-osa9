@@ -9,6 +9,9 @@ interface Props {
 
 const AddEntryForm = ({ onCancel, onSubmit }: Props) => {
   const [description, setDescription] = useState('');
+  const [date, setDate] = useState('');
+  const [specialist, setSpecialist] = useState('');
+  const [type, setType] = useState('Occupational Healthcare');
 
   const addEntry = (event: SyntheticEvent) => {
     event.preventDefault();
@@ -26,6 +29,29 @@ const AddEntryForm = ({ onCancel, onSubmit }: Props) => {
           value={description}
           onChange={({ target }) => setDescription(target.value)}
         />
+        <TextField
+          label="Date"
+          placeholder="YYYY-MM-DD"
+          fullWidth
+          value={date}
+          onChange={({ target }) => setDate(target.value)}
+        />
+        <TextField
+          label="Specialist"
+          placeholder="Title. Lastname"
+          fullWidth
+          value={specialist}
+          onChange={({ target }) => setSpecialist(target.value)}
+        />
+        <TextField
+          label="Type"
+          placeholder="Select entry type"
+          fullWidth
+          value={'HealthCheck'}
+          onChange={({ target }) => setType(target.value)}
+        />
+
+
         <Grid>
         <Grid item>
           <Button
