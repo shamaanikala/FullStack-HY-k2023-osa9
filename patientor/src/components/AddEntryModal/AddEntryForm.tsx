@@ -1,7 +1,6 @@
 import { Button, Grid, TextField } from "@mui/material";
-import { EntryFormValues, HealthCheckRating } from "../../types";
+import { EntryFormValues } from "../../types";
 import { SyntheticEvent, useState } from "react";
-import { isHealthCheckRating } from "../../utils";
 
 interface Props {
   type: "HealthCheck" | "OccupationalHealthcare"  | "Hospital";
@@ -32,9 +31,6 @@ const AddEntryForm = ({ type, onCancel, onSubmit, patientId }: Props) => {
       ? [diagnosisCodes]
       : undefined;
     
-    if (!isHealthCheckRating(Number(healthCheckRating))) {
-      throw new Error('Invalid HealthCheck rating value')
-    }
     
     onSubmit(patientId,{
       type: 'HealthCheck',
