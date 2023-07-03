@@ -1,4 +1,4 @@
-import { Card, TextField } from "@mui/material";
+import { Button, Card, Grid, TextField } from "@mui/material";
 import { EntryFormValues } from "../../types";
 import { SyntheticEvent, useState } from "react";
 
@@ -27,6 +27,30 @@ const AddEntryForm = ({ onCancel, onSubmit }: Props) => {
             value={description}
             onChange={({ target }) => setDescription(target.value)}
           />
+          <Grid>
+          <Grid item>
+            <Button
+              color="secondary"
+              variant="contained"
+              style={{ float: "left" }}
+              type="button"
+              onClick={onCancel}
+            >
+              Cancel
+            </Button>
+          </Grid>
+          <Grid item>
+            <Button
+              style={{
+                float: "right",
+              }}
+              type="submit"
+              variant="contained"
+            >
+              Add
+            </Button>
+          </Grid>
+        </Grid>
         </form>
       </Card>
     </div>
