@@ -2,15 +2,22 @@ import { Diagnosis, Discharge, EntryTypes, HealthCheckRating, NewEntry, SickLeav
 import { parseStringParam, isDate, isString } from "./parseTools";
 
 const parseDescription = (description: unknown): string => {
-  return parseStringParam('description', description);
+  const required = true;
+  return parseStringParam('description', description, required);
 };
 
 const parseDate = (date: unknown): string => {
-  return parseStringParam('date', date);
+  const dateString = parseStringParam('date', date);
+  if (isDate(dateString)) {
+    return dateString;
+  } else {
+    throw new Error(`Invalid date string given: ${dateString}`);
+  }
 };
 
 const parseSpecialist = (specialist: unknown): string => {
-  return parseStringParam('specialist', specialist);
+  const required = true;
+  return parseStringParam('specialist', specialist, required);
 };
 
 const parseDiagnosisCodes = (object: unknown): Array<Diagnosis['code']> =>  {
@@ -66,7 +73,8 @@ const parseDischarge = (discharge: unknown): Discharge | undefined => {
 };
 
 const parseEmployerName = (employerName: unknown): string => {
-  return parseStringParam('employerName', employerName);
+  const required = true;
+  return parseStringParam('employerName', employerName, required);
 };
 
 const parseSickLeave = (sickLeave: unknown): SickLeaveDuration | undefined => {
