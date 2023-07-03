@@ -46,7 +46,7 @@ const EntriesList = (props: Props) => {
       return null;
     }
     const result = diagnoses[code];
-    return result.name;
+    return result ? result.name : '<unknown diagnosis code>';
   };
 
   interface EntryDetailProps {
