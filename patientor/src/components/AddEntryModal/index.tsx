@@ -9,17 +9,18 @@ import Alert from "@mui/material/Alert/Alert";
 interface Props {
   modalOpen: boolean;
   onClose: () => void;
-  onSubmit: (values: EntryFormValues) => void;
+  onSubmit: (patientId: string, values: EntryFormValues) => void;
   error?: string;
+  patientId: string;
 }
 
-const AddEntryModal = ({ modalOpen, onClose, onSubmit, error }: Props) => (
+const AddEntryModal = ({ modalOpen, onClose, onSubmit, error, patientId }: Props) => (
   <Dialog fullWidth={true} open={modalOpen} onClose={() => onClose()}>
     <DialogTitle>Add a new entry</DialogTitle>
     <Divider />
     <DialogContent>
       {error && <Alert severity="error">{error}</Alert>}
-      <AddEntryForm type={'HealthCheck'} onSubmit={onSubmit} onCancel={onClose}/>
+      <AddEntryForm patientId={patientId} type={'HealthCheck'} onSubmit={onSubmit} onCancel={onClose}/>
     </DialogContent>
   </Dialog>
 );

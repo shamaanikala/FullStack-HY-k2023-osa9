@@ -10,6 +10,8 @@ import EntriesList from "./EntriesList";
 
 import { calculateAge } from "../../utils";
 import AddEntryModal from "../AddEntryModal";
+import entriesService from "../../services/entries";
+import axios from "axios";
 
 // or no props and use React Router useParams
 const PatientPage = () => {
@@ -41,27 +43,28 @@ const PatientPage = () => {
     setError(undefined);
   };
 
-  const submitNewEntry = async (values: EntryFormValues) => {
+  const submitNewEntry = async (patientId: string, values: EntryFormValues) => {
     console.log('submitNewEntry');
     console.log(values);
-    // try {
-    //   const patient = await patientService.create(values);
-    //   setPatients(patients.concat(patient));
-    //   setModalOpen(false);
-    // } catch (e: unknown) {
-    //   if (axios.isAxiosError(e)) {
-    //     if (e?.response?.data && typeof e?.response?.data === "string") {
-    //       const message = e.response.data.replace('Something went wrong. Error: ', '');
-    //       console.error(message);
-    //       setError(message);
-    //     } else {
-    //       setError("Unrecognized axios error");
-    //     }
-    //   } else {
-    //     console.error("Unknown error", e);
-    //     setError("Unknown error");
-    //   }
-    // }
+    try {
+      const entry = await entriesService.create(patientId, values);
+      patient?.entries.push(entry);
+      setModalOpen(false);
+    } catch (e: unknown) {
+      if (axios.isAxiosError(e)) {
+        if (e?.response?.data && typeof e?.response?.data === "string") {
+          console.error(e.response.data);
+          const message = e.response.data.replace('Something went wrong. Error: ', '');
+          console.error(message);
+          setError(message);
+        } else {
+          setError("Unrecognized axios error");
+        }
+      } else {
+        console.error("Unknown error", e);
+        setError("Unknown error");
+      }
+    }
   };
 
   const getPatientInformation = async (id: string) => {
@@ -122,6 +125,7 @@ const PatientPage = () => {
               onSubmit={submitNewEntry}
               error={error}
               onClose={closeModal}
+              patientId={patient.id}
             />
             <Button variant="contained" onClick={() => openModal()}>
               Add New Entry

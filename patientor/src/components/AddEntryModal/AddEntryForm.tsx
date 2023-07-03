@@ -1,14 +1,16 @@
 import { Button, Grid, TextField } from "@mui/material";
 import { EntryFormValues, HealthCheckRating } from "../../types";
 import { SyntheticEvent, useState } from "react";
+import { isHealthCheckRating } from "../../utils";
 
 interface Props {
   type: "HealthCheck" | "OccupationalHealthcare"  | "Hospital";
   onCancel: () => void;
-  onSubmit: (values: EntryFormValues) => void;
+  onSubmit: (patientId: string, values: EntryFormValues) => void;
+  patientId: string;
 }
 
-const AddEntryForm = ({ type, onCancel, onSubmit }: Props) => {
+const AddEntryForm = ({ type, onCancel, onSubmit, patientId }: Props) => {
   const [description, setDescription] = useState('');
   const [date, setDate] = useState('');
   const [specialist, setSpecialist] = useState('');
@@ -26,13 +28,21 @@ const AddEntryForm = ({ type, onCancel, onSubmit }: Props) => {
   const addEntry = (event: SyntheticEvent) => {
     event.preventDefault();
     console.log('Submitting add entry form');
-    onSubmit({
+    const diagnosisCodeValues = diagnosisCodes !== ''
+      ? [diagnosisCodes]
+      : undefined;
+    
+    if (!isHealthCheckRating(Number(healthCheckRating))) {
+      throw new Error('Invalid HealthCheck rating value')
+    }
+    
+    onSubmit(patientId,{
       type: 'HealthCheck',
       description,
       date,
       specialist,
-      diagnosisCodes: [diagnosisCodes],
-      healthCheckRating: HealthCheckRating['Healthy']
+      diagnosisCodes: diagnosisCodeValues,
+      healthCheckRating: Number(healthCheckRating)
     });
   };
 
