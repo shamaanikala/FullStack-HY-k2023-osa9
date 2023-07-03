@@ -85,7 +85,7 @@ const EntriesList = (props: Props) => {
     <>
     <List subheader={<ListSubheader><h3>entries</h3></ListSubheader>}>
       {entries.length === 0 && <div><i>No entries.</i></div>}
-      {entries.map(e =>
+      {entries.sort((a, b) => Date.parse(b.date) - Date.parse(a.date)).map(e =>
         <ListItem key={e.id}>
           <Stack>
             <EntryDetails entry={e} />
