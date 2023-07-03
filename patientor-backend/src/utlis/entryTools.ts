@@ -146,10 +146,12 @@ const toNewEntry = (object: unknown): NewEntry => {
     
     } else if (type === 'Hospital') {
     // Hospital fields
+      console.log('Hospital type entry detected');
       const discharge = 'discharge' in object
         ? parseDischarge(object.discharge)
         : undefined;
 
+      console.log('Attempting to create new Hospital entry');
       const newEntry: NewEntry = {
         description,
         date,
@@ -158,16 +160,23 @@ const toNewEntry = (object: unknown): NewEntry => {
         diagnosisCodes,
         discharge
       };
+      
+      console.log('Returning Hospital entry');
       return newEntry;
 
     } else if (type === 'OccupationalHealthcare') {
       // Occupational fields
+      console.log('Occupational healthcare entry type detected');
+      console.log('checking if required employerName field exists...');
       if ('employerName'in object) {
+        console.log('employerName exists, validating it');
         const employerName = parseEmployerName(object.employerName);
+        console.log('employerName ok');
         const sickLeave = 'sickLeave' in object
           ? parseSickLeave(object.sickLeave)
           : undefined;
-        
+          
+        console.log('trying to create new occupational entry');
         const newEntry: NewEntry = {
           description,
           date,
@@ -177,6 +186,8 @@ const toNewEntry = (object: unknown): NewEntry => {
           employerName,
           sickLeave
         };
+
+        console.log('returning new occupational entry');
       return newEntry;
 
       } else {
@@ -186,7 +197,8 @@ const toNewEntry = (object: unknown): NewEntry => {
       throw new Error('Unknown type entry');
     }
   }
-  throw new Error(`Incorrect data: some fields are missing (type, description, date, specialist): ${JSON.stringify(object)}`);
+  // throw new Error(`Incorrect data: some fields are missing (type, description, date, specialist): ${JSON.stringify(object)}`);
+  throw new Error('backend: toNewEntry was unable to return a new entry!');
 };
 
 export default toNewEntry;
