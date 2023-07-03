@@ -9,3 +9,109 @@ Content-Type: application/json
   "healthCheckRating": 3
 }
 
+###
+POST http://localhost:3001/api/patients/d2773822-f723-11e9-8f0b-362b9e155667/entries
+Content-Type: application/json
+
+{
+  "description": "Testing POST endpoint for entry: HealthCheck with diagnosis codes.",
+  "date": "2023-07-03",
+  "specialist": "Full Stack Developer Student",
+  "type": "HealthCheck",
+  "healthCheckRating": 3,
+  "diagnosisCodes": ["Z74.3"]
+
+}
+
+###
+POST http://localhost:3001/api/patients/d2773822-f723-11e9-8f0b-362b9e155667/entries
+Content-Type: application/json
+
+{
+  "description": "Testing POST endpoint for entry: HealthCheck with faulty health check rating.",
+  "date": "2023-07-03",
+  "specialist": "Full Stack Developer Student",
+  "type": "HealthCheck",
+  "healthCheckRating": 5,
+  "diagnosisCodes": ["Z74.3"]
+
+}
+
+
+###
+POST http://localhost:3001/api/patients/d2773822-f723-11e9-8f0b-362b9e155667/entries
+Content-Type: application/json
+
+{
+  "description": "Testing entry POST endpoint : Occupational Healthcare entry. With healthCheck rating incldued and missing employerName",
+  "date": "2023-07-03",
+  "specialist": "Full Stack Developer Student",
+  "type": "OccupationalHealthcare",
+  "healthCheckRating": 5,
+  "diagnosisCodes": ["Z74.3"]
+
+}
+
+###
+POST http://localhost:3001/api/patients/d2773822-f723-11e9-8f0b-362b9e155667/entries
+Content-Type: application/json
+
+{
+  "description": "Testing entry POST endpoint : Occupational Healthcare entry.",
+  "date": "2023-07-03",
+  "specialist": "Full Stack Developer Student",
+  "type": "OccupationalHealthcare",
+  "diagnosisCodes": ["Z74.3"],
+  "employerName": "Unknown"
+}
+
+###
+POST http://localhost:3001/api/patients/d2773822-f723-11e9-8f0b-362b9e155667/entries
+Content-Type: application/json
+
+{
+  "description": "Testing entry POST endpoint : Occupational Healthcare entry. With valid sickLeave duration",
+  "date": "2023-07-03",
+  "specialist": "Full Stack Developer Student",
+  "type": "OccupationalHealthcare",
+  "diagnosisCodes": ["Z74.3"],
+  "employerName": "Unknown",
+  "sickLeave": {
+    "startDate": "2023-07-03",
+    "endDate": "2023-07-13"
+  }
+}
+
+###
+POST http://localhost:3001/api/patients/d2773822-f723-11e9-8f0b-362b9e155667/entries
+Content-Type: application/json
+
+{
+  "description": "Testing entry POST endpoint : Occupational Healthcare entry. With invalid sickLeave duration",
+  "date": "2023-07-03",
+  "specialist": "Full Stack Developer Student",
+  "type": "OccupationalHealthcare",
+  "diagnosisCodes": ["Z74.3"],
+  "employerName": "Unknown",
+  "sickLeave": {
+    "startDate": "2023-07-03",
+    "endDate": "2023-17-13"
+  }
+}
+
+###
+POST http://localhost:3001/api/patients/d2773822-f723-11e9-8f0b-362b9e155667/entries
+Content-Type: application/json
+
+{
+  "description": "Testing entry POST endpoint : Occupational Healthcare entry. With invalid sickLeave duration",
+  "date": "2023-07-03",
+  "specialist": "Full Stack Developer Student",
+  "type": "OccupationalHealthcare",
+  "diagnosisCodes": ["Z74.3"],
+  "employerName": "Unknown",
+  "sickLeave": {
+    "startDate": "2023-07-03"
+  }
+}
+

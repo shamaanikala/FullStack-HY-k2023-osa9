@@ -2,6 +2,7 @@ import express from 'express';
 import patientsService from '../services/patientsService';
 import toNewPatient from '../utlis/patientTools';
 import { Patient } from '../types';
+import toNewEntry from '../utlis/entryTools';
 
 const router = express.Router();
 
@@ -19,7 +20,21 @@ router.get('/:id', (req,res) => {
 
 router.post('/:id/entries', (req, res) => {
   console.log(`POST : ${req.baseUrl}`);
-  res.send(req.params);
+  console.log('- Received object', req.body);
+  try {
+    const newEntry = toNewEntry(req.body);
+
+    console.log(newEntry);
+    
+    res.send(newEntry);
+  } catch (error: unknown) {
+    let errorMessage = `Something went wrong (${req.baseUrl})`;
+    if (error instanceof Error) {
+      errorMessage += ' Error: ' + error.message;
+    }
+    res.status(400).send(errorMessage);
+  }
+
 });
 
 router.get('/', (_req, res) => {
