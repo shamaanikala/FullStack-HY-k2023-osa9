@@ -24,10 +24,9 @@ router.post('/:id/entries', (req, res) => {
   // add a check that patient with :id actually exists?
   try {
     const newEntry = toNewEntry(req.body);
-
-    console.log(newEntry);
-    
-    res.send(newEntry);
+    const patientId = req.params.id;
+    const addedEntry = patientsService.addPatientEntry(patientId,newEntry);
+    res.json(addedEntry);
   } catch (error: unknown) {
     let errorMessage = `Something went wrong (${req.baseUrl})`;
     if (error instanceof Error) {
