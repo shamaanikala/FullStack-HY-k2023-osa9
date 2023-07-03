@@ -1,5 +1,5 @@
 import { Button, Grid, TextField } from "@mui/material";
-import { EntryFormValues } from "../../types";
+import { EntryFormValues, HealthCheckRating } from "../../types";
 import { SyntheticEvent, useState } from "react";
 
 interface Props {
@@ -15,7 +15,7 @@ const AddEntryForm = ({ type, onCancel, onSubmit }: Props) => {
   // optional shared with all
   const [diagnosisCodes, setDiagnosisCodes] = useState('');
   // HealthCheck (required)
-  const [healthChecckRating, setHealthCheckRating] = useState('');
+  const [healthCheckRating, setHealthCheckRating] = useState('');
 
   // Occupational (required)
   const [employerName, setEmployerName] = useState('');
@@ -25,9 +25,15 @@ const AddEntryForm = ({ type, onCancel, onSubmit }: Props) => {
 
   const addEntry = (event: SyntheticEvent) => {
     event.preventDefault();
-    console.log(type);
     console.log('Submitting add entry form');
-    console.log(event);
+    onSubmit({
+      type: 'HealthCheck',
+      description,
+      date,
+      specialist,
+      diagnosisCodes: [diagnosisCodes],
+      healthCheckRating: HealthCheckRating['Healthy']
+    });
   };
 
   return (
@@ -68,7 +74,7 @@ const AddEntryForm = ({ type, onCancel, onSubmit }: Props) => {
             label="Health Check Rating"
             placeholder="Give Health Check Rating value from 0 (Healthy) to 3 (Critical Risk)"
             fullWidth
-            value={healthChecckRating}
+            value={healthCheckRating}
             onChange={({ target }) => setHealthCheckRating(target.value)}
           />
         }
