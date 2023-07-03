@@ -67,3 +67,18 @@ export interface Patient {
   occupation: string;
   entries: Entry[];
 }
+
+// Ex9.27 new types from backend and EntryFormValues
+export enum EntryTypes {
+  HealthCheck = "HealthCheck" ,
+  OccupationalHealthcare = "OccupationalHealthcare" ,
+  Hospital = "Hospital"
+}
+
+// Define special omit for unions
+type UnionOmit<T, K extends string | number | symbol> = T extends unknown ? Omit<T, K> : never;
+// Define Entry without the 'id' property
+// type EntryWithoutId = UnionOmit<Entry, 'id'>;
+export type NewEntry = UnionOmit<Entry, 'id'>;
+
+export type EntryFormValues = NewEntry;
