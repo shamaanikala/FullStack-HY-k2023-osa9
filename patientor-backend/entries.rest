@@ -218,3 +218,18 @@ Content-Type: application/json
     "criteria": "Supervision no longer needed"
   }
 }
+
+###
+POST http://localhost:3001/api/patients/d277383-11e9-8f0b-362b9e155667/entries
+Content-Type: application/json
+
+{
+  "description": "Testing entry POST endpoint : faulty patient id in the request url",
+  "date": "2023-07-03",
+  "specialist": "Full Stack Developer Student",
+  "type": "Hospital",
+  "discharge": {
+    "date": "2023-07-03",
+    "criteria": "Supervision no longer needed"
+  }
+}

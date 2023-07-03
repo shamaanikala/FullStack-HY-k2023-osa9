@@ -21,6 +21,7 @@ router.get('/:id', (req,res) => {
 router.post('/:id/entries', (req, res) => {
   console.log(`POST : ${req.baseUrl}`);
   console.log('- Received object', req.body);
+  // add a check that patient with :id actually exists?
   try {
     const newEntry = toNewEntry(req.body);
 
