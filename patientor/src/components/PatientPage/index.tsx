@@ -17,6 +17,20 @@ const PatientPage = () => {
   const id = useParams().id;
   const [patient, setPatient] = useState<Patient>();
 
+
+  /**
+   * The modal is propably not the optional choice as
+   * the other entries can't be read while the entry form
+   * is filled.
+   * One solution would be to keep the state in memory
+   * such that the specialist could close the modal temporarily
+   * and not lose the already filled information.
+   * 
+   * But as I wanted to try the modal here, I'll use it for now
+   * without cache functionality.
+   * 
+   *  */
+
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [error, setError] = useState<string>();
 
@@ -91,7 +105,7 @@ const PatientPage = () => {
           onClose={closeModal}
         />
         <Button variant="contained" onClick={() => openModal()}>
-          Add New Patient
+          Add New Entry
         </Button>
       </div>
       <Card>
