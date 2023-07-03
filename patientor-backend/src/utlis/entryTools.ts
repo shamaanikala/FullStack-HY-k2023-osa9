@@ -37,11 +37,11 @@ const isHealthCheckRating = (param: number): param is HealthCheckRating => {
   return Object.values(HealthCheckRating).includes(param);
 };
 
-const parseHealthCheckRating = (healthCheckRating: unknown): HealthCheckRating | undefined => {
+const parseHealthCheckRating = (healthCheckRating: unknown): HealthCheckRating => {
   if(!isNaN(Number(healthCheckRating)) && isHealthCheckRating(Number(healthCheckRating))) {
     return Number(healthCheckRating);
   } else {
-    return undefined;
+    throw new Error('Missing or invalid HealthCheckRating');
   }
 };
 
@@ -92,7 +92,7 @@ const parseSickLeave = (sickLeave: unknown): SickLeaveDuration | undefined => {
 
 const toNewEntry = (object: unknown): NewEntry => {
   if (!object || typeof object !== 'object') {
-    throw new Error('Incorrect or missing data');
+    throw new Error('Incorrect or missing data (typeof object !== \'object\'');
   }
 
   if('description' in object && 'date' in object && 'specialist' in object && 'type' in object) {
@@ -169,7 +169,7 @@ const toNewEntry = (object: unknown): NewEntry => {
       throw new Error('Unknown type entry');
     }
   }
-  throw new Error('Incorrect data: some fields are missing');
+  throw new Error(`Incorrect data: some fields are missing (type, description, date, specialist): ${JSON.stringify(object)}`);
 };
 
 export default toNewEntry;
