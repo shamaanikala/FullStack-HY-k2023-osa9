@@ -94,9 +94,10 @@ const toNewEntry = (object: unknown): NewEntry => {
   if (!object || typeof object !== 'object') {
     throw new Error('Incorrect or missing data (typeof object !== \'object\'');
   }
-
+  console.log('object test passed');
   if('description' in object && 'date' in object && 'specialist' in object && 'type' in object) {
     // required and shared fields
+    console.log('testing required shared fields');
     const description = parseDescription(object.description);
     const date =  parseDate(object.date);
     const specialist = parseSpecialist(object.specialist);
@@ -105,28 +106,44 @@ const toNewEntry = (object: unknown): NewEntry => {
       throw new Error('Incorrect data: type field is missing');
     }
 
+    console.log('next diagnosis codes:');
     // optional and shared field 
     const diagnosisCodes = 'diagnosisCodes' in object
       ? parseDiagnosisCodes(object)
       : undefined;
 
+    console.log('shared fields passed');
+    console.log('Testing HealthCheck fields');
     // HealthCheck fields
     if (type === 'HealthCheck') {
+      console.log('type confirmed to be HealthCheck');
       const healthCheckRating = 'healthCheckRating' in object
         ? parseHealthCheckRating(object.healthCheckRating)
         : undefined;
 
-      if(healthCheckRating) {
-        const newEntry: NewEntry = {
-          description,
-          date,
-          specialist,
-          type,
-          diagnosisCodes,
-          healthCheckRating
-        };
-        return newEntry;
+      console.log('healthCheckRating validated, next trying to create object');
+      console.log('This fails here');
+      console.log('if(healthCheckRating) tests this healthCheckRating ',healthCheckRating);
+      console.log('if healthCheckRating === 0, if(0) is false :(');
+      console.log('What if tests HealthCheckRating[healthCheckRating]?');
+      console.log('will zero pass then?');
+      if (!healthCheckRating && healthCheckRating !== 0) {
+        throw new Error('Required health check rating missing or invalid');
       }
+      console.log('insdide if(healthCheckRating');
+      const newEntry: NewEntry = {
+        description,
+        date,
+        specialist,
+        type,
+        diagnosisCodes,
+        healthCheckRating
+      };
+
+        console.log('HealthCheckEntry created, returning it');
+
+        return newEntry;
+    
     } else if (type === 'Hospital') {
     // Hospital fields
       const discharge = 'discharge' in object
