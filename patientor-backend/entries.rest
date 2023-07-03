@@ -1,0 +1,11 @@
+POST http://localhost:3001/api/patients/d2773822-f723-11e9-8f0b-362b9e155667/entries
+Content-Type: application/json
+
+{
+  "description": "Testing POST endpoint for entry: HealthCheck without diagnosis codes.",
+  "date": "2023-07-03",
+  "specialist": "Full Stack Developer Student",
+  "type": "HealthCheck",
+  "healthCheckRating": 3
+}
+
