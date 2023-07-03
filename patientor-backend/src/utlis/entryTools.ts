@@ -82,6 +82,8 @@ const parseSickLeave = (sickLeave: unknown): SickLeaveDuration | undefined => {
     const startDate = sickLeave.startDate;
     const endDate = sickLeave.endDate;
     return { startDate, endDate };
+  } else if ('startDate' in sickLeave || 'endDate' in sickLeave) {
+    throw new Error('A valid sick leave duration requires both start and end dates.');
   }
   return undefined;
 };
