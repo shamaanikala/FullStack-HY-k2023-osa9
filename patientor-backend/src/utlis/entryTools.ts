@@ -55,10 +55,12 @@ const parseDischarge = (discharge: unknown): Discharge | undefined => {
   if ('criteria' in discharge && 'date' in discharge) {
     if (!isString(discharge.criteria) || !isString(discharge.date) || !isDate(discharge.date)) {
       throw new Error('Incorrect discharge date');
-    }
+    } 
     const date = discharge.date;
     const criteria = discharge.criteria;
     return { date, criteria };
+  } else if ('criteria' in discharge || 'date' in discharge) {
+      throw new Error('Dischrage requires both criteria and date fields');
   }
   return undefined;
 };
