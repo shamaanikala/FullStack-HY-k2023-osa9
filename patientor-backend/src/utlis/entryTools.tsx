@@ -1,6 +1,5 @@
-import { Diagnosis, Discharge, EntryTypes, HealthCheckRating, NewEntry } from "../types";
+import { Diagnosis, Discharge, EntryTypes, HealthCheckRating, NewEntry, SickLeaveDuration } from "../types";
 import { parseStringParam, isDate, isString } from "./parseTools";
-
 
 const parseDescription = (description: unknown): string => {
   return parseStringParam('description', description);
@@ -34,7 +33,6 @@ const parseEntryType = (type: unknown): "HealthCheck" | "OccupationalHealthcare"
     : undefined;
 };
 
-
 const isHealthCheckRating = (param: number): param is HealthCheckRating => {
   return Object.values(HealthCheckRating).includes(param);
 };
@@ -64,7 +62,29 @@ const parseDischarge = (discharge: unknown): Discharge | undefined => {
   }
   return undefined;
 };
- 
+
+const parseEmployerName = (employerName: unknown): string => {
+  return parseStringParam('employerName', employerName);
+};
+
+const parseSickLeave = (sickLeave: unknown): SickLeaveDuration | undefined => {
+  if(!sickLeave) {
+    return undefined;
+  }
+  if(typeof sickLeave !== 'object' ) {
+    throw new Error('Missing or incorrect sick leave duration information');
+  }
+  if ('startDate' in sickLeave && 'endDate' in sickLeave) {
+    if (!isString(sickLeave.startDate) || !isDate(sickLeave.startDate) 
+        || !isString(sickLeave.endDate) || !isDate(sickLeave.endDate)) {
+      throw new Error('Incorrect sick leave date');
+    }
+    const startDate = sickLeave.startDate;
+    const endDate = sickLeave.endDate;
+    return { startDate, endDate };
+  }
+  return undefined;
+};
 
 const toNewEntry = (object: unknown): NewEntry => {
   if (!object || typeof object !== 'object') {
@@ -85,8 +105,6 @@ const toNewEntry = (object: unknown): NewEntry => {
     const diagnosisCodes = 'diagnosisCodes' in object
       ? parseDiagnosisCodes(object)
       : undefined;
-
-    
 
     // HealthCheck fields
     if (type === 'HealthCheck') {
@@ -122,15 +140,30 @@ const toNewEntry = (object: unknown): NewEntry => {
       return newEntry;
 
     } else if (type === 'OccupationalHealthcare') {
-    // Occupational fields
+      // Occupational fields
+      if ('employerName'in object) {
+        const employerName = parseEmployerName(object.employerName);
+        const sickLeave = 'sickLeave' in object
+          ? parseSickLeave(object.sickLeave)
+          : undefined;
+        
+        const newEntry: NewEntry = {
+          description,
+          date,
+          specialist,
+          type,
+          diagnosisCodes,
+          employerName,
+          sickLeave
+        };
+      return newEntry;
+
+      } else {
+        throw new Error('Missing or incorrect employerName');
+      }
     } else {
       throw new Error('Unknown type entry');
     }
-
-
-    
-
-
   }
   throw new Error('Incorrect data: some fields are missing');
 };
