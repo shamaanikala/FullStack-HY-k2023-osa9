@@ -16,14 +16,3 @@ const EntryDescription = ({ description }: EntryDescriptionProps) => {
 };
 
 export default EntryDescription;
-
-/*
-<ListItemText><i>{e.description}</i></ListItemText>
-              {e.diagnosisCodes && <div><ul>
-                {e.diagnosisCodes.map(dc => <li key={dc}>
-                      {dc} {diagnoses && getDiagnosisName(dc)}
-                    </li>
-                  )}
-              </ul>
-            </div>}
-*/
