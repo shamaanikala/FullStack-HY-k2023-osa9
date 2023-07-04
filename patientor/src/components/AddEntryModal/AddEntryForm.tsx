@@ -24,11 +24,6 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
   const [sickLeaveStart, setSickLeaveStart] = useState('');
   const [sickLeaveEnd, setSickLeaveEnd] = useState('');
 
-  useEffect(() => {
-    // select the HealthCheck for Ex9.27
-    // setType('HealthCheck');
-  },[]);
-  
   const addEntry = (event: SyntheticEvent) => {
     event.preventDefault();
     console.log('Submitting add entry form');
@@ -49,13 +44,15 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
 
   const selectEntryType = (event: React.MouseEvent<HTMLElement>, typeSelection: "HealthCheck" | "OccupationalHealthcare"  | "Hospital") => {
     event.preventDefault();
+    console.log(typeSelection);
+    console.log(type);
     setType(typeSelection);
   };
   
   return (
     <div>
       <h2>Add new {type} entry</h2>
-      <ToggleButtonGroup value={type} onChange={selectEntryType}>
+      <ToggleButtonGroup exclusive value={type} onChange={selectEntryType}>
         <ToggleButton value="HealthCheck">Health Check</ToggleButton>
         <ToggleButton value="Occupational Healthcare">Occupational Healthcare</ToggleButton>
         <ToggleButton value="Hospital">Hospital</ToggleButton>
