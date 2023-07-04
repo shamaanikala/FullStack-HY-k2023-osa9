@@ -1,4 +1,4 @@
-import { Button, Divider, Grid, Switch, TextField, ToggleButton, ToggleButtonGroup } from "@mui/material";
+import { Button, Chip, Divider, Grid, Switch, TextField, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { EntryFormValues } from "../../types";
 import { SyntheticEvent, useState } from "react";
 import { todayString } from "../../utils";
@@ -34,7 +34,6 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
 
   const addEntry = (event: SyntheticEvent) => {
     event.preventDefault();
-    console.log('Submitting add entry form');
     const diagnosisCodeValues = diagnosisCodes !== ''
       ? [diagnosisCodes]
       : undefined;
@@ -90,20 +89,36 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
 
   const selectEntryType = (event: React.MouseEvent<HTMLElement>, typeSelection: "HealthCheck" | "OccupationalHealthcare"  | "Hospital") => {
     event.preventDefault();
-    console.log(typeSelection);
-    console.log(type);
     setType(typeSelection);
   };
   
+  const entryTypeToString = (type: "HealthCheck" | "OccupationalHealthcare"  | "Hospital" | undefined): string => {
+    switch(type) {
+      case 'HealthCheck':
+        return 'Health Check';
+      case 'Hospital':
+        return 'Hospital';
+      case 'OccupationalHealthcare':
+        return 'Occupational Healthcare';
+      default:
+        return '';
+    }
+  };
+
   return (
     <div>
-      <h2>Add new {type} entry</h2>
-      <ToggleButtonGroup exclusive value={type} onChange={selectEntryType}>
+      <h2>Add new {entryTypeToString(type)} entry</h2>
+      <ToggleButtonGroup
+        sx={{ mb: 1 }}
+        exclusive
+        value={type} 
+        onChange={selectEntryType}
+        >
         <ToggleButton value="HealthCheck">Health Check</ToggleButton>
         <ToggleButton value="OccupationalHealthcare">Occupational Healthcare</ToggleButton>
         <ToggleButton value="Hospital">Hospital</ToggleButton>
-          </ToggleButtonGroup>
-          <form onSubmit={addEntry}>
+      </ToggleButtonGroup>
+      <form onSubmit={addEntry}>
         {!type && <p>Select entry type, please.</p>}
         {type && <>
           <TextField
@@ -113,6 +128,7 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
             fullWidth
             value={description}
             onChange={({ target }) => setDescription(target.value)}
+            sx={{ mb: 1 }}
           />
           <TextField
             required
@@ -121,6 +137,7 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
             fullWidth
             value={date}
             onChange={({ target }) => setDate(target.value)}
+            sx={{ mb: 1 }}
           />
           <TextField
             required
@@ -129,13 +146,27 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
             fullWidth
             value={specialist}
             onChange={({ target }) => setSpecialist(target.value)}
+            sx={{ mb: 1 }}
+          />
+          <Chip
+            label="Optional"
+            title="Diagnosis Codes fields is optional"
+            variant="outlined"
+            sx={{ my: 1 }}
           />
           <TextField
             label="Diagnosis Codes"
             placeholder="Enter diagnosis codes separated by comma ','"
             fullWidth
             value={diagnosisCodes}
+            helperText={
+              <>
+                Enter diagnosis codes separated by comma ','<br />
+                [TBI] If code is unknown, write the diagnosis itself.
+              </>
+            }
             onChange={({ target }) => setDiagnosisCodes(target.value)}
+            sx={{ mb: 1 }}
           />
 
           {type === 'HealthCheck' && <div>
@@ -147,6 +178,7 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
               fullWidth
               value={healthCheckRating}
               onChange={({ target }) => setHealthCheckRating(target.value)}
+              sx={{ my: 1 }}
             />
           </div>
           }
@@ -161,6 +193,7 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
                 fullWidth
                 value={employerName}
                 onChange={({ target }) => setEmployerName(target.value)}
+                sx={{ my: 1 }}
               />
 
               Sick leave <Switch checked={sickLeave} onChange={() => setSickLeave(!sickLeave)} />
@@ -172,6 +205,7 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
                 fullWidth
                 value={sickLeaveStart}
                 onChange={({ target }) => setSickLeaveStart(target.value)}
+                sx={{ mb: 1 }}
               />
               <TextField
                 required={sickLeave}
@@ -181,6 +215,7 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
                 fullWidth
                 value={sickLeaveEnd}
                 onChange={({ target }) => setSickLeaveEnd(target.value)}
+                sx={{ mb: 1 }}
               />
             </div>
           }
@@ -196,6 +231,7 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
                 fullWidth
                 value={dischargeDate}
                 onChange={({ target }) => setDischargeDate(target.value)}
+                sx={{ my: 1 }}
               />
               <TextField
                 required={discharge}
@@ -205,12 +241,13 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
                 fullWidth
                 value={dischargeCriteria}
                 onChange={({ target }) => setDischargeCriteria(target.value)}
+                sx={{ mb: 1 }}
               />
             </div>
           }
       </>}
 
-        <Grid>
+        <Grid sx={{ my: 1 }}>
         <Grid item>
           <Button
             color="secondary"
