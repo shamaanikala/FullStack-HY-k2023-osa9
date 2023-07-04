@@ -122,7 +122,7 @@ interface HealthCheckRatingProp {
 // from green to blue to very dark blue that is almost black
 // Let's not use red, as red heart 
 // { color: red[500], description: 'Critical Risk' },
-const healthRatingInformation = [
+export const healthRatingInformation = [
   { color: green[300], description: 'Healthy' },
   { color: blue[400], description: 'Low Risk' },
   { color: blueGrey[400], description: 'High Risk' },

@@ -1,8 +1,11 @@
-import { Button, Checkbox, Chip, Divider, FormControl, FormHelperText, Grid, InputLabel, MenuItem, Select, Switch, TextField, ToggleButton, ToggleButtonGroup } from "@mui/material";
+import { Button, Checkbox, Chip, Divider, FormControl, FormHelperText, Grid, InputLabel, MenuItem, Select, Switch, TextField, ToggleButton, ToggleButtonGroup, styled, } from "@mui/material";
+import Rating, { IconContainerProps } from '@mui/material/Rating';
 import { Diagnosis, EntryFormValues } from "../../types";
-import { SyntheticEvent, useEffect, useState } from "react";
+import React, { SyntheticEvent, useEffect, useState } from "react";
 import { todayString } from "../../utils";
 import diagnoseService from '../../services/diagnoses';
+import { healthRatingInformation } from "../PatientPage/EntryHeader";
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 interface Props {
   onCancel: () => void;
@@ -21,7 +24,7 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
   const [diagnosisCodes, setDiagnosisCodes] = useState<Array<string>>([]);
 
   // HealthCheck (required)
-  const [healthCheckRating, setHealthCheckRating] = useState('');
+  const [healthCheckRating, setHealthCheckRating] = useState<number | null>(null);
 
   // Occupational (required)
   const [employerName, setEmployerName] = useState('');
@@ -126,6 +129,55 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
     console.log('Diagnosis Codes data loading...');
   }
 
+  // https://mui.com/material-ui/react-rating/#radio-group
+  const RatingHeatlthCheckRating = styled(Rating)(({ theme }) => ({
+    '& .MuiRating-iconEmpty .MuiSvgIcon-root': {
+      color: theme.palette.action.disabled,
+    },
+    '& .MuiRating-iconFilled': {
+      color: '#ff6d75'
+    },
+  }));
+
+  const healthCheckRatingIcons: {
+    [index: string]: {
+      icon: React.ReactElement;
+      label: string;
+    };
+  } = {
+    1: {
+      icon: <FavoriteIcon sx={{ color: healthRatingInformation[0].color }} />,
+      label: healthRatingInformation[0].description,
+    },
+    2: {
+      icon: <FavoriteIcon sx={{ color: healthRatingInformation[1].color }} />,
+      label: healthRatingInformation[1].description,
+    },
+    3: {
+      icon: <FavoriteIcon sx={{ color: healthRatingInformation[2].color }} />,
+      label: healthRatingInformation[2].description,
+    },
+    4: {
+      icon: <FavoriteIcon sx={{ color: healthRatingInformation[3].color }} />,
+      label: healthRatingInformation[3].description,
+    }
+  };
+
+  console.log(healthCheckRatingIcons[1].label);
+  
+  const IconContainer = (props: IconContainerProps) => {
+    const { value, ...other } = props;
+    // console.log(value);
+    // console.log(other);
+    // console.log(props);
+    // console.log(healthCheckRatingIcons[value]);
+    if (value === 5) {
+      // console.log('ei päästetä 5 eteenpäin')
+      return <span {...other}>{healthCheckRatingIcons[value-1].icon}</span>; 
+    }
+    return <span {...other}>{healthCheckRatingIcons[value].icon}</span>;
+  };
+
   return (
     <div>
       <h2>Add new {entryTypeToString(type)} entry</h2>
@@ -201,7 +253,15 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
           </FormControl>
           {type === 'HealthCheck' && <div>
             <Divider textAlign="left">Health Check specific fields</Divider>
-            <TextField
+            <RatingHeatlthCheckRating
+              IconContainerComponent={IconContainer}
+              max={4} // needs this, otherwise iterates to 5
+              onChange={(event, newValue) => {console.log('newValue:', newValue);setHealthCheckRating(newValue)}}
+              value={Number(healthCheckRating)}
+              getLabelText={(value: number) => healthCheckRatingIcons[value].label}
+              highlightSelectedOnly
+            /> 
+            {/* <TextField
               required
               label="Health Check Rating"
               placeholder="Give Health Check Rating value from 0 (Healthy) to 3 (Critical Risk)"
@@ -209,7 +269,7 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
               value={healthCheckRating}
               onChange={({ target }) => setHealthCheckRating(target.value)}
               sx={{ my: 1 }}
-            />
+            /> */}
           </div>
           }
 
