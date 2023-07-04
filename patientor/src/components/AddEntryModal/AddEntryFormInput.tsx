@@ -1,16 +1,14 @@
-import { Button, Grid, TextField } from "@mui/material";
-import { EntryFormValues } from "../../types";
-import { SyntheticEvent, useEffect, useState } from "react";
-import AddEntryFormInput from "./AddEntryFormInput";
+import Button from "@mui/material/Button/Button";
+import Grid from "@mui/material/Grid/Grid";
+import TextField from "@mui/material/TextField/TextField";
+import { useState } from "react";
 
 interface Props {
+  type: "HealthCheck" | "OccupationalHealthcare"  | "Hospital";
   onCancel: () => void;
-  onSubmit: (patientId: string, values: EntryFormValues) => void;
-  patientId: string;
 }
 
-const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
-  const [type, setType] = useState<"HealthCheck" | "OccupationalHealthcare"  | "Hospital">();
+const AddEntryFormInput = ({ type, onCancel }: Props) => {
   const [description, setDescription] = useState('');
   const [date, setDate] = useState('');
   const [specialist, setSpecialist] = useState('');
@@ -25,41 +23,9 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
   const [sickLeaveStart, setSickLeaveStart] = useState('');
   const [sickLeaveEnd, setSickLeaveEnd] = useState('');
 
-  useEffect(() => {
-    // select the HealthCheck for Ex9.27
-    setType('HealthCheck');
-  },[]);
-  
-  const addEntry = (event: SyntheticEvent) => {
-    event.preventDefault();
-    console.log('Submitting add entry form');
-    const diagnosisCodeValues = diagnosisCodes !== ''
-      ? [diagnosisCodes]
-      : undefined;
-    
-    
-    onSubmit(patientId,{
-      type: 'HealthCheck',
-      description,
-      date,
-      specialist,
-      diagnosisCodes: diagnosisCodeValues,
-      healthCheckRating: Number(healthCheckRating)
-    });
-  };
-
-  // const selectEntryType = (event: SyntheticEvent) => {
-  //   event.preventDefault();
-  // }
-  
   return (
-    <div>
-      <h2>Add new {type} entry</h2>
-      <form onSubmit={addEntry}>
-        {!type && <p>Type not selected</p>}
-        {type && <p>Selected type: {type}</p>}
-        {type && <AddEntryFormInput type={type} onCancel={onCancel} />}
-        <TextField
+    <div>AddEntryForm Inputs here
+      <TextField
           label="Description"
           placeholder="Type entry description here.."
           fullWidth
@@ -148,9 +114,8 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
           </Button>
         </Grid>
       </Grid>
-      </form>
-    </div>
+      </div>
   );
 };
 
-export default AddEntryForm;
+export default AddEntryFormInput;
