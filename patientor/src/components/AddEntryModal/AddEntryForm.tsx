@@ -19,7 +19,6 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
   // optional shared with all
   // Must use ([]) as initial state for MUI <Select multiple>
   const [diagnosisCodes, setDiagnosisCodes] = useState<Array<string>>([]);
-  const [diagnosisCodesString, setDiagnosisCodesString] = useState('');
 
   // HealthCheck (required)
   const [healthCheckRating, setHealthCheckRating] = useState('');
@@ -178,20 +177,6 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
             title="Diagnosis Codes fields is optional"
             variant="outlined"
             sx={{ my: 1 }}
-          />
-          <TextField
-            label="Diagnosis Codes"
-            placeholder="Enter diagnosis codes separated by comma ','"
-            fullWidth
-            value={diagnosisCodesString}
-            helperText={
-              <>
-                Enter diagnosis codes separated by comma ','<br />
-                [TBI] If code is unknown, write the diagnosis itself.
-              </>
-            }
-            onChange={({ target }) => setDiagnosisCodesString(target.value)}
-            sx={{ mb: 1 }}
           />
           <FormControl
             sx={{ my: 1 }}
