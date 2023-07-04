@@ -1,4 +1,4 @@
-import { Button, Chip, Divider, Grid, MenuItem, Select, Switch, TextField, ToggleButton, ToggleButtonGroup } from "@mui/material";
+import { Button, Checkbox, Chip, Divider, FormControl, FormHelperText, Grid, InputLabel, MenuItem, Select, Switch, TextField, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { Diagnosis, EntryFormValues } from "../../types";
 import { SyntheticEvent, useEffect, useState } from "react";
 import { todayString } from "../../utils";
@@ -193,16 +193,30 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
             onChange={({ target }) => setDiagnosisCodesString(target.value)}
             sx={{ mb: 1 }}
           />
-          <Select
-            multiple
-            value={diagnosisCodes}
-            onChange={({ target }) => setDiagnosisCodes(target.value as Array<string>)}
+          <FormControl
+            sx={{ my: 1 }}
+            fullWidth
+            variant='filled'
           >
-           {diagnosisCodeData && Object.keys(diagnosisCodeData).map(dc =>
-            <MenuItem key={dc} value={dc}>{dc}</MenuItem> 
-            )}
-          </Select>
-
+            <InputLabel>Diagnosis Codes</InputLabel>
+            <Select
+              multiple
+              value={diagnosisCodes}
+              onChange={({ target }) => {console.log(target.value);setDiagnosisCodes(target.value as Array<string>)}}
+              renderValue={diagnosisCodes => diagnosisCodes.join(', ')}
+            >
+            {diagnosisCodeData && Object.keys(diagnosisCodeData).map(dc =>
+              <MenuItem key={dc} value={dc} >
+                <Checkbox checked={diagnosisCodes.indexOf(dc) > -1 } />
+                
+                {dc} - {diagnosisCodeData[dc].name}
+              </MenuItem> 
+              )}
+            </Select>
+            <FormHelperText sx={{ my: 1 }}>
+              Select diagnosis codes
+            </FormHelperText>
+          </FormControl>
           {type === 'HealthCheck' && <div>
             <Divider textAlign="left">Health Check specific fields</Divider>
             <TextField
