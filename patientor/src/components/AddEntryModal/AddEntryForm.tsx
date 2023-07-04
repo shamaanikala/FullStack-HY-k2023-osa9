@@ -1,6 +1,6 @@
 import { Button, Grid, TextField, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { EntryFormValues } from "../../types";
-import { SyntheticEvent, useEffect, useState } from "react";
+import { SyntheticEvent, useState } from "react";
 
 interface Props {
   onCancel: () => void;
@@ -54,7 +54,7 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
       <h2>Add new {type} entry</h2>
       <ToggleButtonGroup exclusive value={type} onChange={selectEntryType}>
         <ToggleButton value="HealthCheck">Health Check</ToggleButton>
-        <ToggleButton value="Occupational Healthcare">Occupational Healthcare</ToggleButton>
+        <ToggleButton value="OccupationalHealthcare">Occupational Healthcare</ToggleButton>
         <ToggleButton value="Hospital">Hospital</ToggleButton>
           </ToggleButtonGroup>
           <form onSubmit={addEntry}>
