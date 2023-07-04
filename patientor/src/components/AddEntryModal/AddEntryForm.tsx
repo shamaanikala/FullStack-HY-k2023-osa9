@@ -1,4 +1,4 @@
-import { Button, Grid, TextField } from "@mui/material";
+import { Button, Grid, TextField, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { EntryFormValues } from "../../types";
 import { SyntheticEvent, useEffect, useState } from "react";
 
@@ -47,14 +47,20 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
     });
   };
 
-  // const selectEntryType = (event: SyntheticEvent) => {
-  //   event.preventDefault();
-  // }
+  const selectEntryType = (event: React.MouseEvent<HTMLElement>, typeSelection: "HealthCheck" | "OccupationalHealthcare"  | "Hospital") => {
+    event.preventDefault();
+    setType(typeSelection);
+  };
   
   return (
     <div>
       <h2>Add new {type} entry</h2>
-      <form onSubmit={addEntry}>
+      <ToggleButtonGroup value={type} onChange={selectEntryType}>
+        <ToggleButton value="HealthCheck">Health Check</ToggleButton>
+        <ToggleButton value="Occupational Healthcare">Occupational Healthcare</ToggleButton>
+        <ToggleButton value="Hospital">Hospital</ToggleButton>
+          </ToggleButtonGroup>
+          <form onSubmit={addEntry}>
         {!type && <p>Type not selected</p>}
         {type && <p>Selected type: {type}</p>}
         {type && <>
