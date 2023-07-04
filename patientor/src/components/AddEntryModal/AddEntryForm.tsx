@@ -1,4 +1,4 @@
-import { Button, Chip, Divider, Grid, Select, Switch, TextField, ToggleButton, ToggleButtonGroup } from "@mui/material";
+import { Button, Chip, Divider, Grid, MenuItem, Select, Switch, TextField, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { Diagnosis, EntryFormValues } from "../../types";
 import { SyntheticEvent, useEffect, useState } from "react";
 import { todayString } from "../../utils";
@@ -15,8 +15,10 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
   const [description, setDescription] = useState('');
   const [date, setDate] = useState(todayString());
   const [specialist, setSpecialist] = useState('');
+
   // optional shared with all
-  const [diagnosisCodes, setDiagnosisCodes] = useState<Array<string>>();
+  // Must use ([]) as initial state for MUI <Select multiple>
+  const [diagnosisCodes, setDiagnosisCodes] = useState<Array<string>>([]);
   const [diagnosisCodesString, setDiagnosisCodesString] = useState('');
 
   // HealthCheck (required)
@@ -192,9 +194,13 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
             sx={{ mb: 1 }}
           />
           <Select
-
+            multiple
+            value={diagnosisCodes}
+            onChange={({ target }) => setDiagnosisCodes(target.value as Array<string>)}
           >
-            
+           {diagnosisCodeData && Object.keys(diagnosisCodeData).map(dc =>
+            <MenuItem key={dc} value={dc}>{dc}</MenuItem> 
+            )}
           </Select>
 
           {type === 'HealthCheck' && <div>
