@@ -1,4 +1,4 @@
-import { Button, Grid, TextField, ToggleButton, ToggleButtonGroup } from "@mui/material";
+import { Button, Grid, Switch, TextField, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { EntryFormValues } from "../../types";
 import { SyntheticEvent, useState } from "react";
 
@@ -21,6 +21,7 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
   // Occupational (required)
   const [employerName, setEmployerName] = useState('');
   // Occupational (optional)
+  const [sickLeave, setSickLeave] = useState(false);
   const [sickLeaveStart, setSickLeaveStart] = useState('');
   const [sickLeaveEnd, setSickLeaveEnd] = useState('');
 
@@ -109,7 +110,10 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
                 value={employerName}
                 onChange={({ target }) => setEmployerName(target.value)}
               />
+
+              Sick leave <Switch checked={sickLeave} onChange={() => setSickLeave(!sickLeave)} />
               <TextField
+                disabled={!sickLeave}
                 label="Sick leave start date"
                 placeholder="YYYY-MM-DD"
                 fullWidth
@@ -117,6 +121,7 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
                 onChange={({ target }) => setSickLeaveStart(target.value)}
               />
               <TextField
+                disabled={!sickLeave}
                 label="Sick leave end"
                 placeholder="YYYY-MM-DD"
                 fullWidth
