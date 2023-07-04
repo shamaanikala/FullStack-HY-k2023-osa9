@@ -1,7 +1,6 @@
 import { Button, Grid, TextField } from "@mui/material";
 import { EntryFormValues } from "../../types";
 import { SyntheticEvent, useEffect, useState } from "react";
-import AddEntryFormInput from "./AddEntryFormInput";
 
 interface Props {
   onCancel: () => void;
@@ -27,7 +26,7 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
 
   useEffect(() => {
     // select the HealthCheck for Ex9.27
-    setType('HealthCheck');
+    // setType('HealthCheck');
   },[]);
   
   const addEntry = (event: SyntheticEvent) => {
@@ -58,71 +57,72 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
       <form onSubmit={addEntry}>
         {!type && <p>Type not selected</p>}
         {type && <p>Selected type: {type}</p>}
-        {type && <AddEntryFormInput type={type} onCancel={onCancel} />}
-        <TextField
-          label="Description"
-          placeholder="Type entry description here.."
-          fullWidth
-          value={description}
-          onChange={({ target }) => setDescription(target.value)}
-        />
-        <TextField
-          label="Date"
-          placeholder="YYYY-MM-DD"
-          fullWidth
-          value={date}
-          onChange={({ target }) => setDate(target.value)}
-        />
-        <TextField
-          label="Specialist"
-          placeholder="Title. Lastname"
-          fullWidth
-          value={specialist}
-          onChange={({ target }) => setSpecialist(target.value)}
-        />
-        <TextField
-          label="Diagnosis Codes"
-          placeholder="Enter diagnosis codes separated by comma ','"
-          fullWidth
-          value={diagnosisCodes}
-          onChange={({ target }) => setDiagnosisCodes(target.value)}
-        />
-
-        {type === 'HealthCheck' &&
+        {type && <>
           <TextField
-            label="Health Check Rating"
-            placeholder="Give Health Check Rating value from 0 (Healthy) to 3 (Critical Risk)"
+            label="Description"
+            placeholder="Type entry description here.."
             fullWidth
-            value={healthCheckRating}
-            onChange={({ target }) => setHealthCheckRating(target.value)}
+            value={description}
+            onChange={({ target }) => setDescription(target.value)}
           />
-        }
+          <TextField
+            label="Date"
+            placeholder="YYYY-MM-DD"
+            fullWidth
+            value={date}
+            onChange={({ target }) => setDate(target.value)}
+          />
+          <TextField
+            label="Specialist"
+            placeholder="Title. Lastname"
+            fullWidth
+            value={specialist}
+            onChange={({ target }) => setSpecialist(target.value)}
+          />
+          <TextField
+            label="Diagnosis Codes"
+            placeholder="Enter diagnosis codes separated by comma ','"
+            fullWidth
+            value={diagnosisCodes}
+            onChange={({ target }) => setDiagnosisCodes(target.value)}
+          />
 
-        {type === 'OccupationalHealthcare' &&
-          <div>
+          {type === 'HealthCheck' &&
             <TextField
-              label="Employer name"
-              placeholder="Name of the employer"
+              label="Health Check Rating"
+              placeholder="Give Health Check Rating value from 0 (Healthy) to 3 (Critical Risk)"
               fullWidth
-              value={employerName}
-              onChange={({ target }) => setEmployerName(target.value)}
+              value={healthCheckRating}
+              onChange={({ target }) => setHealthCheckRating(target.value)}
             />
-            <TextField
-              label="Sick leave start date"
-              placeholder="YYYY-MM-DD"
-              fullWidth
-              value={sickLeaveStart}
-              onChange={({ target }) => setSickLeaveStart(target.value)}
-            />
-            <TextField
-              label="Sick leave end"
-              placeholder="YYYY-MM-DD"
-              fullWidth
-              value={sickLeaveEnd}
-              onChange={({ target }) => setSickLeaveEnd(target.value)}
-            />
-          </div>
-        }
+          }
+
+          {type === 'OccupationalHealthcare' &&
+            <div>
+              <TextField
+                label="Employer name"
+                placeholder="Name of the employer"
+                fullWidth
+                value={employerName}
+                onChange={({ target }) => setEmployerName(target.value)}
+              />
+              <TextField
+                label="Sick leave start date"
+                placeholder="YYYY-MM-DD"
+                fullWidth
+                value={sickLeaveStart}
+                onChange={({ target }) => setSickLeaveStart(target.value)}
+              />
+              <TextField
+                label="Sick leave end"
+                placeholder="YYYY-MM-DD"
+                fullWidth
+                value={sickLeaveEnd}
+                onChange={({ target }) => setSickLeaveEnd(target.value)}
+              />
+            </div>
+          }
+      </>}
 
         <Grid>
         <Grid item>
@@ -136,17 +136,18 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
             Cancel
           </Button>
         </Grid>
-        <Grid item>
-          <Button
-            style={{
-              float: "right",
-            }}
-            type="submit"
-            variant="contained"
-          >
-            Add
-          </Button>
-        </Grid>
+        {type &&
+          <Grid item>
+            <Button
+              style={{
+                float: "right",
+              }}
+              type="submit"
+              variant="contained"
+            >
+              Add
+            </Button>
+          </Grid>}
       </Grid>
       </form>
     </div>
