@@ -53,9 +53,9 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
 
   const addEntry = (event: SyntheticEvent) => {
     event.preventDefault();
-    const diagnosisCodeValues = diagnosisCodesString !== ''
-      ? [diagnosisCodesString]
-      : undefined;
+    // const diagnosisCodeValues = diagnosisCodesString !== ''
+    //   ? [diagnosisCodesString]
+    //   : undefined;
     
     if (!type) {
       throw new Error('Entry type must be selected');
@@ -67,7 +67,7 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
         description,
         date,
         specialist,
-        diagnosisCodes: diagnosisCodeValues,
+        diagnosisCodes: diagnosisCodes ? diagnosisCodes : undefined,
         healthCheckRating: Number(healthCheckRating)
       };
       onSubmit(patientId,entryValueObject);
@@ -77,7 +77,7 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
         description,
         date,
         specialist,
-        diagnosisCodes: diagnosisCodeValues,
+        diagnosisCodes: diagnosisCodes ? diagnosisCodes : undefined,
         employerName,
         sickLeave: sickLeave
         ? {
@@ -94,7 +94,7 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
         description,
         date,
         specialist,
-        diagnosisCodes: diagnosisCodeValues,
+        diagnosisCodes: diagnosisCodes ? diagnosisCodes : undefined,
         discharge: discharge
         ? {
           date: dischargeDate,
