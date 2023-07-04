@@ -38,15 +38,53 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
       ? [diagnosisCodes]
       : undefined;
     
+    if (!type) {
+      throw new Error('Entry type must be selected');
+    } 
     
-    onSubmit(patientId,{
-      type: 'HealthCheck',
-      description,
-      date,
-      specialist,
-      diagnosisCodes: diagnosisCodeValues,
-      healthCheckRating: Number(healthCheckRating)
-    });
+    if (type === 'HealthCheck') {
+      let entryValueObject = {
+        type,
+        description,
+        date,
+        specialist,
+        diagnosisCodes: diagnosisCodeValues,
+        healthCheckRating: Number(healthCheckRating)
+      };
+      onSubmit(patientId,entryValueObject);
+    } else if (type === 'OccupationalHealthcare') {
+      let entryValueObject = {
+        type,
+        description,
+        date,
+        specialist,
+        diagnosisCodes: diagnosisCodeValues,
+        employerName,
+        sickLeave: sickLeave
+        ? {
+          startDate: sickLeaveStart,
+          endDate: sickLeaveEnd
+        }
+        : undefined,
+        
+      };
+      onSubmit(patientId,entryValueObject);
+    } else if (type === 'Hospital') {
+     let entryValueObject = {
+        type,
+        description,
+        date,
+        specialist,
+        diagnosisCodes: diagnosisCodeValues,
+        discharge: discharge
+        ? {
+          date: dischargeDate,
+          criteria: dischargeCriteria
+        }
+        : undefined
+      };
+      onSubmit(patientId,entryValueObject);
+    }
   };
 
   const selectEntryType = (event: React.MouseEvent<HTMLElement>, typeSelection: "HealthCheck" | "OccupationalHealthcare"  | "Hospital") => {
