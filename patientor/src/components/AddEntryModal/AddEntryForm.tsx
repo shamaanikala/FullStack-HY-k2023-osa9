@@ -12,7 +12,7 @@ interface Props {
 const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
   const [type, setType] = useState<"HealthCheck" | "OccupationalHealthcare"  | "Hospital">();
   const [description, setDescription] = useState('');
-  const [date, setDate] = useState('');
+  const [date, setDate] = useState(todayString());
   const [specialist, setSpecialist] = useState('');
   // optional shared with all
   const [diagnosisCodes, setDiagnosisCodes] = useState('');
@@ -119,7 +119,7 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
             label="Date"
             placeholder="YYYY-MM-DD"
             fullWidth
-            value={date.length === 0 ? todayString() : date}
+            value={date}
             onChange={({ target }) => setDate(target.value)}
           />
           <TextField
