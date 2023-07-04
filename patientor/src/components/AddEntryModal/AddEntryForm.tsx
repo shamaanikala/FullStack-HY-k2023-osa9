@@ -1,15 +1,15 @@
 import { Button, Grid, TextField } from "@mui/material";
 import { EntryFormValues } from "../../types";
-import { SyntheticEvent, useState } from "react";
+import { SyntheticEvent, useEffect, useState } from "react";
 
 interface Props {
-  type: "HealthCheck" | "OccupationalHealthcare"  | "Hospital";
   onCancel: () => void;
   onSubmit: (patientId: string, values: EntryFormValues) => void;
   patientId: string;
 }
 
-const AddEntryForm = ({ type, onCancel, onSubmit, patientId }: Props) => {
+const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
+  const [type, setType] = useState<"HealthCheck" | "OccupationalHealthcare"  | "Hospital">();
   const [description, setDescription] = useState('');
   const [date, setDate] = useState('');
   const [specialist, setSpecialist] = useState('');
@@ -24,6 +24,11 @@ const AddEntryForm = ({ type, onCancel, onSubmit, patientId }: Props) => {
   const [sickLeaveStart, setSickLeaveStart] = useState('');
   const [sickLeaveEnd, setSickLeaveEnd] = useState('');
 
+  useEffect(() => {
+    // select the HealthCheck for Ex9.27
+    setType('HealthCheck');
+  },[]);
+  
   const addEntry = (event: SyntheticEvent) => {
     event.preventDefault();
     console.log('Submitting add entry form');
@@ -42,6 +47,7 @@ const AddEntryForm = ({ type, onCancel, onSubmit, patientId }: Props) => {
     });
   };
 
+  
   return (
     <div>
       <h2>Add new {type} entry</h2>

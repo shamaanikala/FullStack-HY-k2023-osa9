@@ -20,7 +20,7 @@ const AddEntryModal = ({ modalOpen, onClose, onSubmit, error, patientId }: Props
     <Divider />
     <DialogContent>
       {error && <Alert severity="error">{error}</Alert>}
-      <AddEntryForm patientId={patientId} type={'HealthCheck'} onSubmit={onSubmit} onCancel={onClose}/>
+      <AddEntryForm patientId={patientId} onSubmit={onSubmit} onCancel={onClose}/>
     </DialogContent>
   </Dialog>
 );
