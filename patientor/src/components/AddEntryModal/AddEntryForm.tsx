@@ -186,6 +186,7 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
           }
           {type === 'Hospital' &&
             <div>
+              <Divider textAlign="left">Hospital specific fields</Divider>
               Discharge <Switch checked={discharge} onChange={() => setDischarge(!discharge)} />
               <TextField
                 required={discharge}
