@@ -1,7 +1,8 @@
-import { Button, Chip, Divider, Grid, Switch, TextField, ToggleButton, ToggleButtonGroup } from "@mui/material";
-import { EntryFormValues } from "../../types";
-import { SyntheticEvent, useState } from "react";
+import { Button, Chip, Divider, Grid, Select, Switch, TextField, ToggleButton, ToggleButtonGroup } from "@mui/material";
+import { Diagnosis, EntryFormValues } from "../../types";
+import { SyntheticEvent, useEffect, useState } from "react";
 import { todayString } from "../../utils";
+import diagnoseService from '../../services/diagnoses';
 
 interface Props {
   onCancel: () => void;
@@ -15,7 +16,8 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
   const [date, setDate] = useState(todayString());
   const [specialist, setSpecialist] = useState('');
   // optional shared with all
-  const [diagnosisCodes, setDiagnosisCodes] = useState('');
+  const [diagnosisCodes, setDiagnosisCodes] = useState<Array<string>>();
+  const [diagnosisCodesString, setDiagnosisCodesString] = useState('');
 
   // HealthCheck (required)
   const [healthCheckRating, setHealthCheckRating] = useState('');
@@ -32,10 +34,25 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
   const [dischargeDate, setDischargeDate] = useState('');
   const [dischargeCriteria, setDischargeCriteria] = useState('');
 
+  const [diagnosisCodeData, setDiagnosisCodeData] = useState<Record<string, Diagnosis>>();
+
+  useEffect(() => {
+    const fetchDiagnoses = async () => {
+      const response = await diagnoseService.getAll();
+      let diagnosisData: Record<string, Diagnosis> = {};
+      for (const diagnosis of response) {
+        diagnosisData[diagnosis.code] = diagnosis;
+      }
+      console.log(Object.values(diagnosisData).length);
+      setDiagnosisCodeData(diagnosisData);
+    }
+    fetchDiagnoses();
+  },[]);
+
   const addEntry = (event: SyntheticEvent) => {
     event.preventDefault();
-    const diagnosisCodeValues = diagnosisCodes !== ''
-      ? [diagnosisCodes]
+    const diagnosisCodeValues = diagnosisCodesString !== ''
+      ? [diagnosisCodesString]
       : undefined;
     
     if (!type) {
@@ -105,6 +122,12 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
     }
   };
 
+  if (diagnosisCodeData) {
+    console.log(diagnosisCodeData);
+  } else {
+    console.log('Diagnosis Codes data loading...');
+  }
+
   return (
     <div>
       <h2>Add new {entryTypeToString(type)} entry</h2>
@@ -158,16 +181,21 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
             label="Diagnosis Codes"
             placeholder="Enter diagnosis codes separated by comma ','"
             fullWidth
-            value={diagnosisCodes}
+            value={diagnosisCodesString}
             helperText={
               <>
                 Enter diagnosis codes separated by comma ','<br />
                 [TBI] If code is unknown, write the diagnosis itself.
               </>
             }
-            onChange={({ target }) => setDiagnosisCodes(target.value)}
+            onChange={({ target }) => setDiagnosisCodesString(target.value)}
             sx={{ mb: 1 }}
           />
+          <Select
+
+          >
+            
+          </Select>
 
           {type === 'HealthCheck' && <div>
             <Divider textAlign="left">Health Check specific fields</Divider>
