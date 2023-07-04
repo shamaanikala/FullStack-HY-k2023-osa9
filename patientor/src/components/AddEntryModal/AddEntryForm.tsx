@@ -52,9 +52,6 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
 
   const addEntry = (event: SyntheticEvent) => {
     event.preventDefault();
-    // const diagnosisCodeValues = diagnosisCodesString !== ''
-    //   ? [diagnosisCodesString]
-    //   : undefined;
     
     if (!type) {
       throw new Error('Entry type must be selected');

@@ -8,8 +8,6 @@ import HealthCheckEntryDetails from "./HealthCheckEntryDetails";
 import HospitalEntryDetails from "./HospitalEntryDetails";
 import { assertNever } from "../../utils";
 
-const getDiagnosis = async (code: string) => await diagnoseService.getDiagnosisByCode(code);
-
 interface Props {
   entries: Entry[];
 }
@@ -20,26 +18,17 @@ const EntriesList = (props: Props) => {
   const [diagnoses, setDiagnoses] = useState<Record<string, Diagnosis>>();
 
   useEffect(() => {
-    const fetch = async (entries: Entry[]) => {
-      let diagnoses: Record<string, Diagnosis> = {};
-      for (const entry of entries) {
-        if (!entry.diagnosisCodes) {
-          continue;
-        }
-        const codes = entry.diagnosisCodes;
-        for (const code of codes) {
-          if (!Object.keys(diagnoses).includes(code)) {
-            const diagnosis = await getDiagnosis(code);
-            if (diagnosis) {
-              diagnoses[code] = diagnosis;
-            }
-          } 
-        }
+    const fetchDiagnoses = async () => {
+      const response = await diagnoseService.getAll();
+      let diagnosisData: Record<string, Diagnosis> = {};
+      for (const diagnosis of response) {
+        diagnosisData[diagnosis.code] = diagnosis;
       }
-      setDiagnoses(diagnoses);
+      console.log(Object.values(diagnosisData).length);
+      setDiagnoses(diagnosisData);
     }
-    fetch(entries);
-  },[entries]);
+    fetchDiagnoses();
+  },[]);
 
   const getDiagnosisName = (code: string) => {
     if (!diagnoses) {
