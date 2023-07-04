@@ -1,6 +1,7 @@
-import { Button, Grid, Switch, TextField, ToggleButton, ToggleButtonGroup } from "@mui/material";
+import { Button, Divider, Grid, Switch, TextField, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { EntryFormValues } from "../../types";
 import { SyntheticEvent, useState } from "react";
+import { todayString } from "../../utils";
 
 interface Props {
   onCancel: () => void;
@@ -118,7 +119,7 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
             label="Date"
             placeholder="YYYY-MM-DD"
             fullWidth
-            value={date}
+            value={date.length === 0 ? todayString() : date}
             onChange={({ target }) => setDate(target.value)}
           />
           <TextField
@@ -137,7 +138,8 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
             onChange={({ target }) => setDiagnosisCodes(target.value)}
           />
 
-          {type === 'HealthCheck' &&
+          {type === 'HealthCheck' && <div>
+            <Divider textAlign="left">Health Check specific fields</Divider>
             <TextField
               required
               label="Health Check Rating"
@@ -146,10 +148,12 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
               value={healthCheckRating}
               onChange={({ target }) => setHealthCheckRating(target.value)}
             />
+          </div>
           }
 
           {type === 'OccupationalHealthcare' &&
             <div>
+              <Divider textAlign="left">Occupational Healthcare specific fields</Divider>
               <TextField
                 required
                 label="Employer name"
