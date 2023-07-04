@@ -25,6 +25,12 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
   const [sickLeaveStart, setSickLeaveStart] = useState('');
   const [sickLeaveEnd, setSickLeaveEnd] = useState('');
 
+  // Hospital (optional)
+  // the form switch state
+  const [discharge, setDischarge] = useState(false);
+  const [dischargeDate, setDischargeDate] = useState('');
+  const [dischargeCriteria, setDischargeCriteria] = useState('');
+
   const addEntry = (event: SyntheticEvent) => {
     event.preventDefault();
     console.log('Submitting add entry form');
@@ -127,6 +133,27 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
                 fullWidth
                 value={sickLeaveEnd}
                 onChange={({ target }) => setSickLeaveEnd(target.value)}
+              />
+            </div>
+          }
+          {type === 'Hospital' &&
+            <div>
+              Discharge <Switch checked={discharge} onChange={() => setDischarge(!discharge)} />
+              <TextField
+                disabled={!discharge}
+                label="Discharge date"
+                placeholder="YYYY-MM-DD"
+                fullWidth
+                value={dischargeDate}
+                onChange={({ target }) => setDischargeDate(target.value)}
+              />
+              <TextField
+                disabled={!discharge}
+                label="Discharge criteria"
+                placeholder="Discharge criteria"
+                fullWidth
+                value={dischargeCriteria}
+                onChange={({ target }) => setDischargeCriteria(target.value)}
               />
             </div>
           }
