@@ -15,7 +15,6 @@ import axios from "axios";
 
 // or no props and use React Router useParams
 const PatientPage = () => {
-  console.log(useParams().id);
   const id = useParams().id;
   const [patient, setPatient] = useState<Patient>();
 

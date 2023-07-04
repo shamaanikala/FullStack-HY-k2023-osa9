@@ -15,6 +15,7 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
   const [specialist, setSpecialist] = useState('');
   // optional shared with all
   const [diagnosisCodes, setDiagnosisCodes] = useState('');
+
   // HealthCheck (required)
   const [healthCheckRating, setHealthCheckRating] = useState('');
 
@@ -26,8 +27,7 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
   const [sickLeaveEnd, setSickLeaveEnd] = useState('');
 
   // Hospital (optional)
-  // the form switch state
-  const [discharge, setDischarge] = useState(false);
+  const [discharge, setDischarge] = useState(false); // the form switch state
   const [dischargeDate, setDischargeDate] = useState('');
   const [dischargeCriteria, setDischargeCriteria] = useState('');
 
@@ -103,10 +103,10 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
         <ToggleButton value="Hospital">Hospital</ToggleButton>
           </ToggleButtonGroup>
           <form onSubmit={addEntry}>
-        {!type && <p>Type not selected</p>}
-        {type && <p>Selected type: {type}</p>}
+        {!type && <p>Select entry type, please.</p>}
         {type && <>
           <TextField
+            required
             label="Description"
             placeholder="Type entry description here.."
             fullWidth
@@ -114,6 +114,7 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
             onChange={({ target }) => setDescription(target.value)}
           />
           <TextField
+            required
             label="Date"
             placeholder="YYYY-MM-DD"
             fullWidth
@@ -121,6 +122,7 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
             onChange={({ target }) => setDate(target.value)}
           />
           <TextField
+            required
             label="Specialist"
             placeholder="Title. Lastname"
             fullWidth
@@ -137,6 +139,7 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
 
           {type === 'HealthCheck' &&
             <TextField
+              required
               label="Health Check Rating"
               placeholder="Give Health Check Rating value from 0 (Healthy) to 3 (Critical Risk)"
               fullWidth
@@ -148,6 +151,7 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
           {type === 'OccupationalHealthcare' &&
             <div>
               <TextField
+                required
                 label="Employer name"
                 placeholder="Name of the employer"
                 fullWidth
@@ -157,6 +161,7 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
 
               Sick leave <Switch checked={sickLeave} onChange={() => setSickLeave(!sickLeave)} />
               <TextField
+                required={sickLeave}
                 disabled={!sickLeave}
                 label="Sick leave start date"
                 placeholder="YYYY-MM-DD"
@@ -165,6 +170,7 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
                 onChange={({ target }) => setSickLeaveStart(target.value)}
               />
               <TextField
+                required={sickLeave}
                 disabled={!sickLeave}
                 label="Sick leave end"
                 placeholder="YYYY-MM-DD"
@@ -178,6 +184,7 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
             <div>
               Discharge <Switch checked={discharge} onChange={() => setDischarge(!discharge)} />
               <TextField
+                required={discharge}
                 disabled={!discharge}
                 label="Discharge date"
                 placeholder="YYYY-MM-DD"
@@ -186,6 +193,7 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
                 onChange={({ target }) => setDischargeDate(target.value)}
               />
               <TextField
+                required={discharge}
                 disabled={!discharge}
                 label="Discharge criteria"
                 placeholder="Discharge criteria"
