@@ -113,11 +113,20 @@ interface HealthCheckRatingProp {
   rating: HealthCheckRating;
 } 
 
+// Ex9.29 change the colours:
+// blueGery[900] is almost black -> CriticalRisk
+// The traffic light analogy could be informative,
+// but the red colour as worst can be misleading
+// as red heart can be considered as a symbol of health.
+// Let's not use red at all but a range of colours
+// from green to blue to very dark blue that is almost black
+// Let's not use red, as red heart 
+// { color: red[500], description: 'Critical Risk' },
 const healthRatingInformation = [
   { color: green[300], description: 'Healthy' },
   { color: blue[400], description: 'Low Risk' },
-  { color: blueGrey[900], description: 'High Risk' },
-  { color: red[500], description: 'Critical Risk' },
+  { color: blueGrey[400], description: 'High Risk' },
+  { color: blueGrey[900], description: 'Critical Risk'}
 ];
 
 const HealthCheckRatingHeader = ({ rating }: HealthCheckRatingProp) => {
