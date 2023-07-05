@@ -1,4 +1,4 @@
-import { Box, Button, Checkbox, Chip, Divider, FormControl, FormHelperText, Grid, InputLabel, MenuItem, Select, Switch, TextField, ToggleButton, ToggleButtonGroup, styled, } from "@mui/material";
+import { Box, Button, Checkbox, Chip, Divider, FormControl, FormHelperText, Grid, InputLabel, MenuItem, Select, Switch, TextField, ToggleButton, ToggleButtonGroup, Typography, styled, } from "@mui/material";
 import Rating, { IconContainerProps } from '@mui/material/Rating';
 import { Diagnosis, EntryFormValues } from "../../types";
 import React, { SyntheticEvent, useEffect, useState } from "react";
@@ -243,7 +243,10 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
           </FormControl>
           {type === 'HealthCheck' && <div>
             <Divider textAlign="left">Health Check specific fields</Divider>
-            <Box sx={{ my: 1, display: 'flex' }} >
+            <Typography sx={{ my: 1 }}  variant="h6">
+              Choose a Health Check Rating
+            </Typography>
+            <Box sx={{ my: 1, display: 'flex' }}>
             <RatingHeatlthCheckRating
               IconContainerComponent={IconContainer}
               max={4} // needs this, otherwise iterates to 5
@@ -338,6 +341,8 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
             </div>
           }
       </>}
+
+        <Divider sx={{ my: 2 }}></Divider>
 
         <Grid sx={{ my: 1 }}>
         <Grid item>
