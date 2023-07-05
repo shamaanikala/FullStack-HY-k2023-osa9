@@ -150,10 +150,7 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
             onChange={({ target }) => setDescription(target.value)}
             sx={{ mb: 1 }}
           />
-          <FormControl
-            fullWidth
-            sx={{ my: 1 }}
-          >
+          <FormControl fullWidth sx={{ my: 1 }} >
             <InputLabel
               required
               variant="outlined"
@@ -161,8 +158,10 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
                 Date</InputLabel>
             <OutlinedInput 
               type="date"
+              id="entry-date-input"
               placeholder="dd.mm.yyyy"
               required
+              notched // does not work here
               label="Date" // this prevents the <InputLabel> strikethrough bug
               value={date}
               onChange={({ target }) => setDate(target.value)}
@@ -229,26 +228,48 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
               />
 
               Sick leave <Switch checked={sickLeave} onChange={() => setSickLeave(!sickLeave)} />
-              <TextField
-                required={sickLeave}
-                disabled={!sickLeave}
-                label="Sick leave start date"
-                placeholder="YYYY-MM-DD"
-                fullWidth
-                value={sickLeaveStart}
-                onChange={({ target }) => setSickLeaveStart(target.value)}
-                sx={{ mb: 1 }}
-              />
-              <TextField
-                required={sickLeave}
-                disabled={!sickLeave}
-                label="Sick leave end"
-                placeholder="YYYY-MM-DD"
-                fullWidth
-                value={sickLeaveEnd}
-                onChange={({ target }) => setSickLeaveEnd(target.value)}
-                sx={{ mb: 1 }}
-              />
+              <FormControl fullWidth sx={{ my: 1 }} >
+                <InputLabel
+                  required
+                  variant="outlined"
+                  shrink // the label is on the
+                  focused
+                  htmlFor="sickleave-start-date-input">
+                    Start Date</InputLabel>
+                <OutlinedInput 
+                  type="date"
+                  id="sickleave-start-date-input"
+                  placeholder="dd.mm.yyyy"
+                  notched // label doesn't get strike through
+                  required={sickLeave}
+                  // label="Start Date" // this prevents the <InputLabel> strikethrough bug
+                  disabled={!sickLeave}
+                  fullWidth
+                  value={sickLeaveStart}
+                  onChange={({ target }) => setSickLeaveStart(target.value)}
+                  sx={{ mb: 1 }}
+                />
+              </FormControl>
+              <FormControl fullWidth sx={{ my: 1 }} >
+                <InputLabel
+                  required
+                  variant="outlined"
+                  shrink // the label is on the
+                  focused
+                  htmlFor="sickleave-end-date-input">
+                    End Date</InputLabel>
+                <OutlinedInput 
+                  type="date"
+                  placeholder="dd.mm.yyyy"
+                  id="sickleave-end-date-input"
+                  required={sickLeave}
+                  disabled={!sickLeave}
+                  fullWidth
+                  value={sickLeaveEnd}
+                  onChange={({ target }) => setSickLeaveEnd(target.value)}
+                  sx={{ mb: 1 }}
+                />
+              </FormControl>
             </div>
           }
           {type === 'Hospital' &&
