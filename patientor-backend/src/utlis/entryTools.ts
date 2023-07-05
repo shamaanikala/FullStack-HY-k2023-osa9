@@ -107,10 +107,10 @@ const toNewEntry = (object: unknown): NewEntry => {
   if (!object || typeof object !== 'object') {
     throw new Error('Incorrect or missing data (typeof object !== \'object\'');
   }
-  console.log('object test passed');
+  // console.log('object test passed');
   if('description' in object && 'date' in object && 'specialist' in object && 'type' in object) {
     // required and shared fields
-    console.log('testing required shared fields');
+    // console.log('testing required shared fields');
     const description = parseDescription(object.description);
     const date =  parseDate(object.date);
     const specialist = parseSpecialist(object.specialist);
@@ -119,31 +119,31 @@ const toNewEntry = (object: unknown): NewEntry => {
       throw new Error('Incorrect data: type field is missing');
     }
 
-    console.log('next diagnosis codes:');
+    // console.log('next diagnosis codes:');
     // optional and shared field 
     const diagnosisCodes = 'diagnosisCodes' in object
       ? parseDiagnosisCodes(object)
       : undefined;
 
-    console.log('shared fields passed');
-    console.log('Testing HealthCheck fields');
+    // console.log('shared fields passed');
+    // console.log('Testing HealthCheck fields');
     // HealthCheck fields
     if (type === 'HealthCheck') {
-      console.log('type confirmed to be HealthCheck');
+      // console.log('type confirmed to be HealthCheck');
       const healthCheckRating = 'healthCheckRating' in object
         ? parseHealthCheckRating(object.healthCheckRating)
         : undefined;
 
-      console.log('healthCheckRating validated, next trying to create object');
-      console.log('This fails here');
-      console.log('if(healthCheckRating) tests this healthCheckRating ',healthCheckRating);
-      console.log('if healthCheckRating === 0, if(0) is false :(');
-      console.log('What if tests HealthCheckRating[healthCheckRating]?');
-      console.log('will zero pass then?');
+      // console.log('healthCheckRating validated, next trying to create object');
+      // console.log('This fails here');
+      // console.log('if(healthCheckRating) tests this healthCheckRating ',healthCheckRating);
+      // console.log('if healthCheckRating === 0, if(0) is false :(');
+      // console.log('What if tests HealthCheckRating[healthCheckRating]?');
+      // console.log('will zero pass then?');
       if (!healthCheckRating && healthCheckRating !== 0) {
         throw new Error('Required health check rating missing or invalid');
       }
-      console.log('insdide if(healthCheckRating');
+      // console.log('insdide if(healthCheckRating');
       const newEntry: NewEntry = {
         description,
         date,
@@ -153,18 +153,18 @@ const toNewEntry = (object: unknown): NewEntry => {
         healthCheckRating
       };
 
-        console.log('HealthCheckEntry created, returning it');
+        // console.log('HealthCheckEntry created, returning it');
 
         return newEntry;
     
     } else if (type === 'Hospital') {
     // Hospital fields
-      console.log('Hospital type entry detected');
+      // console.log('Hospital type entry detected');
       const discharge = 'discharge' in object
         ? parseDischarge(object.discharge)
         : undefined;
 
-      console.log('Attempting to create new Hospital entry');
+      // console.log('Attempting to create new Hospital entry');
       const newEntry: NewEntry = {
         description,
         date,
@@ -174,22 +174,22 @@ const toNewEntry = (object: unknown): NewEntry => {
         discharge
       };
       
-      console.log('Returning Hospital entry');
+      // console.log('Returning Hospital entry');
       return newEntry;
 
     } else if (type === 'OccupationalHealthcare') {
       // Occupational fields
-      console.log('Occupational healthcare entry type detected');
-      console.log('checking if required employerName field exists...');
+      // console.log('Occupational healthcare entry type detected');
+      // console.log('checking if required employerName field exists...');
       if ('employerName'in object) {
-        console.log('employerName exists, validating it');
+        // console.log('employerName exists, validating it');
         const employerName = parseEmployerName(object.employerName);
-        console.log('employerName ok');
+        // console.log('employerName ok');
         const sickLeave = 'sickLeave' in object
           ? parseSickLeave(object.sickLeave)
           : undefined;
           
-        console.log('trying to create new occupational entry');
+        // console.log('trying to create new occupational entry');
         const newEntry: NewEntry = {
           description,
           date,
@@ -200,7 +200,7 @@ const toNewEntry = (object: unknown): NewEntry => {
           sickLeave
         };
 
-        console.log('returning new occupational entry');
+        // console.log('returning new occupational entry');
       return newEntry;
 
       } else {
