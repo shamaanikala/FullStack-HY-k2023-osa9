@@ -66,8 +66,9 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
         description,
         date,
         specialist,
-        diagnosisCodes: diagnosisCodes ? diagnosisCodes : undefined,
-        healthCheckRating: Number(healthCheckRating)
+        diagnosisCodes: diagnosisCodes.length > 0 ? diagnosisCodes : undefined,
+        // substract one due to the Rating value
+        healthCheckRating: Number(healthCheckRating) - 1
       };
       onSubmit(patientId,entryValueObject);
     } else if (type === 'OccupationalHealthcare') {
@@ -76,7 +77,7 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
         description,
         date,
         specialist,
-        diagnosisCodes: diagnosisCodes ? diagnosisCodes : undefined,
+        diagnosisCodes: diagnosisCodes.length > 0 ? diagnosisCodes : undefined,
         employerName,
         sickLeave: sickLeave
         ? {
@@ -93,7 +94,7 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
         description,
         date,
         specialist,
-        diagnosisCodes: diagnosisCodes ? diagnosisCodes : undefined,
+        diagnosisCodes: diagnosisCodes.length > 0 ? diagnosisCodes : undefined,
         discharge: discharge
         ? {
           date: dischargeDate,
@@ -134,9 +135,9 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
     '& .MuiRating-iconEmpty .MuiSvgIcon-root': {
       color: theme.palette.action.disabled,
     },
-    '& .MuiRating-iconFilled': {
-      color: '#ff6d75'
-    },
+    // '& .MuiRating-iconFilled': {
+    //   color: '#ff6d75'
+    // },
   }));
 
   const healthCheckRatingIcons: {
@@ -145,6 +146,7 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
       label: string;
     };
   } = {
+    // the index must start from 1
     1: {
       icon: <FavoriteIcon sx={{ color: healthRatingInformation[0].color }} />,
       label: healthRatingInformation[0].description,
@@ -167,14 +169,6 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
   
   const IconContainer = (props: IconContainerProps) => {
     const { value, ...other } = props;
-    // console.log(value);
-    // console.log(other);
-    // console.log(props);
-    // console.log(healthCheckRatingIcons[value]);
-    if (value === 5) {
-      // console.log('ei päästetä 5 eteenpäin')
-      return <span {...other}>{healthCheckRatingIcons[value-1].icon}</span>; 
-    }
     return <span {...other}>{healthCheckRatingIcons[value].icon}</span>;
   };
 
@@ -257,6 +251,8 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
               IconContainerComponent={IconContainer}
               max={4} // needs this, otherwise iterates to 5
               onChange={(event, newValue) => {console.log('newValue:', newValue);setHealthCheckRating(newValue)}}
+              // the Rating indices are 1-4 but rating is 0-3
+              // handle this within the onSubmit
               value={Number(healthCheckRating)}
               getLabelText={(value: number) => healthCheckRatingIcons[value].label}
               highlightSelectedOnly
