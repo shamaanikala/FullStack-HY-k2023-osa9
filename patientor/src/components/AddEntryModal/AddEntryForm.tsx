@@ -1,4 +1,4 @@
-import { Button, Checkbox, Chip, Divider, FormControl, FormHelperText, Grid, InputLabel, MenuItem, Select, Switch, TextField, ToggleButton, ToggleButtonGroup, styled, } from "@mui/material";
+import { Box, Button, Checkbox, Chip, Divider, FormControl, FormHelperText, Grid, InputLabel, MenuItem, Select, Switch, TextField, ToggleButton, ToggleButtonGroup, styled, } from "@mui/material";
 import Rating, { IconContainerProps } from '@mui/material/Rating';
 import { Diagnosis, EntryFormValues } from "../../types";
 import React, { SyntheticEvent, useEffect, useState } from "react";
@@ -39,6 +39,10 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
   const [dischargeCriteria, setDischargeCriteria] = useState('');
 
   const [diagnosisCodeData, setDiagnosisCodeData] = useState<Record<string, Diagnosis>>();
+
+  // Add Health Check Rating selection labels:
+  // https://mui.com/material-ui/react-rating/#hover-feedback
+  const [healthRatingHover, setHealthRatingHover] = useState(-1);
 
   useEffect(() => {
     const fetchDiagnoses = async () => {
@@ -165,8 +169,6 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
     }
   };
 
-  console.log(healthCheckRatingIcons[1].label);
-  
   const IconContainer = (props: IconContainerProps) => {
     const { value, ...other } = props;
     return <span {...other}>{healthCheckRatingIcons[value].icon}</span>;
@@ -247,16 +249,26 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
           </FormControl>
           {type === 'HealthCheck' && <div>
             <Divider textAlign="left">Health Check specific fields</Divider>
+            <Box sx={{ display: 'flex' }} >
             <RatingHeatlthCheckRating
               IconContainerComponent={IconContainer}
               max={4} // needs this, otherwise iterates to 5
-              onChange={(event, newValue) => {console.log('newValue:', newValue);setHealthCheckRating(newValue)}}
+              onChange={(event, newValue) => setHealthCheckRating(newValue)}
+              onChangeActive={(event, newHover) => setHealthRatingHover(newHover)}
               // the Rating indices are 1-4 but rating is 0-3
               // handle this within the onSubmit
               value={Number(healthCheckRating)}
               getLabelText={(value: number) => healthCheckRatingIcons[value].label}
               highlightSelectedOnly
             /> 
+            {healthCheckRating !== null && (
+              <Box sx={{ ml: 2}}>
+                {healthRatingInformation[healthRatingHover !== -1
+                  ? healthRatingHover - 1
+                  : healthCheckRating - 1
+                ].description}
+              </Box>
+            )}
             {/* <TextField
               required
               label="Health Check Rating"
@@ -266,6 +278,7 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
               onChange={({ target }) => setHealthCheckRating(target.value)}
               sx={{ my: 1 }}
             /> */}
+          </Box>
           </div>
           }
 
