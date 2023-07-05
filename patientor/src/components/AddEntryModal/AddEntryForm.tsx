@@ -1,11 +1,8 @@
-import { Box, Button, Checkbox, Chip, Divider, FormControl, FormHelperText, Grid, InputLabel, MenuItem, Select, Switch, TextField, ToggleButton, ToggleButtonGroup, Typography, styled, } from "@mui/material";
-import Rating, { IconContainerProps } from '@mui/material/Rating';
+import { Button, Checkbox, Chip, Divider, FormControl, FormHelperText, Grid, InputLabel, MenuItem, Select, Switch, TextField, ToggleButton, ToggleButtonGroup, } from "@mui/material";
 import { Diagnosis, EntryFormValues } from "../../types";
 import React, { SyntheticEvent, useEffect, useState } from "react";
 import { todayString } from "../../utils";
 import diagnoseService from '../../services/diagnoses';
-import { healthRatingInformation } from "../PatientPage/EntryHeader";
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import HealthCheckFormElements from "./HealthCheckFormElements";
 
 interface Props {
@@ -40,10 +37,6 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
   const [dischargeCriteria, setDischargeCriteria] = useState('');
 
   const [diagnosisCodeData, setDiagnosisCodeData] = useState<Record<string, Diagnosis>>();
-
-  // Add Health Check Rating selection labels:
-  // https://mui.com/material-ui/react-rating/#hover-feedback
-  const [healthRatingHover, setHealthRatingHover] = useState(-1);
 
   useEffect(() => {
     const fetchDiagnoses = async () => {
@@ -132,43 +125,6 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
     console.log('Diagnosis Codes data loading...');
   }
 
-  // https://mui.com/material-ui/react-rating/#radio-group
-  const RatingHeatlthCheckRating = styled(Rating)(({ theme }) => ({
-    '& .MuiRating-iconEmpty .MuiSvgIcon-root': {
-      color: theme.palette.action.disabled,
-    },
-  }));
-
-  const healthCheckRatingIcons: {
-    [index: string]: {
-      icon: React.ReactElement;
-      label: string;
-    };
-  } = {
-    // the index must start from 1
-    1: {
-      icon: <FavoriteIcon fontSize="large" sx={{ color: healthRatingInformation[0].color }} />,
-      label: healthRatingInformation[0].description,
-    },
-    2: {
-      icon: <FavoriteIcon fontSize="large" sx={{ color: healthRatingInformation[1].color }} />,
-      label: healthRatingInformation[1].description,
-    },
-    3: {
-      icon: <FavoriteIcon fontSize="large" sx={{ color: healthRatingInformation[2].color }} />,
-      label: healthRatingInformation[2].description,
-    },
-    4: {
-      icon: <FavoriteIcon fontSize="large" sx={{ color: healthRatingInformation[3].color }} />,
-      label: healthRatingInformation[3].description,
-    }
-  };
-
-  const IconContainer = (props: IconContainerProps) => {
-    const { value, ...other } = props;
-    return <span {...other}>{healthCheckRatingIcons[value].icon}</span>;
-  };
-
   return (
     <div>
       <h2>Add new {entryTypeToString(type)} entry</h2>
@@ -247,39 +203,6 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
               healthCheckRating={healthCheckRating}
               setHealthCheckRating={setHealthCheckRating}
             />
-            {/* <Divider textAlign="left">Health Check specific fields</Divider>
-            <Typography sx={{ my: 1 }}  variant="subtitle1">
-              Choose a Health Check Rating
-            </Typography>
-            <Box sx={{ my: 1, display: 'flex' }}>
-            <RatingHeatlthCheckRating
-              IconContainerComponent={IconContainer}
-              max={4} // needs this, otherwise iterates to 5
-              onChange={(event, newValue) => setHealthCheckRating(newValue)}
-              onChangeActive={(event, newHover) => setHealthRatingHover(newHover)}
-              // the Rating indices are 1-4 but rating is 0-3
-              // handle this within the onSubmit
-              value={Number(healthCheckRating)}
-              getLabelText={(value: number) => healthCheckRatingIcons[value].label}
-              highlightSelectedOnly
-            /> 
-            {healthCheckRating !== null && (
-              <Box fontSize="large" sx={{ ml: 2}}>
-                {healthRatingInformation[healthRatingHover !== -1
-                  ? healthRatingHover - 1
-                  : healthCheckRating - 1
-                ].description}
-              </Box>
-            )}
-            {healthCheckRating === null && (
-              <Box fontSize="large" sx={{ ml: 2}}>
-                {healthRatingHover !== -1
-                  ? healthRatingInformation[healthRatingHover - 1].description
-                  : ""
-                }
-              </Box>
-            )}
-          </Box> */}
           </div>
           }
 
