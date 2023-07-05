@@ -229,7 +229,14 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
 
               Sick leave <Switch checked={sickLeave} onChange={() => setSickLeave(!sickLeave)} />
               <Box>
-              <FormControl sx={{ my: 1 }} >
+              <FormControl
+                sx={{ my: 1 }}
+                error={
+                  sickLeaveStart > sickLeaveEnd
+                    ? true
+                    : false
+                }
+              >
                 <InputLabel
                   required
                   variant="outlined"
@@ -249,8 +256,18 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
                   onChange={({ target }) => setSickLeaveStart(target.value)}
                   sx={{ mb: 1 }}
                 />
+                {/* <FormHelperText error>
+                  Choose a valid date range
+                </FormHelperText> */}
               </FormControl>
-              <FormControl sx={{ my: 1 }} >
+              <FormControl
+                sx={{ my: 1 }}
+                error={
+                  sickLeaveStart > sickLeaveEnd
+                    ? true
+                    : false
+                }
+              >
                 <InputLabel
                   required
                   variant="outlined"
