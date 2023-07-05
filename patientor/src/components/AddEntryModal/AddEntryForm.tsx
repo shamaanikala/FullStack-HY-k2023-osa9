@@ -1,4 +1,4 @@
-import { Button, Checkbox, Chip, Divider, FormControl, FormHelperText, Grid, InputLabel, MenuItem, Select, Switch, TextField, ToggleButton, ToggleButtonGroup, } from "@mui/material";
+import { Button, Checkbox, Chip, Divider, FormControl, FormHelperText, Grid, InputLabel, MenuItem, OutlinedInput, Select, Switch, TextField, ToggleButton, ToggleButtonGroup, } from "@mui/material";
 import { Diagnosis, EntryFormValues } from "../../types";
 import React, { SyntheticEvent, useEffect, useState } from "react";
 import { todayString } from "../../utils";
@@ -150,15 +150,24 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
             onChange={({ target }) => setDescription(target.value)}
             sx={{ mb: 1 }}
           />
-          <TextField
-            required
-            label="Date"
-            placeholder="YYYY-MM-DD"
+          <FormControl
             fullWidth
-            value={date}
-            onChange={({ target }) => setDate(target.value)}
-            sx={{ mb: 1 }}
-          />
+            sx={{ my: 1 }}
+          >
+            <InputLabel
+              required
+              variant="outlined"
+              htmlFor="entry-date-input">
+                Date</InputLabel>
+            <OutlinedInput 
+              type="date"
+              placeholder="dd.mm.yyyy"
+              required
+              label="Date" // this prevents the <InputLabel> strikethrough bug
+              value={date}
+              onChange={({ target }) => setDate(target.value)}
+            />
+          </FormControl>
           <TextField
             required
             label="Specialist"
