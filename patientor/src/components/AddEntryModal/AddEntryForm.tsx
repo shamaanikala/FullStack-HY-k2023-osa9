@@ -6,6 +6,7 @@ import { todayString } from "../../utils";
 import diagnoseService from '../../services/diagnoses';
 import { healthRatingInformation } from "../PatientPage/EntryHeader";
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import HealthCheckFormElements from "./HealthCheckFormElements";
 
 interface Props {
   onCancel: () => void;
@@ -242,7 +243,11 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
             </FormHelperText>
           </FormControl>
           {type === 'HealthCheck' && <div>
-            <Divider textAlign="left">Health Check specific fields</Divider>
+            <HealthCheckFormElements
+              healthCheckRating={healthCheckRating}
+              setHealthCheckRating={setHealthCheckRating}
+            />
+            {/* <Divider textAlign="left">Health Check specific fields</Divider>
             <Typography sx={{ my: 1 }}  variant="subtitle1">
               Choose a Health Check Rating
             </Typography>
@@ -274,7 +279,7 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
                 }
               </Box>
             )}
-          </Box>
+          </Box> */}
           </div>
           }
 
