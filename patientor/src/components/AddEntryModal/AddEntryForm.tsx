@@ -51,7 +51,6 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
       for (const diagnosis of response) {
         diagnosisData[diagnosis.code] = diagnosis;
       }
-      console.log(Object.values(diagnosisData).length);
       setDiagnosisCodeData(diagnosisData);
     }
     fetchDiagnoses();
@@ -128,9 +127,7 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
     }
   };
 
-  if (diagnosisCodeData) {
-    console.log(diagnosisCodeData);
-  } else {
+  if (!diagnosisCodeData) {
     console.log('Diagnosis Codes data loading...');
   }
 
@@ -139,9 +136,6 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
     '& .MuiRating-iconEmpty .MuiSvgIcon-root': {
       color: theme.palette.action.disabled,
     },
-    // '& .MuiRating-iconFilled': {
-    //   color: '#ff6d75'
-    // },
   }));
 
   const healthCheckRatingIcons: {
