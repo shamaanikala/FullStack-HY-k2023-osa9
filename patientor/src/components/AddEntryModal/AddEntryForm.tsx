@@ -243,7 +243,7 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
           </FormControl>
           {type === 'HealthCheck' && <div>
             <Divider textAlign="left">Health Check specific fields</Divider>
-            <Typography sx={{ my: 1 }}  variant="h6">
+            <Typography sx={{ my: 1 }}  variant="subtitle1">
               Choose a Health Check Rating
             </Typography>
             <Box sx={{ my: 1, display: 'flex' }}>
@@ -259,7 +259,7 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
               highlightSelectedOnly
             /> 
             {healthCheckRating !== null && (
-              <Box sx={{ ml: 2}}>
+              <Box fontSize="large" sx={{ ml: 2}}>
                 {healthRatingInformation[healthRatingHover !== -1
                   ? healthRatingHover - 1
                   : healthCheckRating - 1
@@ -267,7 +267,7 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
               </Box>
             )}
             {healthCheckRating === null && (
-              <Box sx={{ ml: 2}}>
+              <Box fontSize="large" sx={{ ml: 2}}>
                 {healthRatingHover !== -1
                   ? healthRatingInformation[healthRatingHover - 1].description
                   : ""
