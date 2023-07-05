@@ -146,19 +146,19 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
   } = {
     // the index must start from 1
     1: {
-      icon: <FavoriteIcon sx={{ color: healthRatingInformation[0].color }} />,
+      icon: <FavoriteIcon fontSize="large" sx={{ color: healthRatingInformation[0].color }} />,
       label: healthRatingInformation[0].description,
     },
     2: {
-      icon: <FavoriteIcon sx={{ color: healthRatingInformation[1].color }} />,
+      icon: <FavoriteIcon fontSize="large" sx={{ color: healthRatingInformation[1].color }} />,
       label: healthRatingInformation[1].description,
     },
     3: {
-      icon: <FavoriteIcon sx={{ color: healthRatingInformation[2].color }} />,
+      icon: <FavoriteIcon fontSize="large" sx={{ color: healthRatingInformation[2].color }} />,
       label: healthRatingInformation[2].description,
     },
     4: {
-      icon: <FavoriteIcon sx={{ color: healthRatingInformation[3].color }} />,
+      icon: <FavoriteIcon fontSize="large" sx={{ color: healthRatingInformation[3].color }} />,
       label: healthRatingInformation[3].description,
     }
   };
