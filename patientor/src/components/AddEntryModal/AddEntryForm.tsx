@@ -295,16 +295,25 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
             <div>
               <Divider textAlign="left">Hospital specific fields</Divider>
               Discharge <Switch checked={discharge} onChange={() => setDischarge(!discharge)} />
-              <TextField
+            <FormControl fullWidth sx={{ my: 1 }} >
+              <InputLabel
+                required
+                shrink
+                variant="outlined"
+                htmlFor="discharge-date-input">
+                  Discharge Date</InputLabel>
+              <OutlinedInput 
                 required={discharge}
                 disabled={!discharge}
-                label="Discharge date"
-                placeholder="YYYY-MM-DD"
-                fullWidth
+                type="date"
+                id="discharge-date-input"
+                placeholder="dd.mm.yyyy"
+                notched // does not work here
+                label="Discharge Date" // this prevents the <InputLabel> strikethrough bug
                 value={dischargeDate}
                 onChange={({ target }) => setDischargeDate(target.value)}
-                sx={{ my: 1 }}
               />
+              </FormControl>
               <TextField
                 required={discharge}
                 disabled={!discharge}
