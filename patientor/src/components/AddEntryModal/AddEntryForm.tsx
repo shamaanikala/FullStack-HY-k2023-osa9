@@ -243,7 +243,7 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
           </FormControl>
           {type === 'HealthCheck' && <div>
             <Divider textAlign="left">Health Check specific fields</Divider>
-            <Box sx={{ display: 'flex' }} >
+            <Box sx={{ my: 1, display: 'flex' }} >
             <RatingHeatlthCheckRating
               IconContainerComponent={IconContainer}
               max={4} // needs this, otherwise iterates to 5
@@ -263,15 +263,14 @@ const AddEntryForm = ({ onCancel, onSubmit, patientId }: Props) => {
                 ].description}
               </Box>
             )}
-            {/* <TextField
-              required
-              label="Health Check Rating"
-              placeholder="Give Health Check Rating value from 0 (Healthy) to 3 (Critical Risk)"
-              fullWidth
-              value={healthCheckRating}
-              onChange={({ target }) => setHealthCheckRating(target.value)}
-              sx={{ my: 1 }}
-            /> */}
+            {healthCheckRating === null && (
+              <Box sx={{ ml: 2}}>
+                {healthRatingHover !== -1
+                  ? healthRatingInformation[healthRatingHover - 1].description
+                  : ""
+                }
+              </Box>
+            )}
           </Box>
           </div>
           }
